@@ -14,7 +14,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
-//api 변경 필요
+//api 변경 필요, 인메모리 db필요, repository 및 페이지 요청에 맞는 service메소드 만들기
 @RestController
 @RequestMapping("/v1/users")
 @Validated
