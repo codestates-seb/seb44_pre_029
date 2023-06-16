@@ -174,7 +174,9 @@ export const FormContainer = styled.form`
     color: #b0b8bf;
 
     > input {
-      width: 95%;
+      /* width: 95%; */
+      box-sizing: border-box;
+      width: 100%;
       margin: 5px 0;
       padding: 5px;
       border-radius: 3px;
@@ -195,7 +197,9 @@ export const FormContainer = styled.form`
     color: #b0b8bf;
 
     > input {
-      width: 95%;
+      /* width: 95%; */
+      box-sizing: border-box;
+      width: 100%;
       margin: 5px 0;
       padding: 5px;
       border-radius: 3px;
@@ -218,7 +222,8 @@ export const FormContainer = styled.form`
   .isPassword {
     color: #b0b8bf;
     > input {
-      width: 95%;
+      box-sizing: border-box;
+      width: 100%;
       margin: 5px 0;
       padding: 5px;
       border-radius: 3px;
