@@ -13,26 +13,26 @@ import java.util.stream.Collectors;
 
 @Getter
 public class ErrorResponse {
-    private List<FieldError> fieldErrors; // (1)
-    private List<ConstraintViolationError> violationErrors;  // (2)
+    private List<FieldError> fieldErrors;
+    private List<ConstraintViolationError> violationErrors;
 
-    // (3)
+
     private ErrorResponse(List<FieldError> fieldErrors, List<ConstraintViolationError> violationErrors) {
         this.fieldErrors = fieldErrors;
         this.violationErrors = violationErrors;
     }
 
-    // (4) BindingResult에 대한 ErrorResponse 객체 생성
+
     public static ErrorResponse of(BindingResult bindingResult) {
         return new ErrorResponse(FieldError.of(bindingResult), null);
     }
 
-    // (5) Set<ConstraintViolation<?>> 객체에 대한 ErrorResponse 객체 생성
+
     public static ErrorResponse of(Set<ConstraintViolation<?>> violations) {
         return new ErrorResponse(null, ConstraintViolationError.of(violations));
     }
 
-    // (6) Field Error 가공
+
     @Getter
     public static class FieldError {
         private String field;
@@ -58,7 +58,7 @@ public class ErrorResponse {
         }
     }
 
-    // (7) ConstraintViolation Error 가공
+
     @Getter
     public static class ConstraintViolationError {
         private String propertyPath;
