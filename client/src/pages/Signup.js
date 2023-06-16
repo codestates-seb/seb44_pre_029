@@ -169,21 +169,101 @@ export const FormContainer = styled.form`
       color: #0a95ff;
     }
   }
-  input {
+
+  .isName {
+    color: #b0b8bf;
+
+    > input {
+      width: 95%;
+      margin: 5px 0;
+      padding: 5px;
+      border-radius: 3px;
+      outline: none;
+
+      border: ${(props) =>
+        props.password ? "1px solid red" : "1px solid #b0b8bf"};
+      &:focus {
+        outline: none !important;
+        border: ${(props) =>
+          props.password ? "1px solid red" : "1px solid #0a95ff"};
+        box-shadow: ${(props) =>
+          props.password ? "0 0 0 4px #f0c0bd" : "0 0 0 4px #ddeaf7"};
+      }
+    }
+  }
+  .isEmail {
+    color: #b0b8bf;
+
+    > input {
+      width: 95%;
+      margin: 5px 0;
+      padding: 5px;
+      border-radius: 3px;
+      outline: none;
+
+      border: ${(props) =>
+        props.password ? "1px solid red" : "1px solid #b0b8bf"};
+      &:focus {
+        outline: none !important;
+        border: ${(props) =>
+          props.password ? "1px solid red" : "1px solid #0a95ff"};
+        box-shadow: ${(props) =>
+          props.password ? "0 0 0 4px #f0c0bd" : "0 0 0 4px #ddeaf7"};
+      }
+    }
+    > p {
+      color: red;
+    }
+  }
+  .isPassword {
+    color: #b0b8bf;
+    > input {
+      width: 95%;
+      margin: 5px 0;
+      padding: 5px;
+      border-radius: 3px;
+      outline: none;
+
+      border: ${(props) =>
+        props.password ? "1px solid red" : "1px solid #b0b8bf"};
+      /* border-color: #b0b8bf; */
+      /* border-color: ${(props) => (props.isPassword ? "#b0b8bf" : "red")}; */
+      /* border: 1px solid hsl(210, 8%, 75%);
+        border-color: ${(props) =>
+        props.isPassword ? "hsl(210, 8%, 75%)" : "red"}; */
+
+      &:focus {
+        outline: none !important;
+        border: ${(props) =>
+          props.password ? "1px solid red" : "1px solid #0a95ff"};
+        box-shadow: ${(props) =>
+          props.password
+            ? "0 0 0 4px #f0c0bd"
+            : "0 0 0 4px #ddeaf7"}; //#ddeaf7;
+        /* border: 1px solid "red"; */
+      }
+    }
+    > p {
+      color: red;
+    }
+  }
+  /* input {
     width: 100%;
     margin: 5px 0;
     padding: 5px;
     border: 1px solid hsl(210, 8%, 75%);
+    border-color: ${(props) => (props.color === "no" ? "red" : "black")};
     border-radius: 3px;
     height: 20px;
-
+    outline: none;
     &:focus {
       box-shadow: 0 0 0 4px #ddeaf7;
-      /* border: 1px solid #0a95ff; */
+      border: 1px solid #0a95ff;
       outline: none !important;
-      border-color: #58a4de;
+      border-color: ${(props) =>
+    props.color === "no" ? "red" : "#58a4de"}; //#58a4de;
     }
-  }
+  }  */
 `;
 export const RobotCheckDiv = styled.div`
   > div {
@@ -203,7 +283,7 @@ export const RobotCheckDiv = styled.div`
       align-items: center;
 
       padding: 5px;
-      border: 1px solid hsl(210, 8%, 75%);
+      border: 1px solid #b0b8bf; //hsl(210, 8%, 75%);
       box-shadow: rgba(0, 0, 0, 0.05) 0px 10px 24px 0px;
       box-shadow: rgba(0, 0, 0, 0.05) 0px 20px 48px 0px;
       box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 4px 0px;
@@ -264,16 +344,20 @@ const Signup = () => {
   const EmailInputRef = useRef(null);
   const PasswordInputRef = useRef(null);
 
-  //true -> 통과됨 , false -> 통과되지 못함
+  //false -> 기본값 , true -> 통과되지 못함(red)
   const [isName, setIsName] = useState(false);
   const [isEmail, setIsEmail] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
 
   useEffect(() => {
-    const isValid = isName && isEmail && isPassword;
+    const isValid = !isName && !isEmail && !isPassword;
     if (isValid) {
       console.log("유효함");
       console.log(name, email, password);
+    } else {
+      console.log(isName ? "이름 문제" : "");
+      console.log(isEmail ? "이메일 문제" : "");
+      console.log(isPassword ? "패스워드 문제" : "");
     }
   }, [name, email, password]);
 
@@ -283,7 +367,7 @@ const Signup = () => {
     setName(nameInputValue);
 
     //유효성 검사 : 이름 중복 -> 서버 측?
-    setIsName(true);
+    setIsName(false);
   };
 
   //이메일 핸들러
@@ -296,9 +380,9 @@ const Signup = () => {
       /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 
     if (emailRegex.test(emailInputValue)) {
-      setIsEmail(true);
-    } else {
       setIsEmail(false);
+    } else {
+      setIsEmail(true);
     }
   };
 
@@ -309,9 +393,9 @@ const Signup = () => {
 
     //유효성 검사 : 비밀번호 글자수 제한 - 8글자 이상 12글자 이하로만 가능7글자 이하 혹은 13글자 이상
     if (passwordInputValue.length >= 8 && passwordInputValue.length <= 12) {
-      setIsPassword(true);
-    } else {
       setIsPassword(false);
+    } else {
+      setIsPassword(true);
     }
   };
 
@@ -373,10 +457,16 @@ const Signup = () => {
             </button>
           </OauthDiv>
           <SignupDiv>
-            <FormContainer onSubmit={formSubmitHandler}>
+            <FormContainer
+              onSubmit={formSubmitHandler}
+              $name={isName}
+              $email={isEmail}
+              $password={isPassword}
+            >
+              {/* 이름 input */}
               <div>
                 <label htmlFor="display_name">Display name</label>
-                <div className="nameInput">
+                <div className="isName">
                   <input
                     type="text"
                     name="display_name"
@@ -385,28 +475,56 @@ const Signup = () => {
                   />
                 </div>
               </div>
-
+              {/* 이메일 input */}
               <div className="emailInput">
                 <label htmlFor="email">Email</label>
-                <div>
-                  <input
-                    type="text"
-                    name="email"
-                    id="email"
-                    ref={EmailInputRef}
-                  />
+                <div className="isEmail">
+                  {isEmail ? (
+                    <>
+                      <input
+                        type="text"
+                        name="email"
+                        id="email"
+                        ref={EmailInputRef}
+                      />
+                      <p>정규식에 맞게 잘 적어주세요.</p>
+                    </>
+                  ) : (
+                    <>
+                      <input
+                        type="text"
+                        name="email"
+                        id="email"
+                        ref={EmailInputRef}
+                      />
+                    </>
+                  )}
                 </div>
               </div>
-
+              {/* 패스워드 input */}
               <div className="passwordInput">
                 <label htmlFor="password">Password</label>
-                <div>
-                  <input
-                    type="password"
-                    name="password"
-                    id="password"
-                    ref={PasswordInputRef}
-                  />
+                <div className="isPassword">
+                  {isPassword ? (
+                    <>
+                      <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        ref={PasswordInputRef}
+                      />
+                      <p>Please write password at least 8 characters.</p>
+                    </>
+                  ) : (
+                    <>
+                      <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        ref={PasswordInputRef}
+                      />
+                    </>
+                  )}
                 </div>
                 <p>
                   Passwords must contain at least eight characters, including at
@@ -440,7 +558,7 @@ const Signup = () => {
                 </CheckDiv>
               </div>
               <div>
-                <Button>Sign up</Button>
+                <Button type="submit">Sign up</Button>
               </div>
               <div>
                 By clicking “Sign up”, you agree to our{" "}
