@@ -1,5 +1,6 @@
 import { FaQuestionCircle, FaSort, FaGithub } from "react-icons/fa";
 import { ImPriceTags, ImTrophy } from "react-icons/im";
+import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 
 export const DivContainer = styled.div`
@@ -254,6 +255,74 @@ export const Button = styled.button`
 `;
 
 const Signup = () => {
+  //이름, 이메일, 비밀번호 입력 Input
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const NameInputRef = useRef(null);
+  const EmailInputRef = useRef(null);
+  const PasswordInputRef = useRef(null);
+
+  //true -> 통과됨 , false -> 통과되지 못함
+  const [isName, setIsName] = useState(false);
+  const [isEmail, setIsEmail] = useState(false);
+  const [isPassword, setIsPassword] = useState(false);
+
+  useEffect(() => {
+    const isValid = isName && isEmail && isPassword;
+    if (isValid) {
+      console.log("유효함");
+      console.log(name, email, password);
+    }
+  }, [name, email, password]);
+
+  //이름 핸들러
+  const nameHanlder = () => {
+    let nameInputValue = NameInputRef.current.value;
+    setName(nameInputValue);
+
+    //유효성 검사 : 이름 중복 -> 서버 측?
+    setIsName(true);
+  };
+
+  //이메일 핸들러
+  const emailHandler = () => {
+    let emailInputValue = EmailInputRef.current.value;
+    setEmail(emailInputValue);
+
+    //유효성 검사 : 정규식 + 이메일 중복 -> 서버 측?
+    const emailRegex =
+      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+
+    if (emailRegex.test(emailInputValue)) {
+      setIsEmail(true);
+    } else {
+      setIsEmail(false);
+    }
+  };
+
+  //비밀번호 핸들러
+  const passwordHanlder = () => {
+    let passwordInputValue = PasswordInputRef.current.value;
+    setPassword(passwordInputValue);
+
+    //유효성 검사 : 비밀번호 글자수 제한 - 8글자 이상 12글자 이하로만 가능7글자 이하 혹은 13글자 이상
+    if (passwordInputValue.length >= 8 && passwordInputValue.length <= 12) {
+      setIsPassword(true);
+    } else {
+      setIsPassword(false);
+    }
+  };
+
+  //폼 제출 핸들러
+  const formSubmitHandler = (e) => {
+    e.preventDefault();
+
+    nameHanlder();
+    emailHandler();
+    passwordHanlder();
+  };
   return (
     <DivContainer>
       <DivContent>
@@ -261,19 +330,19 @@ const Signup = () => {
           <h1>Join the Stack Overflow community</h1>
           <div>
             <IconDiv>
-              <FaQuestionCircle size="xs" />
+              <FaQuestionCircle />
             </IconDiv>
             <div>Get unstuck - ask a question</div>
           </div>
           <div>
             <IconDiv>
-              <FaSort size="xs" />
+              <FaSort />
             </IconDiv>
             <div>Unlock new privileges like voting and commenting</div>
           </div>
           <div>
             <IconDiv>
-              <ImPriceTags size="xs" />
+              <ImPriceTags />
             </IconDiv>
             <div>
               Save your favorite questions, answers, watch tags, and more
@@ -281,7 +350,7 @@ const Signup = () => {
           </div>
           <div>
             <IconDiv>
-              <ImTrophy size="xs" />
+              <ImTrophy />
             </IconDiv>
             <div>Earn reputation and badges</div>
           </div>
@@ -304,25 +373,40 @@ const Signup = () => {
             </button>
           </OauthDiv>
           <SignupDiv>
-            <FormContainer>
+            <FormContainer onSubmit={formSubmitHandler}>
               <div>
                 <label htmlFor="display_name">Display name</label>
                 <div className="nameInput">
-                  <input type="text" name="display_name" id="display_name" />
+                  <input
+                    type="text"
+                    name="display_name"
+                    id="display_name"
+                    ref={NameInputRef}
+                  />
                 </div>
               </div>
 
               <div className="emailInput">
                 <label htmlFor="email">Email</label>
                 <div>
-                  <input type="text" name="email" id="email" />
+                  <input
+                    type="text"
+                    name="email"
+                    id="email"
+                    ref={EmailInputRef}
+                  />
                 </div>
               </div>
 
               <div className="passwordInput">
                 <label htmlFor="password">Password</label>
                 <div>
-                  <input type="text" name="password" id="password" />
+                  <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    ref={PasswordInputRef}
+                  />
                 </div>
                 <p>
                   Passwords must contain at least eight characters, including at
