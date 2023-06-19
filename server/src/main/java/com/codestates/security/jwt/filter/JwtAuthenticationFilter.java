@@ -2,9 +2,11 @@ package com.codestates.security.jwt.filter;
 
 import com.codestates.security.jwt.JwtTokenizer;
 import com.codestates.security.jwt.dto.LoginDto;
+import com.codestates.user.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -20,6 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+    private static final String CONTENT_TYPE = "application/json";
     private final AuthenticationManager authenticationManager;
     private final JwtTokenizer jwtTokenizer;
 
@@ -31,6 +34,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @SneakyThrows
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+        if(request.getContentType() == null || !request.getContentType().equals(CONTENT_TYPE)){
+            throw new AuthenticationServiceException("Wrong Content Type: " + request.getContentType());
+        }
         ObjectMapper objectMapper = new ObjectMapper();
         LoginDto loginDto = objectMapper.readValue(request.getInputStream(), LoginDto.class);
 

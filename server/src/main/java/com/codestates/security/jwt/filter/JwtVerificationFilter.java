@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Map;
 
 public class JwtVerificationFilter extends OncePerRequestFilter {
+
+    private static final String NO_CHECK_URL = "/login";
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
 
@@ -29,6 +31,11 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+
+        if(request.getRequestURI().equals(NO_CHECK_URL)){
+            filterChain.doFilter(request,response);
+        }
+
         try {
             Map<String, Object> claims = verifyJws(request);
             setAuthenticationToContext(claims);
