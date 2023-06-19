@@ -34,8 +34,8 @@ public class UserController {
 
     //해당 이메일 유저의 이메일 비밀번호 닉네임 변경
     //데이터베이스 구축 이후 uri user_id로 변경
-    @PatchMapping("/{email}")
-    public ResponseEntity patchUser(@Valid @PathVariable("email") String email,
+    @PatchMapping("/{user_id}")
+    public ResponseEntity patchUser(@Valid @PathVariable("user_id") long user_id,
                                     @Valid @RequestBody UserPatchDto userPatchDto){
 
         User response = userService.updateUser(userMapper.userPatchDtoToUser(userPatchDto));
@@ -43,9 +43,9 @@ public class UserController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/{email}")
-    public ResponseEntity getUser(@PathVariable("email") String email){
-        User response = userService.findUser(email);
+    @GetMapping("/{user_id}")
+    public ResponseEntity getUser(@PathVariable("user_id") long user_id){
+        User response = userService.findUser(user_id);
         return new ResponseEntity<>(userMapper.userToUserResponseDto(response), HttpStatus.OK);
     }
 
@@ -59,9 +59,9 @@ public class UserController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{email}")
-    public ResponseEntity deleteUser(@PathVariable("email") String email){
-        userService.deleteUser(email);
+    @DeleteMapping("/{user_id}")
+    public ResponseEntity deleteUser(@PathVariable("user_id") long user_id){
+        userService.deleteUser(user_id);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 

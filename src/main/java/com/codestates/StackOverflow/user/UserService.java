@@ -6,9 +6,14 @@ import java.lang.reflect.Member;
 import java.util.List;
 @Service
 public class UserService {
+    private final UserRepository userRepository;
+    public UserService(UserRepository userRepository){
+        this.userRepository = userRepository;
+    }
     public User createUser(User user){
-        User createdUser = user;
-        return createdUser;
+
+
+        return userRepository.save(user);
     }
 
     public User updateUser(User user){
@@ -16,8 +21,8 @@ public class UserService {
         return updatedUser;
     }
 
-    public User findUser(String email){
-        User user = new User(email, "","");
+    public User findUser(long user_id){
+        User user = new User("email", "","");
         return user;
     }
 
@@ -28,10 +33,17 @@ public class UserService {
         );
         return users;
     }
-    public User deleteUser(String email){
+    public User deleteUser(long user_id){
         User user = new User("","","");
 
-        return user;
+        return null;
+
+
+
 
     }
+
+
+
+
 }

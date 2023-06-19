@@ -1,7 +1,7 @@
 package com.codestates.StackOverflow.question.entity;
 
 import com.codestates.StackOverflow.answer.entity.Answer;
-import com.codestates.StackOverflow.user.entity.User;
+import com.codestates.StackOverflow.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
