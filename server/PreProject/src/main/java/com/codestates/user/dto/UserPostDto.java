@@ -1,12 +1,19 @@
 package com.codestates.user.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
-
+@Getter
+@Setter
 public class UserPostDto {
     @NotBlank
-    @Pattern(regexp = "^([a-zA-Z0-9@.]{8,20})$")
+    @Pattern(regexp = "^([0-9])$")
+    private  long user_id;
+    @NotBlank
+    @Pattern(regexp = "^([a-zA-Z0-9@.]{8,50})$")
     @Email
     private String email;
     @NotBlank
@@ -16,27 +23,4 @@ public class UserPostDto {
     @Pattern(regexp = "^([a-zA-Z0-9!@#$%^&*]{8,12})$")
     private String password;
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email){
-        this.email = email;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname){
-        this.nickname = nickname;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password){
-        this.password = password;
-    }
 }
