@@ -1,53 +1,81 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import styled from "styled-components";
 
 //import { Link } from "react-router-dom";
 import Footerlogo from "../assets/Stack_Overflow_icon.png";
 
 const FooterContainer = styled.footer`
-  width: 100%;
+  width: 100vw;
+  height: max-content;
   background-color: #232629;
   color: #9099a1;
+  padding: 10px 0 0; 
   display: flex;
-  justify-content: flex-start;
+
 
   .footer-container {
     display: flex;
     justify-content: space-between;
-    padding: 32px 12px 12px 12px;
-    width: 100%;
+    padding: 32px 12px 12px;
+    width: 100vw;
     max-width: 1264px;
     margin: 0 auto;
-    > .logobox {
+
+
+    .foot-logo {
       flex: 0 0 64px;
-      margin: -12px 0 32px 0;
+      margin: -12px 0 32px;
+      width: 64px;
+      height: 64px;
+      
+    
     }
 
     .menu-container {
       display: flex;
       flex: 2 1 auto;
-      flex-wrap: wrap;
+    
 
-      > .ul {
+      > ul {
         flex: 1 0 auto;
         padding: 0 12px 24px 0;
-        > .h5 {
-          margin-bottom: 12px;
+        > h5 {
+          margin: 0 0 12px;
           color: #babfc4;
           font-weight: bold;
           font-size: 13px;
         }
-        > .li {
+        > li {
           line-height: 17px;
           font-size: 13px;
         }
       }
     }
-    .sns-container {
+    .sns-copyright {
       display: flex;
       flex-direction: column;
       flex: 1 1 150px;
       font-size: 11px;
+
+      .sns-container {
+        > ul {
+          padding: 0;
+          display: flex;
+          >li {
+            margin-left: 12px;
+            padding: 4px 0;
+          }
+        }
+      }
+    }
+    .p {
+      margin: auto 0 24px;
+      font-size: 11px;
+
+      > span {
+        display: inline-block;
+        > a {
+        text-decoration: underline;
+      }
     }
   }
 `;
@@ -56,14 +84,10 @@ function Footer() {
   return (
     <FooterContainer>
       <ul className="footer-container">
-        <logobox className="logobox">
-          <li className="foot-logo">
-            {/* <Link to="/"></Link>
-            <Footerlogo /> */}
-            <img src={Footerlogo} alt="log" />
-            <span className="/"></span>
-          </li>
-        </logobox>
+        <li className="foot-logo">
+          <img src={Footerlogo} alt="log" width="64px" height="64px" />
+        </li>
+
         <li className="menu-container">
           <ul>
             <h5>STACK OVERFLOW</h5>
@@ -101,21 +125,20 @@ function Footer() {
             <li>Data</li>
           </ul>
         </li>
-        <li className="sns-container">
-          <ul>
-            <li>Blog</li>
-            <li>Facebook</li>
-            <li>Twitter</li>
-            <li>LinkedIn</li>
-            <li>Instagram</li>
-          </ul>
-          <p>
+        <li className="sns-copyright">
+          <snsbox className="sns-container">
+            <ul>
+              <li>Blog</li>
+              <li>FaceBook</li>
+              <li>Twitter</li>
+              <li>LinkedIn</li>
+              <li>Instagram</li>
+            </ul>
+          </snsbox>
+          <p className="copyright-container">
             Site design / logo © 2023 Stack Exchange Inc; user
-            <br /> contributions licensed under
-            <span>
-              <a>CC BY-SA</a>
-            </span>
-            . rev 2023.6.15.43499
+            <br /> contributions licensed under CC BY-SA
+            <br />. rev 2023.6.15.43499
           </p>
         </li>
       </ul>
