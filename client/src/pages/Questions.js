@@ -6,6 +6,7 @@ import styled from "styled-components";
 import Aside from "../components/Aside";
 import Vote from "../components/Vote";
 import Answer from "../components/Answer";
+import Comment from "../components/Comment";
 import YourAnswer from "../components/YourAnswer";
 export const QuestionsSection = styled.section`
   padding: 30px;
@@ -211,8 +212,8 @@ const Questions = () => {
               </div>
 
               {/* Add a comment */}
-              <div className="comments"></div>
-              {/* <Comment /> */}
+
+              <Comment />
             </SubContent>
           </div>
 
