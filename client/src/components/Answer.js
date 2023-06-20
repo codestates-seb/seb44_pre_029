@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
 import profile from "../assets/Zzanggu.png";
 import Vote from "./Vote";
+import Comment from "./Comment";
 import { ContentContainer, SubContent } from "../pages/Questions";
 export const AnswerTitle = styled.div``;
 export const AnswerContent = styled.div`
@@ -77,7 +78,7 @@ const Answer = () => {
                 </div>
 
                 {/* Add a comment */}
-                <div className="comments">Add Comment</div>
+                <Comment />
               </SubContent>
             </div>
 
