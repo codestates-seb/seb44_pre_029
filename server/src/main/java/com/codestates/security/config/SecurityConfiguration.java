@@ -7,7 +7,9 @@ import com.codestates.security.jwt.handler.UserAccessDeniedHandler;
 import com.codestates.security.jwt.handler.UserAuthenticationEntryPoint;
 import com.codestates.security.jwt.handler.UserAuthenticationFailureHandler;
 import com.codestates.security.jwt.handler.UserAuthenticationSuccessHandler;
+import com.codestates.security.oauth.handler.OAuth2MemberSuccessHandler;
 import com.codestates.security.utils.CustomAuthorityUtils;
+import com.codestates.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.support.ManagedMap;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +22,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -36,6 +39,9 @@ public class SecurityConfiguration {
 
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils customAuthorityUtils;
+    private final UserAuthenticationFailureHandler userAuthenticationFailureHandler;
+    private final UserRepository userRepository;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http
@@ -55,11 +61,11 @@ public class SecurityConfiguration {
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
                         .anyRequest().permitAll()
+                )
+                .oauth2Login(oauth2 -> oauth2
+                        .successHandler(new OAuth2MemberSuccessHandler(jwtTokenizer, customAuthorityUtils, userRepository))
                 );
-/*                .oauth2Login()
-                .successHandler(핸들러추가)
-                .failureHandler(핸들러추가)
-                .userInfoEndpoint().userService();*/
+
         return http.build();
 
     }
@@ -87,13 +93,14 @@ public class SecurityConfiguration {
             JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
             jwtAuthenticationFilter.setFilterProcessesUrl("/login");
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(new UserAuthenticationSuccessHandler());
-            jwtAuthenticationFilter.setAuthenticationFailureHandler(new UserAuthenticationFailureHandler());
+            jwtAuthenticationFilter.setAuthenticationFailureHandler(userAuthenticationFailureHandler);
 
             JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, customAuthorityUtils);
 
 
             builder.addFilterAfter(jwtAuthenticationFilter, LogoutFilter.class)
                     .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class);
+            builder.addFilterAfter(jwtVerificationFilter, OAuth2LoginAuthenticationFilter.class);
         }
     }
 }
