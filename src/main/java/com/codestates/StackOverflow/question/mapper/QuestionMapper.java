@@ -111,7 +111,7 @@ public interface QuestionMapper {
         }
 
         QuestionAnswerResponseDto questionAnswerResponseDto = new QuestionAnswerResponseDto();
-        questionAnswerResponseDto.setUser(userToQuestionUserResponseDto(answer.getUser()));
+        // questionAnswerResponseDto.setUser(userToQuestionUserResponseDto(answer.getUser()));
         questionAnswerResponseDto.setAnswerId(answer.getAnswerId());
         questionAnswerResponseDto.setBody(answer.getBody());
         questionAnswerResponseDto.setCreatedAt(answer.getCreatedAt());
