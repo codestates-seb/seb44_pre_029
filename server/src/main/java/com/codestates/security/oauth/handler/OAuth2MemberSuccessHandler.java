@@ -34,15 +34,15 @@ public class OAuth2MemberSuccessHandler extends SavedRequestAwareAuthenticationS
         String email = String.valueOf(oAuth2User.getAttributes().get("email")); // (3)
         List<String> authorities = authorityUtils.createRoles(email);           // (4)
 
-        String name = String.valueOf(oAuth2User.getAttributes().get("name"));
+        String nickname = String.valueOf(oAuth2User.getAttributes().get("name"));
 
-        saveMember(name, email);
+        saveMember(email, nickname);
         redirect(request, response, email, authorities);  // (6)
     }
 
-    private void saveMember(String name, String email) {
+    private void saveMember(String email, String nickname) {
         if(!verifyExistsEmail(email)) {
-            User user = new User(name, email, "12345678");
+            User user = new User(email, nickname, "12345678");
 
             List<String> roles = authorityUtils.createRoles(user.getEmail());
             user.setRoles(roles);
