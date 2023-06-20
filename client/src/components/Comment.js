@@ -14,19 +14,21 @@ export const CommentList = styled.div`
   padding: 12px;
   padding-left: 30px;
   font-size: 12px;
-  text-align: left;
-
-  > span:first-child {
-    font-weight: 600;
-  }
-  > span:nth-child(2) {
-    color: #0074cc;
-  }
-  > span:last-child {
-    color: #7d8387;
-  }
-  > span:not(:first-child) {
-    cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  div {
+    > span:first-child {
+      font-weight: 600;
+    }
+    > span:nth-child(2) {
+      color: #0074cc;
+    }
+    > span:last-child {
+      color: #7d8387;
+    }
+    > span:not(:first-child) {
+      cursor: pointer;
+    }
   }
 `;
 export const AddComment = styled.div`
@@ -86,9 +88,17 @@ const Comment = () => {
         {comments.map((comment, idx) => {
           return (
             <CommentList key={idx}>
-              <span>{comment.comment}</span>
-              <span> -{comment.userName}</span>
-              <span> 날짜</span>
+              <div>
+                <span>{comment.comment}</span>
+                <span> -{comment.userName}</span>
+                <span> 날짜</span>
+              </div>
+              {/* 자신이 작성한 댓글일 경우 -> Edit or Delete */}
+              <div>
+                <button>Edit</button>
+                <button>Delete</button>
+              </div>
+              {/* null */}
             </CommentList>
           );
         })}
