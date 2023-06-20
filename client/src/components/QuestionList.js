@@ -1,13 +1,17 @@
+import profile from "../assets/Zzanggu.png";
+import Item from "./Item";
 import { Button } from "../pages/Signup";
 import { useState } from "react";
 import styled from "styled-components";
+
 export const QuestionsContainer = styled.section`
-  max-width: 750px;
+  width: 750px;
   padding: 16px;
 `;
 export const QuestionTitleDiv = styled.div`
   display: flex;
   flex-direction: column;
+  border-bottom: 1px solid #ddd;
   > .header {
     display: flex;
     justify-content: space-between;
@@ -55,10 +59,55 @@ export const QuestionTitleDiv = styled.div`
     }
   }
 `;
-
+export const QuestionLi = styled.div`
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  div {
+    display: flex;
+    /* justify-content: center; */
+  }
+  @media (max-width: 800px) {
+    div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+`;
 const QuestionList = () => {
   const [tabIndex, setTabIndex] = useState(0);
   const filterButton = ["Newest", "Hot"];
+
+  //  전체 게시물 불러오기
+  // useEffect(() => {
+  //
+  // })
+
+  //임시 데이터
+  const data = [
+    {
+      vote: 0,
+      answer: 0,
+      view: 0,
+      questionTitle: "ㅁㄹㅇㅁㄴㄹㅁㄴㅇㄹㅁㅇㄴㄹㅁㅇㄴㄹㅁ",
+      questionContent: "dfafsdafadsfsadfasdfadsfadsffasfaf",
+      userImgUrl: profile,
+      userName: "짱구",
+      userReputation: 20,
+    },
+    {
+      vote: 1,
+      answer: 1,
+      view: 1,
+      questionTitle: "맹구",
+      questionContent: "dfafsdafadsfsadfasdfadsfadsffasfaf",
+      userImgUrl: profile,
+      userName: "맹구",
+      userReputation: 1,
+      //   createAt: new Date(),
+    },
+  ];
   return (
     <QuestionsContainer>
       <QuestionTitleDiv>
@@ -83,6 +132,38 @@ const QuestionList = () => {
           </div>
         </div>
       </QuestionTitleDiv>
+      <QuestionLi>
+        {data.map((e, idx) => {
+          return <Item key={idx} item={e} />;
+          // <ItemContainer key={idx}>
+          //   <div className="summary_stats">
+          //     <span>
+          //       <strong>{e.vote}</strong> views
+          //     </span>
+          //     <span>
+          //       <strong>{e.answer}</strong> answers
+          //     </span>
+          //     <span>
+          //       <strong>{e.view}</strong> views
+          //     </span>
+          //   </div>
+
+          //   <div className="summary_content">
+          //     <h3>{e.questionTitle}</h3>
+          //     <div>{e.questionContent}</div>
+
+          //     <div className="user_info">
+          //       <img src={profile} alt={profile}></img>
+          //       <span>{e.userName}</span>
+          //       <span>{e.userReputation}</span>
+
+          //       {/* 마지막 createAt 시각 */}
+          //       <span>aksed </span>
+          //     </div>
+          //   </div>
+          // </ItemContainer>
+        })}
+      </QuestionLi>
     </QuestionsContainer>
   );
 };
