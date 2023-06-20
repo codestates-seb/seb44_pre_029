@@ -12,10 +12,13 @@ export const ItemContainer = styled.div`
   > .summary_stats {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     align-items: flex-end;
     margin-right: 16px;
+    width: 100px;
     gap: 6px;
     > span {
+      display: flex;
       font-size: 13px;
       color: #6a737c;
     }
