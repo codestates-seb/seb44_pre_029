@@ -1,3 +1,4 @@
+/*
 package com.codestates.security.oauth.userinfo;
 
 import java.util.Map;
@@ -15,3 +16,4 @@ public abstract class OAuth2UserInfo {
     public abstract String getNickname();
 
 }
+*/

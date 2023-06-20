@@ -1,19 +1,36 @@
 package com.codestates.user;
 
+import com.codestates.exception.BusinessLogicException;
+import com.codestates.exception.ExceptionCode;
+import com.codestates.security.utils.CustomAuthorityUtils;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
+@Transactional
 public class UserService {
     private final UserRepository userRepository;
-    public UserService(UserRepository userRepository){
-        this.userRepository = userRepository;
-    }
+    private final PasswordEncoder passwordEncoder;
+    private final CustomAuthorityUtils authorityUtils;
+
     public User createUser(User user){
+        verifyExistsEmail(user.getEmail());
 
+        String encryptedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encryptedPassword);
 
-        return userRepository.save(user);
+        List<String> roles = authorityUtils.createRoles(user.getEmail());
+        user.setRoles(roles);
+
+        User savedUser = userRepository.save(user);
+
+        return savedUser;
     }
 
     public User updateUser(User user){
@@ -43,7 +60,12 @@ public class UserService {
 
     }
 
-
+    private void verifyExistsEmail(String email){
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if(optionalUser.isPresent()){
+            throw new BusinessLogicException(ExceptionCode.USER_EXIST);
+        }
+    }
 
 
 }
