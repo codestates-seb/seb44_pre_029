@@ -7,6 +7,7 @@ export const AsideContainer = styled.section`
   padding: 20px;
   margin-top: 30px;
   color: #232629;
+  text-align: left;
 `;
 export const SideBanner = styled.aside`
   border: 1px solid #f3eac7;

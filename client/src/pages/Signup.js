@@ -170,105 +170,15 @@ export const FormContainer = styled.form`
     }
   }
 
-  .isName {
-    color: #b0b8bf;
-
-    > input {
-      /* width: 95%; */
-      box-sizing: border-box;
-      width: 100%;
-      margin: 5px 0;
-      padding: 5px;
-      border-radius: 3px;
-      outline: none;
-
-      border: ${(props) =>
-        props.password ? "1px solid red" : "1px solid #b0b8bf"};
-      &:focus {
-        outline: none !important;
-        border: ${(props) =>
-          props.password ? "1px solid red" : "1px solid #0a95ff"};
-        box-shadow: ${(props) =>
-          props.password ? "0 0 0 4px #f0c0bd" : "0 0 0 4px #ddeaf7"};
-      }
-    }
-  }
-  .isEmail {
-    color: #b0b8bf;
-
-    > input {
-      /* width: 95%; */
-      box-sizing: border-box;
-      width: 100%;
-      margin: 5px 0;
-      padding: 5px;
-      border-radius: 3px;
-      outline: none;
-
-      border: ${(props) =>
-        props.password ? "1px solid red" : "1px solid #b0b8bf"};
-      &:focus {
-        outline: none !important;
-        border: ${(props) =>
-          props.password ? "1px solid red" : "1px solid #0a95ff"};
-        box-shadow: ${(props) =>
-          props.password ? "0 0 0 4px #f0c0bd" : "0 0 0 4px #ddeaf7"};
-      }
-    }
-    > p {
-      color: red;
-    }
-  }
+  .isName,
+  .isEmail,
   .isPassword {
-    color: #b0b8bf;
-    > input {
-      box-sizing: border-box;
-      width: 100%;
-      margin: 5px 0;
-      padding: 5px;
-      border-radius: 3px;
-      outline: none;
-
-      border: ${(props) =>
-        props.password ? "1px solid red" : "1px solid #b0b8bf"};
-      /* border-color: #b0b8bf; */
-      /* border-color: ${(props) => (props.isPassword ? "#b0b8bf" : "red")}; */
-      /* border: 1px solid hsl(210, 8%, 75%);
-        border-color: ${(props) =>
-        props.isPassword ? "hsl(210, 8%, 75%)" : "red"}; */
-
-      &:focus {
-        outline: none !important;
-        border: ${(props) =>
-          props.password ? "1px solid red" : "1px solid #0a95ff"};
-        box-shadow: ${(props) =>
-          props.password
-            ? "0 0 0 4px #f0c0bd"
-            : "0 0 0 4px #ddeaf7"}; //#ddeaf7;
-        /* border: 1px solid "red"; */
-      }
-    }
     > p {
+      font-size: 11px;
+      margin-top: 0;
       color: red;
     }
   }
-  /* input {
-    width: 100%;
-    margin: 5px 0;
-    padding: 5px;
-    border: 1px solid hsl(210, 8%, 75%);
-    border-color: ${(props) => (props.color === "no" ? "red" : "black")};
-    border-radius: 3px;
-    height: 20px;
-    outline: none;
-    &:focus {
-      box-shadow: 0 0 0 4px #ddeaf7;
-      border: 1px solid #0a95ff;
-      outline: none !important;
-      border-color: ${(props) =>
-    props.color === "no" ? "red" : "#58a4de"}; //#58a4de;
-    }
-  }  */
 `;
 export const RobotCheckDiv = styled.div`
   > div {
@@ -338,7 +248,23 @@ export const Button = styled.button`
     background-color: #0074cc;
   }
 `;
+export const InputEl = styled.input`
+  box-sizing: border-box;
+  width: 100%;
+  height: 35px;
+  margin: 5px 0;
+  padding: 5px;
+  border-radius: 3px;
+  outline: none;
 
+  border: ${(props) => props.border};
+
+  &:focus {
+    outline: none !important;
+    border: ${(props) => props.focusborder};
+    box-shadow: ${(props) => props.shadow};
+  }
+`;
 const Signup = () => {
   //이름, 이메일, 비밀번호 입력 Input
   const [name, setName] = useState("");
@@ -371,7 +297,7 @@ const Signup = () => {
     let nameInputValue = NameInputRef.current.value;
     setName(nameInputValue);
 
-    //유효성 검사 : 이름 중복 -> 서버 측?
+    //!!!!유효성 검사 : 이름 중복 -> 서버 측?
     setIsName(false);
   };
 
@@ -472,12 +398,32 @@ const Signup = () => {
               <div>
                 <label htmlFor="display_name">Display name</label>
                 <div className="isName">
-                  <input
-                    type="text"
-                    name="display_name"
-                    id="display_name"
-                    ref={NameInputRef}
-                  />
+                  {isName ? (
+                    <>
+                      <InputEl
+                        border="1px solid red"
+                        shadow="0 0 0 4px #f0c0bd"
+                        focusborder="1px solid red"
+                        type="text"
+                        name="display_name"
+                        id="display_name"
+                        ref={NameInputRef}
+                      />
+                      <p>Please </p>
+                    </>
+                  ) : (
+                    <>
+                      <InputEl
+                        border="1px solid #b0b8bf"
+                        shadow="0 0 0 4px #ddeaf7"
+                        focusborder="1px solid #0a95ff"
+                        type="text"
+                        name="display_name"
+                        id="display_name"
+                        ref={NameInputRef}
+                      />
+                    </>
+                  )}
                 </div>
               </div>
               {/* 이메일 input */}
@@ -486,7 +432,10 @@ const Signup = () => {
                 <div className="isEmail">
                   {isEmail ? (
                     <>
-                      <input
+                      <InputEl
+                        border="1px solid red"
+                        shadow="0 0 0 4px #f0c0bd"
+                        focusborder="1px solid red"
                         type="text"
                         name="email"
                         id="email"
@@ -496,7 +445,10 @@ const Signup = () => {
                     </>
                   ) : (
                     <>
-                      <input
+                      <InputEl
+                        border="1px solid #b0b8bf"
+                        shadow="0 0 0 4px #ddeaf7"
+                        focusborder="1px solid #0a95ff"
                         type="text"
                         name="email"
                         id="email"
@@ -512,7 +464,10 @@ const Signup = () => {
                 <div className="isPassword">
                   {isPassword ? (
                     <>
-                      <input
+                      <InputEl
+                        border="1px solid red"
+                        shadow="0 0 0 4px #f0c0bd"
+                        focusborder="1px solid red"
                         type="password"
                         name="password"
                         id="password"
@@ -522,11 +477,15 @@ const Signup = () => {
                     </>
                   ) : (
                     <>
-                      <input
+                      <InputEl
+                        border="1px solid #b0b8bf"
+                        shadow="0 0 0 4px #ddeaf7"
+                        focusborder="1px solid #0a95ff"
                         type="password"
                         name="password"
                         id="password"
                         ref={PasswordInputRef}
+                        required
                       />
                     </>
                   )}
