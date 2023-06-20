@@ -27,7 +27,10 @@ export const QuestionTitleDiv = styled.div`
     }
   }
   > .header_filter {
-    div:first-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    div:last-child {
       display: flex;
       margin-bottom: 16px;
       height: 35px;
@@ -112,11 +115,12 @@ const QuestionList = () => {
     <QuestionsContainer>
       <QuestionTitleDiv>
         <div className="header">
-          <h3>Top Questions</h3>
+          <h3>All Questions</h3>
           {/* 버튼 링크 연결 -> 글 작성 페이지 */}
           <Button>Ask Question</Button>
         </div>
         <div className="header_filter">
+          <span>{data.length} questions</span>
           <div className="filter_button">
             {filterButton.map((el, idx) => (
               <button
@@ -135,33 +139,6 @@ const QuestionList = () => {
       <QuestionLi>
         {data.map((e, idx) => {
           return <Item key={idx} item={e} />;
-          // <ItemContainer key={idx}>
-          //   <div className="summary_stats">
-          //     <span>
-          //       <strong>{e.vote}</strong> views
-          //     </span>
-          //     <span>
-          //       <strong>{e.answer}</strong> answers
-          //     </span>
-          //     <span>
-          //       <strong>{e.view}</strong> views
-          //     </span>
-          //   </div>
-
-          //   <div className="summary_content">
-          //     <h3>{e.questionTitle}</h3>
-          //     <div>{e.questionContent}</div>
-
-          //     <div className="user_info">
-          //       <img src={profile} alt={profile}></img>
-          //       <span>{e.userName}</span>
-          //       <span>{e.userReputation}</span>
-
-          //       {/* 마지막 createAt 시각 */}
-          //       <span>aksed </span>
-          //     </div>
-          //   </div>
-          // </ItemContainer>
         })}
       </QuestionLi>
     </QuestionsContainer>
