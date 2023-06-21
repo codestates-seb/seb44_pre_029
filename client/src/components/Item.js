@@ -99,13 +99,13 @@ const Item = ({ item }) => {
     <ItemContainer>
       <div className="summary_stats">
         <span>
-          <strong>{item.vote}</strong> views
+          <strong>{item.vote}</strong>&nbsp;views
         </span>
         <span>
-          <strong>{item.answer}</strong> answers
+          <strong>{item.answer}</strong>&nbsp;answers
         </span>
         <span>
-          <strong>{item.view}</strong> views
+          <strong>{item.view}</strong>&nbsp;views
         </span>
       </div>
 

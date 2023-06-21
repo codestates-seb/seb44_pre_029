@@ -22,22 +22,48 @@ export const VoteContainer = styled.div`
     background-color: transparent;
     color: #ccc;
   }
+  button:first-child,
+  button:nth-child(3) {
+    &:hover {
+      color: #fce3cf;
+    }
+  }
 `;
 const Vote = () => {
+  const [voteSum, setVoteSum] = useState(0);
+  //유저당 한번만 가능하게
+  // const [voteUp, setVotedUp] = useState(false);
+  // const [voteDown, setVotedDown] = useState(false);
   const [bookmark, setBookmark] = useState(false);
 
   const handleBookmark = () => {
     setBookmark(!bookmark);
   };
+  const hanldeVoteUp = () => {
+    // if (!voteUp) {
+    //   setVoteSum((prev) => prev + 1);
+    //   setVotedUp(!voteUp);
+    //   setVotedDown(!voteDown);
+    // }
+    setVoteSum((prev) => prev + 1);
+  };
+  const hanldeVoteDown = () => {
+    // if (!voteDown) {
+    //   setVoteSum((prev) => prev - 1);
+    //   setVotedDown(!voteDown);
+    //   setVotedUp(!voteUp);
+    // }
+    setVoteSum((prev) => prev - 1);
+  };
   return (
     <>
       <VoteContainer>
         <div className="button_container">
-          <button>
+          <button onClick={hanldeVoteUp}>
             <FaChevronCircleUp size="30" />
           </button>
-          <span>0</span>
-          <button>
+          <span>{voteSum}</span>
+          <button onClick={hanldeVoteDown}>
             <FaChevronCircleDown size="30" />
           </button>
           <button onClick={handleBookmark}>

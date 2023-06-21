@@ -10,7 +10,7 @@ import Comment from "../components/Comment";
 import YourAnswer from "../components/YourAnswer";
 export const QuestionsSection = styled.section`
   padding: 30px;
-  width: 800px;
+  max-width: 1000px;
   color: #6a737c;
 `;
 export const QuestionTitle = styled.div`
@@ -32,7 +32,8 @@ export const QuestionTitle = styled.div`
       margin-bottom: 8px;
     }
     > button {
-      width: fit-content;
+      /* width: fit-content; */
+      width: 200px;
       height: fit-content;
       margin-left: 12px;
     }
@@ -61,17 +62,20 @@ export const ContentContainer = styled.div`
   align-items: stretch;
   justify-content: space-between;
   margin-top: 16px;
-
+  width: 100%;
+  /* padding: 20px; */
   > div:first-child {
     display: flex;
     justify-content: space-evenly;
+
+    padding: 20px;
   }
 `;
 export const SubContent = styled.div`
   color: #333537;
   /* display: flex;
   flex-direction: column; */
-  width: 400px;
+  width: 100%;
   button {
     margin: 2px;
     border: none;
@@ -86,6 +90,7 @@ export const SubContent = styled.div`
     margin: 16px 0;
   }
   .subButton button {
+    font-size: 11px;
     color: #6a737c;
     cursor: pointer;
     &:hover {
@@ -95,29 +100,35 @@ export const SubContent = styled.div`
   .user {
     box-sizing: border-box;
     border-radius: 3px;
-    width: 180px;
+    width: 150px;
     background-color: #d9eaf7;
     padding: 5px 6px 7px 7px;
     display: flex;
     flex-direction: column;
+    > span {
+      font-size: 12px;
+    }
     > span:first-child {
       margin-bottom: 4px;
     }
     > span:nth-child(2) {
       display: flex;
       align-items: center;
-      > span {
-        margin-left: 8px;
-        color: #0074cc;
-        cursor: pointer;
-      }
-    }
-    > span {
-      color: #7d8387;
-
       img {
         width: 30px;
         border-radius: 5px;
+      }
+      div {
+        display: flex;
+        flex-direction: column;
+        margin-left: 8px;
+        span:first-child {
+          color: #0074cc;
+          cursor: pointer;
+        }
+        span:last-child {
+          font-weight: 600;
+        }
       }
     }
   }
@@ -153,15 +164,15 @@ const Questions = () => {
         <div className="header_info">
           <span>
             Asked
-            <strong> today</strong>
+            <strong>&nbsp;today</strong>
           </span>
           <span>
             Modifed
-            <strong> today</strong>
+            <strong>&nbsp;today</strong>
           </span>
           <span>
             Viewed
-            <strong> 7 times</strong>
+            <strong>&nbsp;7 times</strong>
           </span>
         </div>
       </QuestionTitle>
@@ -205,7 +216,10 @@ const Questions = () => {
                     <span>asked hours ago</span>
                     <span>
                       <img src={profile} alt={profile} />
-                      <span>{data.userName}</span>
+                      <div>
+                        <span>{data.userName}</span>
+                        <span>{data.userReputation}</span>
+                      </div>
                     </span>
                   </div>
                 </div>
