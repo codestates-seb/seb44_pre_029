@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import { Button } from "./Signup";
-import { InputItem, TextareaItem } from "../components/CreateContent";
-import { ButtonContainer } from "./Create";
+import { Button } from "../pages/Signup";
+import { InputItem, TextareaItem } from "./CreateContent";
+import { ButtonContainer } from "../pages/Create";
 import { styled } from "styled-components";
 export const FormContainer = styled.div`
   display: flex;

@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 import EditTip from "../components/EditTip";
-import EditForm from "./EditForm";
+import EditForm from "../components/EditForm";
 export const EditConatiner = styled.main`
   display: flex;
   padding: 24px;
