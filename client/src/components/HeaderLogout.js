@@ -9,6 +9,8 @@ const Header = styled.header`
   width: 100%;
   border-top: 2px solid #ef8236;
   border-bottom: 1px solid #ccc;
+  background-color: #fff;
+  z-index: 10;
 
   a {
     text-decoration: none;
@@ -136,11 +138,9 @@ const HeaderLogout = () => {
         <div className="menu">
           <GiHamburgerMenu />
         </div>
-        <Link to="/home">
-          <Mainlogo href="#">
-            <span>Stack overflow</span>
-          </Mainlogo>
-        </Link>
+        <Mainlogo href="#">
+          <span>Stack overflow</span>
+        </Mainlogo>
         <Link to="/introduce">
           <ProductBtn>About</ProductBtn>
         </Link>
@@ -157,7 +157,9 @@ const HeaderLogout = () => {
           </SerachBoxIcon>
           <SearchBoxModal isFocused={isFocused} />
         </div>
-        <LoginBtn>Log In</LoginBtn>
+        <Link to="/">
+          <LoginBtn>Log In</LoginBtn>
+        </Link>
         <Link to="/signup">
           <SignupBtn>Sign Up</SignupBtn>
         </Link>

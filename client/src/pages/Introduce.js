@@ -4,8 +4,7 @@ import Zzanggu from "../assets/Zzanggu.png";
 const Introduce = () => {
   const IntroduceWrap = styled.div`
     padding: 20px;
-    margin: 0 auto;
-    width: 1000px;
+    width: 1082px;
 
     h1 {
       text-align: left;

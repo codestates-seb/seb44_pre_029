@@ -13,6 +13,8 @@ const Header = styled.header`
   width: 100%;
   border-top: 2px solid #ef8236;
   border-bottom: 1px solid #ccc;
+  background-color: #fff;
+  z-index: 10;
 
   ul {
     list-style: none;

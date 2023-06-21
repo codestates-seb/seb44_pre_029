@@ -7,7 +7,7 @@ import { AiOutlineClockCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
 const MypageWrap = styled.section`
-  width: 1000px;
+  width: 1062px;
   text-align: left;
   float: right;
   padding: 30px;

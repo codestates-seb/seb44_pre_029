@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import Zzanggu from "../assets/Zzanggu.png";
-import { HiPencil } from "react-icons/hi";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { MdCake } from "react-icons/md";
 import { AiOutlineClockCircle } from "react-icons/ai";
-// import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const MypageWrap = styled.section`
-  width: 1000px;
+  width: 1062px;
   text-align: left;
   float: right;
   padding: 30px;
@@ -19,27 +19,6 @@ const MypageWrap = styled.section`
   }
   h2 {
     font-size: 22px;
-  }
-`;
-
-const ProfileBtn = styled.button`
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 7px 10px;
-  border: 1px solid #545454;
-  margin: 0 5px;
-  border-radius: 5px;
-  color: #545454;
-  font-size: 15px;
-  background-color: #fff;
-
-  &:hover {
-    cursor: pointer;
-  }
-
-  span {
-    padding: 0 10px 0 5px;
   }
 `;
 
@@ -138,22 +117,22 @@ const EditContent = styled.div`
   }
 `;
 
-const LinksContent = styled.div`
-  width: 33.3%;
-  display: inline-block;
-  > h4 {
-    margin: 10px 0;
-  }
-  input {
-    width: 90%;
-    height: 40px;
-    border: 1px solid #d9d9d9;
-    border-radius: 5px;
-    &:focus {
-      outline: none;
-    }
-  }
-`;
+// const LinksContent = styled.div`
+//   width: 33.3%;
+//   display: inline-block;
+//   > h4 {
+//     margin: 10px 0;
+//   }
+//   input {
+//     width: 90%;
+//     height: 40px;
+//     border: 1px solid #d9d9d9;
+//     border-radius: 5px;
+//     &:focus {
+//       outline: none;
+//     }
+//   }
+// `;
 
 const EditBtn = styled.button`
   background-color: #0a95ff;
@@ -169,12 +148,65 @@ const EditBtn = styled.button`
 `;
 
 const MypageEdit = () => {
-  // const [isValue, setIsValue] = useState("");
+  // 이메일, 패스워드, 닉네임 일단 공란
+  // 데이터 받아오게 되면 그때 채워넣기
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [nickname, setNickname] = useState("");
 
-  // const changeValue = (e) => {
-  //   setIsValue(e.target.value);
-  //   console.log(isValue);
+  // 리팩토링할 때 참고
+  const [values, setValues] = useState({
+    email: "",
+    password: "",
+    nickname: "",
+  });
+
+  const handleValueChange = (e) => {
+    setValues({
+      ...values,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  // const changeEmail = (e) => {
+  //   setEmail(e.target.value);
+  //   console.log(email);
   // };
+  // const changePassword = (e) => {
+  //   setPassword(e.target.value);
+  //   console.log(password);
+  // };
+  // const changeNickname = (e) => {
+  //   setNickname(e.target.value);
+  //   console.log(nickname);
+  // };
+
+  const handleSubmit = (e) => {
+    e.preventDefault;
+    fetch("https://1232-121-187-22-182.ngrok-free.app/users", {
+      method: "POST",
+      body: JSON.stringify(values),
+    })
+      .then((res) => {
+        console.log(res);
+        return res.json;
+      })
+      .then((res) => {
+        console.log(res);
+      });
+  };
+
+  useEffect(() => {
+    fetch("/users", {
+      header: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  }, []);
+  // console.log(values);
 
   return (
     <MypageWrap>
@@ -195,14 +227,12 @@ const MypageEdit = () => {
             Visited 3 days, 3 consecutive
           </p>
         </div>
-        <ProfileBtn>
-          <HiPencil size={15} />
-          <span>Edit profile</span>
-        </ProfileBtn>
       </MypageProfile>
       <MypageCategoryWrap>
         <MypageCategoty>Profile</MypageCategoty>
-        <MypageCategoty>Activity</MypageCategoty>
+        <Link to="/mypage">
+          <MypageCategoty>Activity</MypageCategoty>
+        </Link>
         <MypageCategoty>Saves</MypageCategoty>
         <MypageCategoty className="active">Settings</MypageCategoty>
       </MypageCategoryWrap>
@@ -210,65 +240,58 @@ const MypageEdit = () => {
         <h1>Edit your profile</h1>
         <hr />
         <h2>Public information</h2>
-        <form>
-          <EditProfileForm>
-            <div className="editImage">
-              <h3>Profile image</h3>
-              <img src={Zzanggu} alt="짱구" />
-              <p>Change picture</p>
-            </div>
+        <EditProfileForm>
+          <div className="editImage">
+            <h3>Profile image</h3>
+            <img src={Zzanggu} alt="짱구" />
+            <p>Change picture</p>
+          </div>
+          <form onSubmit={(e) => handleSubmit(e)}>
             <EditContent>
-              <h3>Display name</h3>
-              <input type="text" />
+              <h3>Email</h3>
+              <input
+                type="text"
+                onChange={(e) => handleValueChange(e)}
+                name="email"
+              />
             </EditContent>
             <EditContent>
-              <h3>Location</h3>
-              <input type="text" />
+              <h3>Password</h3>
+              <input
+                type="text"
+                onChange={(e) => handleValueChange(e)}
+                name="password"
+              />
             </EditContent>
             <EditContent>
-              <h3>Title</h3>
-              <input type="text" />
-            </EditContent>
-            <EditContent>
-              <h3>About me</h3>
-              <input type="text" />
-            </EditContent>
-            <EditContent>
-              <h3>Links</h3>
-              <div>
-                <LinksContent>
-                  <h4>Website Link</h4>
-                  <input type="text" />
-                </LinksContent>
-                <LinksContent>
-                  <h4>Twitter link or username</h4>
-                  <input type="text" />
-                </LinksContent>
-                <LinksContent>
-                  <h4>Github link or username</h4>
-                  <input type="text" />
-                </LinksContent>
-              </div>
-            </EditContent>
-            <EditContent>
-              <h3 className="privateInfo">Private information</h3>
-              <span>Not shown publicly</span>
-              <div>
-                <LinksContent>
-                  <h4>Full name</h4>
-                  <input type="text" />
-                </LinksContent>
-              </div>
+              <h3>Nickname</h3>
+              <input
+                type="text"
+                onChange={(e) => handleValueChange(e)}
+                name="nickname"
+              />
             </EditContent>
             <div className="EditBtnWrap">
               <EditBtn>Save profile</EditBtn>
-              <EditBtn>Cancel</EditBtn>
+              <Link to="/mypage">
+                <EditBtn>Cancel</EditBtn>
+              </Link>
             </div>
-          </EditProfileForm>
-        </form>
+          </form>
+        </EditProfileForm>
       </EditProfileWrap>
     </MypageWrap>
   );
 };
 
 export default MypageEdit;
+
+// export async function getAllfetch() {
+//   const response = await fetch("/users", {
+//     method: "GET",
+//     header: { "Content-Type": "application/json" },
+//   })
+//     .then((res) => res.json())
+//     .then((data) => console.log(data));
+//   return await response.json();
+// }
