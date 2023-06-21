@@ -11,23 +11,7 @@ export const AnswerContent = styled.div`
 `;
 
 const Answer = () => {
-  const answerData = [
-    {
-      id: 1,
-      Name: "Highest score (default)",
-      value: "score",
-    },
-    {
-      id: 2,
-      Name: "Date modified (newest first)",
-      value: "newest",
-    },
-    {
-      id: 3,
-      Name: "Date created (oldest first)",
-      value: "oldest",
-    },
-  ];
+  const answerData = [{}];
   return (
     <>
       <AnswerTitle>
