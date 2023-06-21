@@ -8,10 +8,12 @@ const FooterContainer = styled.footer`
   height: max-content;
   background-color: #232629;
   color: #9099a1;
-  padding: 10px 0 0; 
+  padding: 10px 0 0;
   display: flex;
-
-
+  ul,
+  li {
+    list-style: none;
+  }
   .footer-container {
     display: flex;
     justify-content: space-between;
@@ -20,31 +22,27 @@ const FooterContainer = styled.footer`
     max-width: 1264px;
     margin: 0 auto;
 
-
     .foot-logo {
       flex: 0 0 64px;
       margin: -12px 0 32px;
       width: 64px;
       height: 64px;
-      
-    
     }
 
     .menu-container {
       display: flex;
       flex: 2 1 auto;
-    
 
-      > ul {
+> ul {
         flex: 1 0 auto;
         padding: 0 12px 24px 0;
-        > h5 {
+> h5 {
           margin: 0 0 12px;
           color: #babfc4;
           font-weight: bold;
           font-size: 13px;
         }
-        > li {
+> li {
           line-height: 17px;
           font-size: 13px;
         }
@@ -55,13 +53,16 @@ const FooterContainer = styled.footer`
       flex-direction: column;
       flex: 1 1 150px;
       font-size: 11px;
-
+      justify-content: space-between;
+      text-align: left;
       .sns-container {
-        > ul {
+> ul {
           padding: 0;
           display: flex;
-          >li {
-            margin-left: 12px;
+
+          gap: 12px;
+> li {
+            /* margin-left: 12px; */
             padding: 4px 0;
           }
         }
@@ -71,10 +72,11 @@ const FooterContainer = styled.footer`
       margin: auto 0 24px;
       font-size: 11px;
 
-      > span {
+> span {
         display: inline-block;
-        > a {
-        text-decoration: underline;
+> a {
+          text-decoration: underline;
+        }
       }
     }
   }
@@ -126,7 +128,7 @@ function Footer() {
           </ul>
         </li>
         <li className="sns-copyright">
-          <snsbox className="sns-container">
+          <div className="sns-container">
             <ul>
               <li>Blog</li>
               <li>FaceBook</li>
@@ -134,9 +136,9 @@ function Footer() {
               <li>LinkedIn</li>
               <li>Instagram</li>
             </ul>
-          </snsbox>
+          </div>
           <p className="copyright-container">
-            Site design / logo © 2023 Stack Exchange Inc; user
+            Site design / logo ©️ 2023 Stack Exchange Inc; user
             <br /> contributions licensed under CC BY-SA
             <br />. rev 2023.6.15.43499
           </p>
