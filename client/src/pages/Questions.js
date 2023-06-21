@@ -153,15 +153,15 @@ const Questions = () => {
         <div className="header_info">
           <span>
             Asked
-            <strong> today</strong>
+            <strong>&nbsp;today</strong>
           </span>
           <span>
             Modifed
-            <strong> today</strong>
+            <strong>&nbsp;today</strong>
           </span>
           <span>
             Viewed
-            <strong> 7 times</strong>
+            <strong>&nbsp;7 times</strong>
           </span>
         </div>
       </QuestionTitle>

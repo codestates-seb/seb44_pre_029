@@ -120,7 +120,7 @@ const QuestionList = () => {
           <Button>Ask Question</Button>
         </div>
         <div className="header_filter">
-          <span>{data.length} questions</span>
+          <span>{data.length}&nbsp;questions</span>
           <div className="filter_button">
             {filterButton.map((el, idx) => (
               <button
