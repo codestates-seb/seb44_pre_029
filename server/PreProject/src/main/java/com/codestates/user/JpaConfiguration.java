@@ -14,7 +14,7 @@ public class JpaConfiguration {
     private EntityManager em;
     private EntityTransaction tx;
 
-    // (2)
+
     @Bean
     public CommandLineRunner testJpaBasicRunner(EntityManagerFactory emFactory) {
         this.em = emFactory.createEntityManager();
@@ -25,7 +25,7 @@ public class JpaConfiguration {
             tx.begin();
             em.persist(new User());
             tx.commit();
-            User user = em.find(User.class, 1L);
+
         };
     }
 

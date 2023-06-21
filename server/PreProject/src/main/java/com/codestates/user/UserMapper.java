@@ -8,20 +8,21 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserMapper {
     public User userPostDtoToUser(UserPostDto userPostDto){
-        return new User(
+        return new User(userPostDto.getUserid(),
                 userPostDto.getEmail(),
                 userPostDto.getNickname(),
                 userPostDto.getPassword());
     }
 
     public User userPatchDtoToUser(UserPatchDto userPatchDto){
-        return new User(
+        return new User(userPatchDto.getUserid(),
                 userPatchDto.getEmail(),
                 userPatchDto.getNickname(),
                 userPatchDto.getPassword());
     }
     public UserResponseDto userToUserResponseDto(User user){
-        return new UserResponseDto(user.getEmail(),
+        return new UserResponseDto(user.getUserid(),
+                user.getEmail(),
                 user.getNickname(),
                 user.getPassword());
     }
