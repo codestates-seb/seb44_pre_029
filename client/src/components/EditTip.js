@@ -7,6 +7,9 @@ export const EditTipContainer = styled.div`
   background-color: #fdf8e3;
   border-radius: 5px;
   height: fit-content;
+  @media (max-width: 1000px) {
+    display: none;
+  }
 `;
 
 export const EditTitle = styled.div`
