@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -23,6 +25,8 @@ public class User {
     private String nickname;
     @Column(length = 12, updatable = true, unique = false, name = "password")
     private String password;
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
 
     public User(long userid, String email, String nickname, String password){
         this.userid =  userid;
