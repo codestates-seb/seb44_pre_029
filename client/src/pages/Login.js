@@ -4,6 +4,14 @@ import TopLogo from "../assets/Stack_Overflow_icon.png";
 import { SiGithub } from "react-icons/si";
 
 function LoginPage() {
+  //!!!!!예리님 숙제입니당!!!!!!
+
+  //1. state 설정하시구 !
+  //2. 유효성 검사해주세용!!!
+  // 유효성 검사 !
+  // 1. 아이디 -> 서버에서? 존재한다.
+  // 2. password -> 길이제한? 8글자 이상!
+
   return (
     <LoginPageBox>
       <LoginBox>
@@ -38,7 +46,7 @@ function LoginPage() {
         </UserLoginFormBox>
 
         <SignUpLinkBox>
-          <SignUpText>Don't have an account?</SignUpText>
+          <SignUpText>Don&apos;t have an account?</SignUpText>
           <SignUpLink to="/signup">Sign up</SignUpLink>
         </SignUpLinkBox>
       </LoginBox>
