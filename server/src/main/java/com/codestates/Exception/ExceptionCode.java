@@ -3,10 +3,15 @@ package com.codestates.exception;
 import lombok.Getter;
 
 public enum ExceptionCode {
-    USER_NOT_FOUND(404, "User not found"),
-    USER_EXIST(409, "User exists"),
+    USER_NOT_FOUND(404, "User email not found"),
+    USER_EXISTS(409, "User email exists"),
     QUESTION_NOT_FOUND(404, "Question not found"),
-    ANSWER_NOT_FOUND(404, "Answer not found");
+    QUESTION_EXISTS(409, "Question title exists"),
+    CANNOT_CHANGE_QUESTION(403, "Question can not change"),
+    CANNOT_CHANGE_USER(403, "User can not change"),
+    NOT_IMPLEMENTATION(501, "Not Implementation");
+
+
 
     @Getter
     private int status;
@@ -18,4 +23,6 @@ public enum ExceptionCode {
         this.status = status;
         this.message = message;
     }
+
+
 }

@@ -1,6 +1,6 @@
 package com.codestates;
 
-import com.codestates.user.ErrorResponse;
+import com.codestates.user.exception.BusinessLogicException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -24,6 +24,15 @@ public class ExceptionAdvice {
     public ErrorResponse handleConstraintViolationException(
             ConstraintViolationException e) {
         final ErrorResponse response = ErrorResponse.of(e.getConstraintViolations());
+
+        return response;
+    }
+
+    @ExceptionHandler
+    public ErrorResponse handleResourceNotFoundException(BusinessLogicException e){
+
+
+        final ErrorResponse response = ErrorResponse.of(e.getExceptionCode());
 
         return response;
     }
