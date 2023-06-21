@@ -3,7 +3,15 @@ import profile from "../assets/Zzanggu.png";
 import Vote from "./Vote";
 import Comment from "./Comment";
 import { ContentContainer, SubContent } from "../pages/Questions";
-export const AnswerTitle = styled.div``;
+export const AnswerTitle = styled.div`
+  color: #27292c;
+  font-size: 13px;
+
+  h2 {
+    margin: 0;
+    margin-top: 30px;
+  }
+`;
 export const AnswerContent = styled.div`
   display: flex;
   flex-direction: column;
@@ -11,7 +19,11 @@ export const AnswerContent = styled.div`
 `;
 
 const Answer = () => {
-  const answerData = [{}];
+  const answerData = [
+    { id: 1, answerTitle: "대답1", user: "짱구" },
+    { id: 2, answerTitle: "대답2", user: "맹구" },
+    { id: 3, answerTitle: "대답3", user: "철수" },
+  ];
   return (
     <>
       <AnswerTitle>
@@ -27,7 +39,7 @@ const Answer = () => {
 
               {/* Sub -> Content -> Comment  */}
               <SubContent>
-                <div>대답대답</div>
+                <div>{answer.answerTitle}</div>
 
                 <div className="subContent">
                   {/* 왼쪽 */}
@@ -55,7 +67,7 @@ const Answer = () => {
                       <span>asked hours ago</span>
                       <span>
                         <img src={profile} alt={profile} />
-                        <span>짱구</span>
+                        <span>{answer.user}</span>
                       </span>
                     </div>
                   </div>

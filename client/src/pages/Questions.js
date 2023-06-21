@@ -61,10 +61,11 @@ export const ContentContainer = styled.div`
   align-items: stretch;
   justify-content: space-between;
   margin-top: 16px;
-
+  /* padding: 20px; */
   > div:first-child {
     display: flex;
     justify-content: space-evenly;
+    padding: 20px;
   }
 `;
 export const SubContent = styled.div`

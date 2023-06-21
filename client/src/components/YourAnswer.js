@@ -1,7 +1,13 @@
 //YourAnswer.js
 import styled from "styled-components";
 import { Button } from "../pages/Signup";
-export const YourAnswerTitle = styled.div``;
+export const YourAnswerTitle = styled.div`
+  color: #27292c;
+  font-size: 13px;
+  > h2 {
+    margin-top: 30px;
+  }
+`;
 export const YourAnswerInputDiv = styled.div`
   border: 1px solid #ccc;
   background-color: #f7f7f7;
