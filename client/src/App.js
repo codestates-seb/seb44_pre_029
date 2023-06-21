@@ -7,7 +7,7 @@ import Create from "./pages/Create";
 import Introduce from "./pages/Introduce";
 import Mypage from "./pages/Mypage";
 import Question from "./pages/Questions";
-
+import Login from "./pages/Login";
 function App() {
   return (
     <BrowserRouter>
@@ -16,7 +16,7 @@ function App() {
         <main>
           <Routes>
             {/* 로그인 -> 초기*/}
-            {/* <Route path="/" element={</>} />  */}
+            <Route path="/" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/home" element={<Home />} />
             <Route path="/create" element={<Create />} />
