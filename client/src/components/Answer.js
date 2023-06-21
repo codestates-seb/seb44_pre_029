@@ -34,7 +34,7 @@ const Answer = () => {
         {answerData.map((answer) => (
           <ContentContainer key={answer.id}>
             {/* <본문 질문> <answer> <YourAnswer> -> flex: column*/}
-            <div>
+            <div className="box">
               <Vote />
 
               {/* Sub -> Content -> Comment  */}

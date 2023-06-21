@@ -10,7 +10,7 @@ import Comment from "../components/Comment";
 import YourAnswer from "../components/YourAnswer";
 export const QuestionsSection = styled.section`
   padding: 30px;
-  width: 800px;
+  max-width: 1000px;
   color: #6a737c;
 `;
 export const QuestionTitle = styled.div`
@@ -62,10 +62,12 @@ export const ContentContainer = styled.div`
   align-items: stretch;
   justify-content: space-between;
   margin-top: 16px;
+  width: 100%;
   /* padding: 20px; */
   > div:first-child {
     display: flex;
     justify-content: space-evenly;
+
     padding: 20px;
   }
 `;
@@ -73,7 +75,7 @@ export const SubContent = styled.div`
   color: #333537;
   /* display: flex;
   flex-direction: column; */
-  width: 400px;
+  width: 100%;
   button {
     margin: 2px;
     border: none;
