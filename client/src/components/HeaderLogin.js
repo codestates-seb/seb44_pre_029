@@ -7,6 +7,7 @@ import { AiFillQuestionCircle } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useState } from "react";
 import SearchBoxModal from "./SearchBoxModal";
+import { Link } from "react-router-dom";
 
 const Header = styled.header`
   width: 100%;
@@ -15,6 +16,10 @@ const Header = styled.header`
 
   ul {
     list-style: none;
+  }
+
+  a {
+    text-decoration: none;
   }
 `;
 
@@ -41,28 +46,27 @@ const HeaderWrap = styled.div`
   }
 `;
 
-const Mainlogo = styled.a`
-  display: flex;
-  align-items: center;
-  height: 100%;
+const Mainlogo = styled.div`
+  height: 50px;
   padding: 0 10px;
+  background-image: url("https://cdn.sstatic.net/Img/unified/sprites.svg?v=fcc0ea44ba27");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position-y: 7px;
 
   &:hover {
     background-color: #eee;
   }
 
-  span {
-    background-image: url("https://cdn.sstatic.net/Img/unified/sprites.svg?v=fcc0ea44ba27");
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 150px;
-    height: 100%;
+  > span {
+    color: transparent;
   }
 `;
 
 const ProductBtn = styled.span`
   color: #777;
   padding: 5px 12px;
+  margin: 0 5px;
 
   &:hover {
     background-color: #eee;
@@ -147,10 +151,14 @@ const HeaderLogin = () => {
   return (
     <Header>
       <HeaderWrap>
-        <Mainlogo href="#">
-          <span></span>
-        </Mainlogo>
-        <ProductBtn>About</ProductBtn>
+        <Link to="/home">
+          <Mainlogo>
+            <span>Stack overflow</span>
+          </Mainlogo>
+        </Link>
+        <Link to="/introduce">
+          <ProductBtn>About</ProductBtn>
+        </Link>
         <div className="searchBoxWrap">
           <SearchBox
             type="text"
@@ -165,12 +173,14 @@ const HeaderLogin = () => {
           <SearchBoxModal isFocused={isFocused} />
         </div>
         <IconsBtnWrap>
-          <IconsBtn>
-            <IconBtnA>
-              <BsPersonCircle size={20} />
-              <span className="reputationCount">1</span>
-            </IconBtnA>
-          </IconsBtn>
+          <Link to="/mypage">
+            <IconsBtn>
+              <IconBtnA>
+                <BsPersonCircle size={20} />
+                <span className="reputationCount">1</span>
+              </IconBtnA>
+            </IconsBtn>
+          </Link>
           <IconsBtn>
             <IconBtnA>
               <FaInbox size={20} />
