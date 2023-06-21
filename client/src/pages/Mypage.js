@@ -26,6 +26,10 @@ const Mypage = () => {
     font-size: 15px;
     background-color: #fff;
 
+    &:hover {
+      cursor: pointer;
+    }
+
     span {
       padding: 0 10px 0 5px;
     }
