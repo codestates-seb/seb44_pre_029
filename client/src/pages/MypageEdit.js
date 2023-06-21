@@ -210,60 +210,62 @@ const MypageEdit = () => {
         <h1>Edit your profile</h1>
         <hr />
         <h2>Public information</h2>
-        <EditProfileForm>
-          <div className="editImage">
-            <h3>Profile image</h3>
-            <img src={Zzanggu} alt="짱구" />
-            <p>Change picture</p>
-          </div>
-          <EditContent>
-            <h3>Display name</h3>
-            <input type="text" />
-          </EditContent>
-          <EditContent>
-            <h3>Location</h3>
-            <input type="text" />
-          </EditContent>
-          <EditContent>
-            <h3>Title</h3>
-            <input type="text" />
-          </EditContent>
-          <EditContent>
-            <h3>About me</h3>
-            <input type="text" />
-          </EditContent>
-          <EditContent>
-            <h3>Links</h3>
-            <div>
-              <LinksContent>
-                <h4>Website Link</h4>
-                <input type="text" />
-              </LinksContent>
-              <LinksContent>
-                <h4>Twitter link or username</h4>
-                <input type="text" />
-              </LinksContent>
-              <LinksContent>
-                <h4>Github link or username</h4>
-                <input type="text" />
-              </LinksContent>
+        <form>
+          <EditProfileForm>
+            <div className="editImage">
+              <h3>Profile image</h3>
+              <img src={Zzanggu} alt="짱구" />
+              <p>Change picture</p>
             </div>
-          </EditContent>
-          <EditContent>
-            <h3 className="privateInfo">Private information</h3>
-            <span>Not shown publicly</span>
-            <div>
-              <LinksContent>
-                <h4>Full name</h4>
-                <input type="text" />
-              </LinksContent>
+            <EditContent>
+              <h3>Display name</h3>
+              <input type="text" />
+            </EditContent>
+            <EditContent>
+              <h3>Location</h3>
+              <input type="text" />
+            </EditContent>
+            <EditContent>
+              <h3>Title</h3>
+              <input type="text" />
+            </EditContent>
+            <EditContent>
+              <h3>About me</h3>
+              <input type="text" />
+            </EditContent>
+            <EditContent>
+              <h3>Links</h3>
+              <div>
+                <LinksContent>
+                  <h4>Website Link</h4>
+                  <input type="text" />
+                </LinksContent>
+                <LinksContent>
+                  <h4>Twitter link or username</h4>
+                  <input type="text" />
+                </LinksContent>
+                <LinksContent>
+                  <h4>Github link or username</h4>
+                  <input type="text" />
+                </LinksContent>
+              </div>
+            </EditContent>
+            <EditContent>
+              <h3 className="privateInfo">Private information</h3>
+              <span>Not shown publicly</span>
+              <div>
+                <LinksContent>
+                  <h4>Full name</h4>
+                  <input type="text" />
+                </LinksContent>
+              </div>
+            </EditContent>
+            <div className="EditBtnWrap">
+              <EditBtn>Save profile</EditBtn>
+              <EditBtn>Cancel</EditBtn>
             </div>
-          </EditContent>
-          <div className="EditBtnWrap">
-            <EditBtn>Save profile</EditBtn>
-            <EditBtn>Cancel</EditBtn>
-          </div>
-        </EditProfileForm>
+          </EditProfileForm>
+        </form>
       </EditProfileWrap>
     </MypageWrap>
   );
