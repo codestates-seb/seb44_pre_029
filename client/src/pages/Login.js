@@ -51,7 +51,8 @@ const LoginPageBox = styled.div`
   justify-content: center;
   align-items: center;
   background-color: #f1f2f3;
-  height: calc(100vh - 50px);
+  height: 100vh;
+  width: 100vw;
 `;
 
 const LoginBox = styled.div`
