@@ -32,7 +32,8 @@ export const QuestionTitle = styled.div`
       margin-bottom: 8px;
     }
     > button {
-      width: fit-content;
+      /* width: fit-content; */
+      width: 200px;
       height: fit-content;
       margin-left: 12px;
     }
@@ -87,6 +88,7 @@ export const SubContent = styled.div`
     margin: 16px 0;
   }
   .subButton button {
+    font-size: 11px;
     color: #6a737c;
     cursor: pointer;
     &:hover {
@@ -96,29 +98,35 @@ export const SubContent = styled.div`
   .user {
     box-sizing: border-box;
     border-radius: 3px;
-    width: 180px;
+    width: 150px;
     background-color: #d9eaf7;
     padding: 5px 6px 7px 7px;
     display: flex;
     flex-direction: column;
+    > span {
+      font-size: 12px;
+    }
     > span:first-child {
       margin-bottom: 4px;
     }
     > span:nth-child(2) {
       display: flex;
       align-items: center;
-      > span {
-        margin-left: 8px;
-        color: #0074cc;
-        cursor: pointer;
-      }
-    }
-    > span {
-      color: #7d8387;
-
       img {
         width: 30px;
         border-radius: 5px;
+      }
+      div {
+        display: flex;
+        flex-direction: column;
+        margin-left: 8px;
+        span:first-child {
+          color: #0074cc;
+          cursor: pointer;
+        }
+        span:last-child {
+          font-weight: 600;
+        }
       }
     }
   }
@@ -206,7 +214,10 @@ const Questions = () => {
                     <span>asked hours ago</span>
                     <span>
                       <img src={profile} alt={profile} />
-                      <span>{data.userName}</span>
+                      <div>
+                        <span>{data.userName}</span>
+                        <span>{data.userReputation}</span>
+                      </div>
                     </span>
                   </div>
                 </div>

@@ -11,12 +11,13 @@ export const CommnetContainer = styled.div`
 export const CommentList = styled.div`
   /* border-top: 0.7px solid #ccc; */
   border-bottom: 0.7px solid #ccc;
-  padding: 12px;
+  padding: 8px;
   padding-left: 30px;
   font-size: 12px;
   display: flex;
   justify-content: space-between;
-  div {
+  align-items: center;
+  div.content {
     > span:first-child {
       font-weight: 600;
     }
@@ -28,6 +29,18 @@ export const CommentList = styled.div`
     }
     > span:not(:first-child) {
       cursor: pointer;
+    }
+  }
+  div.buttonZone {
+    button {
+      font-size: 11px;
+      cursor: pointer;
+    }
+    > button:first-child {
+      color: #0074cc;
+    }
+    > button:last-child {
+      color: red;
     }
   }
 `;
@@ -91,13 +104,13 @@ const Comment = () => {
         {comments.map((comment, idx) => {
           return (
             <CommentList key={idx}>
-              <div>
-                <span>{comment.comment}</span>
-                <span> -{comment.userName}</span>
-                <span> 날짜</span>
+              <div className="content">
+                <span>{comment.comment}&nbsp;–</span>
+                <span>&nbsp;{comment.userName}</span>
+                <span>&nbsp;날짜</span>
               </div>
               {/* 자신이 작성한 댓글일 경우 -> Edit or Delete */}
-              <div>
+              <div className="buttonZone">
                 <button>Edit</button>
                 <button>Delete</button>
               </div>

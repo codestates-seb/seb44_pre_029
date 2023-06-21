@@ -20,9 +20,9 @@ export const AnswerContent = styled.div`
 
 const Answer = () => {
   const answerData = [
-    { id: 1, answerTitle: "대답1", user: "짱구" },
-    { id: 2, answerTitle: "대답2", user: "맹구" },
-    { id: 3, answerTitle: "대답3", user: "철수" },
+    { id: 1, answerTitle: "대답1", userName: "짱구", userReputation: 30 },
+    { id: 2, answerTitle: "대답2", userName: "맹구", userReputation: 30 },
+    { id: 3, answerTitle: "대답3", userName: "철수", userReputation: 30 },
   ];
   return (
     <>
@@ -67,7 +67,10 @@ const Answer = () => {
                       <span>asked hours ago</span>
                       <span>
                         <img src={profile} alt={profile} />
-                        <span>{answer.user}</span>
+                        <div>
+                          <span>{answer.userName}</span>
+                          <span>{answer.userReputation}</span>
+                        </div>
                       </span>
                     </div>
                   </div>
