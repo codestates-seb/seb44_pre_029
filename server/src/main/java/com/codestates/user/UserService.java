@@ -20,7 +20,7 @@ public class UserService {
     private final CustomAuthorityUtils authorityUtils;
 
     public User createUser(User user) {
-        findUserEmail(user.getEmail());
+        verifyEmail(user.getEmail());
 
         String encryptedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encryptedPassword);

@@ -16,7 +16,7 @@ public interface AnswerMapper {
         Answer answer = new Answer();
 
         User user = new User();
-        user.setUser_id(answerPostDto.getUserId());
+        user.setUserid(answerPostDto.getUserId());
         answer.setUser(user);
 
         Question question = new Question();
