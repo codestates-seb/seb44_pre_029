@@ -1,5 +1,6 @@
 package com.codestates.security.jwt.handler;
 
+import com.codestates.ErrorResponse;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

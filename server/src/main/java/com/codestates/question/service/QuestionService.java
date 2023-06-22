@@ -1,6 +1,5 @@
 package com.codestates.question.service;
 
-
 import com.codestates.exception.BusinessLogicException;
 import com.codestates.exception.ExceptionCode;
 import com.codestates.question.entity.Question;
@@ -27,7 +26,7 @@ public class QuestionService {
     }
 
     public Question createQuestion(Question question) {
-        long userId = question.getUser().getUserId();
+        long userId = question.getUser().getUserid();
         User user = userService.findUser(userId);
         question.setUser(user);
 

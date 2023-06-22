@@ -1,5 +1,6 @@
-package com.codestates.user;
+package com.codestates;
 
+import com.codestates.user.User;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,12 +10,12 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 
 
-@Configuration
+//@Configuration
 public class JpaConfiguration {
     private EntityManager em;
     private EntityTransaction tx;
 
-    // (2)
+
     @Bean
     public CommandLineRunner testJpaBasicRunner(EntityManagerFactory emFactory) {
         this.em = emFactory.createEntityManager();
@@ -25,7 +26,7 @@ public class JpaConfiguration {
             tx.begin();
             em.persist(new User());
             tx.commit();
-            User user = em.find(User.class, 1L);
+
         };
     }
 

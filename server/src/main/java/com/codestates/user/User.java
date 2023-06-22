@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,13 +18,15 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false, unique = true, name = "user_id")
-    private long user_id;
+    private long userid;
     @Column(length = 50, nullable = false, updatable = true, unique = true, name = "email")
     private String email;
-    @Column(length = 12, nullable = false, updatable = true, unique = true, name = "nickname")
+    @Column(length = 50, nullable = false, updatable = true, unique = false, name = "nickname")
     private String nickname;
-    @Column(length = 12, nullable = false, updatable = true, unique = false, name = "password")
+    @Column(nullable = false, updatable = true, unique = false, name = "password")
     private String password;
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
 
     public User(String email, String nickname, String password){
         this.email = email;

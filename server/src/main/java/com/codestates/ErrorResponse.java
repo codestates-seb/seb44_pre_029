@@ -1,6 +1,8 @@
-package com.codestates.user;
+package com.codestates;
 
+import com.codestates.Exception.ExceptionCode;
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 
 import javax.validation.ConstraintViolation;
@@ -10,6 +12,8 @@ import java.util.stream.Collectors;
 
 @Getter
 public class ErrorResponse {
+    private int status;
+    private String message;
     private List<FieldError> fieldErrors;
     private List<ConstraintViolationError> violationErrors;
 
@@ -17,6 +21,11 @@ public class ErrorResponse {
     private ErrorResponse(List<FieldError> fieldErrors, List<ConstraintViolationError> violationErrors) {
         this.fieldErrors = fieldErrors;
         this.violationErrors = violationErrors;
+    }
+
+    private ErrorResponse(int status, String message) {
+        this.status = status;
+        this.message = message;
     }
 
 
@@ -29,6 +38,13 @@ public class ErrorResponse {
         return new ErrorResponse(null, ConstraintViolationError.of(violations));
     }
 
+    public static ErrorResponse of(ExceptionCode exceptionCode) {
+        return new ErrorResponse(exceptionCode.getStatus(), exceptionCode.getMessage());
+    }
+
+    public static ErrorResponse of(HttpStatus httpStatus) {
+        return new ErrorResponse(httpStatus.value(), httpStatus.getReasonPhrase());
+    }
 
     @Getter
     public static class FieldError {
@@ -79,4 +95,9 @@ public class ErrorResponse {
                     )).collect(Collectors.toList());
         }
     }
+
+
+
+
+
 }
