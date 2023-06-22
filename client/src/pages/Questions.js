@@ -1,6 +1,6 @@
 //Questions.js
 import profile from "../assets/Zzanggu.png";
-
+import { useNavigate } from "react-router-dom";
 import { Button } from "../pages/Signup";
 import styled from "styled-components";
 import Aside from "../components/Aside";
@@ -152,14 +152,17 @@ const Questions = () => {
     userName: "짱구",
     userReputation: 20,
   };
-
+  const navigate = useNavigate();
+  const hanldeAskQuestion = () => {
+    navigate("/question/edit");
+  };
   return (
     <QuestionsSection>
       <QuestionTitle>
         <div className="header">
           <h1>{data.questionTitle}</h1>
           {/* 버튼 링크 연결 -> 글 작성 페이지 */}
-          <Button>Ask Question</Button>
+          <Button onClick={hanldeAskQuestion}>Ask Question</Button>
         </div>
         <div className="header_info">
           <span>
