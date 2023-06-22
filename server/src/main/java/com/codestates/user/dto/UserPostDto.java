@@ -10,7 +10,7 @@ import javax.validation.constraints.Pattern;
 @Setter
 public class UserPostDto {
     
-    private  long userid;
+
     @NotBlank
     @Pattern(regexp = "^([a-zA-Z0-9@.]{8,50})$")
     @Email
@@ -20,8 +20,8 @@ public class UserPostDto {
     message = "올바른 닉네임 형식이 아닙니다.(영한문, 숫자 2~12)")
     private String nickname;
     @NotBlank
-    @Pattern(regexp = "^([a-zA-Z0-9!@#$%^&*]{8,12})$",
-    message = "올바른 패스워드 형식이 아닙니다.(영 대소문자, 숫자, !@#$%^&* 8~12)")
+/*    @Pattern(regexp = "^([a-zA-Z0-9!@#$%^&*]{8,12})$",
+    message = "올바른 패스워드 형식이 아닙니다.(영 대소문자, 숫자, !@#$%^&* 8~12)")*/
     private String password;
 
 }
