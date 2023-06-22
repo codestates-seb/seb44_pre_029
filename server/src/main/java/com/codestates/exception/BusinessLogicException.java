@@ -1,4 +1,4 @@
-package com.codestates.Exception;
+package com.codestates.exception;
 
 import lombok.Getter;
 
