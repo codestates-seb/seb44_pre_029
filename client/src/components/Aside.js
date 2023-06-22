@@ -1,0 +1,157 @@
+import styled from "styled-components";
+import { faPen, faMessage } from "@fortawesome/free-solid-svg-icons";
+import { faStackOverflow } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+export const AsideContainer = styled.section`
+  width: 300px;
+  padding: 20px;
+  color: #232629;
+  text-align: left;
+`;
+export const SideBanner = styled.aside`
+  border: 1px solid #f3eac7;
+  background-color: #fdf8e3;
+  border-radius: 5px;
+  > ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+`;
+export const SideTitle = styled.li`
+  font-size: 13px;
+  padding: 12px 15px;
+  border-bottom: 1px solid #f3eac7;
+  background-color: #fcf3d5;
+  font-weight: bold;
+  color: #535961;
+  text-align: left;
+`;
+
+export const SideContent = styled.li`
+  display: flex;
+  font-size: 11px;
+  gap: 1rem;
+  background-color: #fdf8e3;
+  padding: 0 20px;
+  margin: 12px 0;
+  a {
+    color: #232629;
+    text-decoration: none;
+    outline: none;
+    cursor: pointer;
+  }
+  .icon-message {
+    color: #6db3dc;
+  }
+ =
+`;
+const Aside = () => {
+  const link = [
+    "https://stackoverflow.blog/2023/06/13/developer-survey-results-are-in/?cb=1&_ga=2.157942714.1601546601.1686629385-1403077511.1686617188",
+    "https://stackoverflow.blog/2023/06/14/hype-or-not-developers-have-something-to-say-about-ai/?cb=1&_ga=2.249220999.1601546601.1686629385-1403077511.1686617188",
+    "https://meta.stackexchange.com/questions/389834/statement-from-so-june-5-2023-moderator-action?cb=1",
+    "https://meta.stackexchange.com/questions/390234/planned-maintenance-scheduled-for-thursday-june-15-2023-at-2100-utc?cb=1",
+    "https://meta.stackoverflow.com/questions/424910/does-the-policy-change-for-ai-generated-content-affect-users-who-want-to-flag?cb=1",
+    "https://meta.stackoverflow.com/questions/421831/temporary-policy-chatgpt-is-banned?cb=1",
+    "https://meta.stackoverflow.com/questions/425099/should-curators-be-allowed-to-save-questions-with-mostly-code?cb=1",
+    "https://meta.stackoverflow.com/questions/425073/how-can-i-handle-questions-which-provide-an-mcve-or-what-i-tried-generated-by?cb=1",
+  ];
+
+  return (
+    <AsideContainer>
+      <SideBanner>
+        <ul>
+          <SideTitle>The Overflow Blog</SideTitle>
+          <SideContent>
+            <span>
+              <FontAwesomeIcon icon={faPen} size="xs" />
+            </span>
+            <span>
+              <a href={link[0]}>
+                2023 Developer Survey results are in: the latest trends in
+                technology and work from the Stack Overflow community
+              </a>
+            </span>
+          </SideContent>
+          <SideContent>
+            <span>
+              <FontAwesomeIcon icon={faPen} size="xs" />
+            </span>
+            <span>
+              <a href={link[1]}>
+                Hype or not? AI’s benefits for developers explored in the 2023
+                Developer Survey
+              </a>
+            </span>
+          </SideContent>
+        </ul>
+        <ul>
+          <SideTitle>Featured on Meta</SideTitle>
+          <SideContent>
+            <span>
+              <FontAwesomeIcon icon={faMessage} className="icon-message" />
+            </span>
+            <span>
+              <a href={link[2]}>
+                Statement from SO: June 5, 2023 Moderator Action
+              </a>
+            </span>
+          </SideContent>
+          <SideContent>
+            <span>
+              <FontAwesomeIcon icon={faMessage} className="icon-message" />
+            </span>
+            <span>
+              <a href={link[3]}>
+                Planned maintenance scheduled for Thursday, June 15, 2023 at
+                21:00 UTC
+              </a>
+            </span>
+          </SideContent>
+          <SideContent>
+            <span>
+              <FontAwesomeIcon icon={faStackOverflow} />
+            </span>
+            <span>
+              <a href={link[2]}>
+                Does the policy change for AI-generated content affect users who
+                (want to) flag such content?
+              </a>
+            </span>
+          </SideContent>
+          <SideContent>
+            <span>
+              <FontAwesomeIcon icon={faStackOverflow} />
+            </span>
+            <span>
+              <a href={link[3]}>Temporary policy: ChatGPT is banned</a>
+            </span>
+          </SideContent>
+        </ul>
+        <ul>
+          <SideTitle>Hot Meta Posts</SideTitle>
+          <SideContent>
+            <span>20</span>
+            <span>
+              <a href={link[4]}>
+                Should curators be allowed to save questions with mostly code?
+              </a>
+            </span>
+          </SideContent>
+          <SideContent>
+            <span>33</span>
+            <span>
+              <a href={link[5]}>
+                How can I handle questions which provide an MCVE or what I tried
+                generated by ChatGPT?
+              </a>
+            </span>
+          </SideContent>
+        </ul>
+      </SideBanner>
+    </AsideContainer>
+  );
+};
+
+export default Aside;
