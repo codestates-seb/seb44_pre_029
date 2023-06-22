@@ -7,7 +7,7 @@ import Create from "./pages/Create";
 import Introduce from "./pages/Introduce";
 import Mypage from "./pages/Mypage";
 import Question from "./pages/Questions";
-import EditQuestion from "./pages/EditQuestion";
+
 function App() {
   return (
     <BrowserRouter>
@@ -23,7 +23,6 @@ function App() {
             <Route path="/introduce" element={<Introduce />} />
             <Route path="/mypage" element={<Mypage />} />
             <Route path="/question" element={<Question />} />
-            <Route path="/question/edit" element={<EditQuestion />} />
           </Routes>
         </main>
       </div>
