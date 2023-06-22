@@ -1,9 +1,10 @@
 import { FaQuestionCircle, FaSort, FaGithub } from "react-icons/fa";
 import { ImPriceTags, ImTrophy } from "react-icons/im";
 import { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-
+import axios from "axios";
+// import GoogleButton from "../components/GoogleButton";
 export const DivContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -277,6 +278,7 @@ const Signup = () => {
   const EmailInputRef = useRef(null);
   const PasswordInputRef = useRef(null);
   // const navigate = useNavigate();
+
   //false -> 기본값 , true -> 통과되지 못함(red)
   const [isName, setIsName] = useState(false);
   const [isEmail, setIsEmail] = useState(false);
@@ -331,7 +333,7 @@ const Signup = () => {
       setIsPassword(true);
     }
   };
-
+  const navigate = useNavigate();
   //폼 제출 핸들러
   const formSubmitHandler = (e) => {
     e.preventDefault();
@@ -339,7 +341,87 @@ const Signup = () => {
     nameHanlder();
     emailHandler();
     passwordHanlder();
+
+    const userInfo = {
+      nickname: name,
+      email,
+      password,
+    };
+
+    axios
+      .post("/users", userInfo)
+      .then((response) => {
+        // 요청이 성공한 경우의 처리
+        console.log(response.data);
+        navigate("/"); //로그인 페이지로 이동
+      })
+      .catch((error) => {
+        // 요청이 실패한 경우의 처리
+        console.error(error);
+      });
+
+    // fetch("/users", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json", //;charset=UTF-8",
+    //     // Accept: "application/json",
+    //     // "Content-Type": "text/html; charset=utf-8",
+    //     // "application/json",
+    //     // "Access-Control-Allow-Origin": "http://127.0.0.1:3000",
+    //   },
+    //   body: JSON.stringify(userInfo),
+    // })
+    //   .then((res) => console.log(res))
+    //   .then((data) => console.log(data));
   };
+  // const GOOGLE_CLIENT_ID =
+  //   "701602214284-q0n78cf2eeagc6tijmch2oaimcjcprlh.apps.googleusercontent.com"; //REACT_APP_GOOGLE_CLIENT_ID;
+  // // const GOOGLE_REDIRECT_URI = process.env.REACT_APP_GOOGLE_REDIRECT_URI;
+  // const GOOGLE_REDIRECT_URI = "http://localhost:3000/";
+  // console.log(GOOGLE_REDIRECT_URI);
+
+  // http://localhost:3000/?code=4%2F0AbUR2VN61bet3lQ7YCTt55P2gcL4CGpzARO0GnL75z28dK1dGOU1ASkfXHa3jTfaH1QqZw&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid&authuser=0&prompt=consent
+  //authorization code = 4%2F0AbUR2VN61bet3lQ7YCTt55P2gcL4CGpzARO0GnL75z28dK1dGOU1ASkfXHa3jTfaH1QqZw&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid&authuser=0&prompt=consent
+  /*eslint-env node*/
+  // const handleGoogleLogin = () => {
+  //   // const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_REDIRECT_URI;
+  //   const GOOGLE_CLIENT_ID =
+  //     "701602214284-q0n78cf2eeagc6tijmch2oaimcjcprlh.apps.googleusercontent.com";
+  //   const GOOGLE_REDIRECT_URI = "http://localhost:3000/home";
+
+  //   const GOOGLE_LOGIN_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${GOOGLE_REDIRECT_URI}&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile`;
+  //   return window.location.assign(GOOGLE_LOGIN_URL);
+  // };
+  const handleGoogleLogin = () => {
+    // const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_REDIRECT_URI;
+    const GOOGLE_CLIENT_ID =
+      "701602214284-q0n78cf2eeagc6tijmch2oaimcjcprlh.apps.googleusercontent.com";
+    const GOOGLE_REDIRECT_URI = "http://localhost:3000/signup";
+
+    const GOOGLE_LOGIN_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${GOOGLE_REDIRECT_URI}&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile`;
+    return window.location.assign(GOOGLE_LOGIN_URL);
+  };
+
+  const code = new URL(window.location.href).searchParams.get("code");
+  console.log(code);
+
+  //구글 oauth 에서 인증받아 redirect 된 /signup 으로 돌아옴
+  //url 에서 뽑아온 code 를 가져오긴 하나
+  //서버가 닫혀있어서 404에러가 남!
+
+  // client Id 와 secrect 을 가져오는 방법도 상수화 시켜야 함!
+
+  const clientID =
+    "701602214284-q0n78cf2eeagc6tijmch2oaimcjcprlh.apps.googleusercontent.com";
+  const clientSecret = "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";
+
+  axios.post("/oauth2/authorization/google", {
+    client_id: clientID,
+    client_secret: clientSecret,
+    code: code,
+    grant_type: "authorization_code",
+  });
+
   return (
     <DivContainer>
       <DivContent>
@@ -383,12 +465,14 @@ const Signup = () => {
           </div>
         </LeftDiv>
         <RightDiv>
+          {/* <GoogleButton /> */}
           <OauthDiv>
-            <button className="github">
+            <button className="github" onClick={handleGoogleLogin}>
               <FaGithub />
               Sign up with Google
             </button>
           </OauthDiv>
+
           <SignupDiv>
             <FormContainer
               onSubmit={formSubmitHandler}

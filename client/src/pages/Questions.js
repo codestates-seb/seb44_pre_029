@@ -1,6 +1,7 @@
 //Questions.js
 import profile from "../assets/Zzanggu.png";
-import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import axios from "axios";
 import { Button } from "../pages/Signup";
 import styled from "styled-components";
 import Aside from "../components/Aside";
@@ -152,17 +153,31 @@ const Questions = () => {
     userName: "짱구",
     userReputation: 20,
   };
-  const navigate = useNavigate();
-  const hanldeAskQuestion = () => {
-    navigate("/question/edit");
-  };
+
+  //해당 id로 게시물 조회
+  useEffect(() => {
+    axios
+      .get("/questions/{question-id}", {
+        // headers: {
+        //   "ngrok-skip-browser-warning": "69420",
+        // },
+        // withCredentials: true,
+        // credentials: "include",
+      })
+      .then((res) => console.log(res))
+      .catch(function (error) {
+        // 에러인 경우 실행
+        console.log(error);
+      });
+  }, []);
+
   return (
     <QuestionsSection>
       <QuestionTitle>
         <div className="header">
           <h1>{data.questionTitle}</h1>
           {/* 버튼 링크 연결 -> 글 작성 페이지 */}
-          <Button onClick={hanldeAskQuestion}>Ask Question</Button>
+          <Button>Ask Question</Button>
         </div>
         <div className="header_info">
           <span>
