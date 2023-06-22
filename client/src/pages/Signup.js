@@ -1,6 +1,7 @@
 import { FaQuestionCircle, FaSort, FaGithub } from "react-icons/fa";
 import { ImPriceTags, ImTrophy } from "react-icons/im";
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const DivContainer = styled.div`
@@ -8,6 +9,7 @@ export const DivContainer = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
+  width: 100vw;
   background-color: #f1f2f3;
 
   a {
@@ -274,7 +276,7 @@ const Signup = () => {
   const NameInputRef = useRef(null);
   const EmailInputRef = useRef(null);
   const PasswordInputRef = useRef(null);
-
+  // const navigate = useNavigate();
   //false -> 기본값 , true -> 통과되지 못함(red)
   const [isName, setIsName] = useState(false);
   const [isEmail, setIsEmail] = useState(false);
@@ -547,7 +549,7 @@ const Signup = () => {
             </FormContainer>
           </SignupDiv>
           <div>
-            Already have an account? <span>Log in</span>
+            Already have an account? <Link to="/">Log in</Link>
           </div>
         </RightDiv>
       </DivContent>

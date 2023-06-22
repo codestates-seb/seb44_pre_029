@@ -2,56 +2,52 @@ import styled from "styled-components";
 /* eslint-disable react/prop-types */
 // props 에러 해결 주석
 
-const SearchBoxModal = ({ isFocused }) => {
-  const SearchModal = styled.div`
-    width: 100%;
-    background-color: #fff;
-    box-shadow: 0 0 7px 0 #ccc;
-    position: absolute;
-    top: 42px;
-    z-index: 2;
-    border-radius: 5px;
+const SearchModal = styled.div`
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 0 7px 0 #ccc;
+  position: absolute;
+  top: 42px;
+  z-index: 2;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  text-align: left;
+  ul {
     display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    text-align: left;
-    ul {
-      display: flex;
-      flex-direction: column;
-      width: 50%;
-      padding: 0;
-    }
+    flex-direction: column;
+    width: 50%;
+    padding: 0;
+  }
+  .modalTriangle {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid #fff;
+    border-right: 10px solid transparent;
+    z-index: 2;
+    position: absolute;
+    top: -20px;
+    left: 50%;
+  }
+`;
 
-    .modalTriangle {
-      width: 0;
-      height: 0;
-      border-left: 10px solid transparent;
-      border-top: 10px solid transparent;
-      border-bottom: 10px solid #fff;
-      border-right: 10px solid transparent;
-      z-index: 2;
-      position: absolute;
-      top: -20px;
-      left: 50%;
-    }
-  `;
-
-  const ModalList = styled.li`
-    z-index: 3;
-    display: inline-block;
-    padding: 7px 10px;
-
-    h4 {
-      display: inline;
-    }
-
-    span {
-      color: #545454;
-      padding: 0 5px;
-      font-size: 14px;
-    }
-  `;
-
+const ModalList = styled.li`
+  z-index: 3;
+  display: inline-block;
+  padding: 7px 10px;
+  h4 {
+    display: inline;
+  }
+  span {
+    color: #545454;
+    padding: 0 5px;
+    font-size: 14px;
+  }
+`;
+const SearchBoxModal = ({ isFocused }) => {
   return (
     <SearchModal className={isFocused ? "" : "hide"}>
       <ul>

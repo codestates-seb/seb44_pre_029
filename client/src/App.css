@@ -2,3 +2,15 @@ main{
   display: flex;
   justify-content: center;
 }
+
+main > div {
+  margin-top: 53px;
+}
+
+main > section {
+  margin-top: 53px;
+}
+
+header {
+  position: fixed;
+}
