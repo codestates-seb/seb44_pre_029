@@ -26,7 +26,7 @@ public class QuestionService {
     }
 
     public Question createQuestion(Question question) {
-        long userId = question.getUser().getUser_id();
+        long userId = question.getUser().getUserid();
         User user = userService.findUser(userId);
         question.setUser(user);
 

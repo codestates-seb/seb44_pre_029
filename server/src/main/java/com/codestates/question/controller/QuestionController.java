@@ -1,6 +1,6 @@
 package com.codestates.question.controller;
 
-import com.codestates.dto.MultiResponseDto;
+import com.codestates.response.MultiResponseDto;
 import com.codestates.question.dto.QuestionDto;
 import com.codestates.question.entity.Question;
 import com.codestates.question.mapper.QuestionMapper;
@@ -48,7 +48,7 @@ public class QuestionController {
         Map<String, Object> principal = (Map) authentication.getPrincipal();
         long userId = ((Number) principal.get("userId")).longValue();
 
-        long findUserId = questionService.findQuestion(questionId).getUser().getUser_id();
+        long findUserId = questionService.findQuestion(questionId).getUser().getUserid();
         if(userId != findUserId) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 
         questionPatchDto.setQuestionId(questionId);
@@ -79,7 +79,7 @@ public class QuestionController {
         Map<String, Object> principal = (Map) authentication.getPrincipal();
         long userId = ((Number) principal.get("userId")).longValue();
 
-        long findUserId = questionService.findQuestion(questionId).getUser().getUser_id();
+        long findUserId = questionService.findQuestion(questionId).getUser().getUserid();
         if(userId != findUserId) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 
         questionService.deleteQuestion(questionId);

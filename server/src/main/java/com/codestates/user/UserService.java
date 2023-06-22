@@ -19,8 +19,8 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
 
-    public User createUser(User user){
-        verifyExistsEmail(user.getEmail());
+    public User createUser(User user) {
+        findUserEmail(user.getEmail());
 
         String encryptedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encryptedPassword);
@@ -33,39 +33,63 @@ public class UserService {
         return savedUser;
     }
 
-    public User updateUser(User user){
-        User updatedUser = user;
-        return updatedUser;
+    //회원 프로필 변경
+    public User updateUser(User user) {
+        User findUser = findVerifiedUser(user.getUserid());
+        Optional.of(user.getEmail())
+                .ifPresent(email -> findUser.setEmail(email));
+        Optional.of(user.getNickname())
+                .ifPresent(nickname -> findUser.setNickname(nickname));
+        Optional.of(user.getPassword())
+                .ifPresent(password -> findUser.setPassword(password));
+
+        return userRepository.save(findUser);
     }
 
-    public User findUser(long user_id){
-        User user = new User("email", "","");
-        return user;
+    //회원 정보 조회
+    public User findUser(long userid) {
+
+        return findVerifiedUser(userid);
     }
 
-    public List<User> findUsers(){
-        List<User> users = List.of(
-                new User("hgd@gmail.com", "홍길동", "015678"),
-                new User("lml@gmail.com", "이몽룡", "010222")
-        );
-        return users;
-    }
-    public User deleteUser(long user_id){
-        User user = new User("","","");
-
-        return null;
-
-
-
-
+    //모든 회원 정보 조회
+    public List<User> findUsers() {
+        return (List<User>) userRepository.findAll();
     }
 
-    private void verifyExistsEmail(String email){
-        Optional<User> optionalUser = userRepository.findByEmail(email);
-        if(optionalUser.isPresent()){
-            throw new BusinessLogicException(ExceptionCode.USER_EXIST);
-        }
+    //회원 삭제
+    public void deleteUser(long userid) {
+        User findUser = findVerifiedUser(userid);
+
+        userRepository.delete(findUser);
     }
 
+    //유저 정보 검색
+    public User findVerifiedUser(long userid) {
+        Optional<User> optionalUser =
+                userRepository.findByUserid(userid);
 
+        User findUser =
+                optionalUser.orElseThrow(() ->
+                        new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
+
+        return findUser;
+    }
+
+    //이미 존재하는 이메일인지 검색. 있으면 로그인
+    public User findUserEmail(String email) {
+        Optional<User> optionalUser =
+                userRepository.findByEmail(email);
+        User findUser =
+                optionalUser.orElseThrow(() ->
+                        new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
+        return findUser;
+    }
+
+    //이미 존재하는 이메일인지 검색. 있으면 회원가입 불가
+    private void verifyEmail(String email) {
+        Optional<User> user = userRepository.findByEmail(email);
+        if (user.isPresent())
+            throw new BusinessLogicException(ExceptionCode.USER_EXISTS);
+    }
 }

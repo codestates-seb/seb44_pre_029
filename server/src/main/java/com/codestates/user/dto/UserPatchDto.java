@@ -5,9 +5,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 public class UserPatchDto {
-    @NotBlank
-    @Pattern(regexp = "^([0-9])$")
-    private long user_id;
+
+    private long userid;
     @NotBlank
     @Pattern(regexp = "^([a-zA-Z0-9@.]{8,20})$")
     @Email
@@ -19,12 +18,12 @@ public class UserPatchDto {
     @Pattern(regexp = "^([a-zA-Z0-9!@#$%^&*]{8,12})$")
     private String password;
 
-    public long getUser_id() {
-        return user_id;
+    public long getUserid() {
+        return userid;
     }
 
-    public void setEmail(long user_id){
-        this.user_id = user_id;
+    public void setUserid(long userid){
+        this.userid = userid;
     }
     public String getEmail() {
         return email;
@@ -49,4 +48,6 @@ public class UserPatchDto {
     public void setPassword(String password){
         this.password = password;
     }
+
+
 }

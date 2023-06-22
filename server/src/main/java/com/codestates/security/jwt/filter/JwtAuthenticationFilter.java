@@ -52,7 +52,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         String accessToken = delegateAccessToken(user);
         String refreshToken = delegateRefreshToken(user);
-        Long userId = user.getUser_id();
+        Long userId = user.getUserid();
         Integer expiration = jwtTokenizer.getAccessTokenExpirationMinutes();
 
         response.setHeader("Authorization", "Bearer"+ accessToken);

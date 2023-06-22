@@ -1,5 +1,6 @@
-package com.codestates.user;
+package com.codestates;
 
+import com.codestates.Exception.ExceptionCode;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
@@ -16,15 +17,15 @@ public class ErrorResponse {
     private List<FieldError> fieldErrors;
     private List<ConstraintViolationError> violationErrors;
 
-    private ErrorResponse(int status, String message) {
-        this.status = status;
-        this.message = message;
-    }
-
 
     private ErrorResponse(List<FieldError> fieldErrors, List<ConstraintViolationError> violationErrors) {
         this.fieldErrors = fieldErrors;
         this.violationErrors = violationErrors;
+    }
+
+    private ErrorResponse(int status, String message) {
+        this.status = status;
+        this.message = message;
     }
 
 
@@ -37,10 +38,13 @@ public class ErrorResponse {
         return new ErrorResponse(null, ConstraintViolationError.of(violations));
     }
 
-    public static ErrorResponse of(HttpStatus httpStatus){
-        return new ErrorResponse(httpStatus.value(), httpStatus.getReasonPhrase());
+    public static ErrorResponse of(ExceptionCode exceptionCode) {
+        return new ErrorResponse(exceptionCode.getStatus(), exceptionCode.getMessage());
     }
 
+    public static ErrorResponse of(HttpStatus httpStatus) {
+        return new ErrorResponse(httpStatus.value(), httpStatus.getReasonPhrase());
+    }
 
     @Getter
     public static class FieldError {
@@ -91,4 +95,9 @@ public class ErrorResponse {
                     )).collect(Collectors.toList());
         }
     }
+
+
+
+
+
 }
