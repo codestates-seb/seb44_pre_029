@@ -1,7 +1,8 @@
 import Aside from "../components/Aside";
 import QuestionList from "../components/QuestionList";
 import styled from "styled-components";
-
+import { useEffect } from "react";
+import axios from "axios";
 export const MainContainer = styled.div`
   display: flex;
 
@@ -15,6 +16,22 @@ export const MainContainer = styled.div`
   }
 `;
 const Home = () => {
+  //전체게시물 조회
+  useEffect(() => {
+    axios
+      .get("/questions?page=1&size=10", {
+        // headers: {
+        //   "ngrok-skip-browser-warning": "69420",
+        // },
+        // withCredentials: true,
+        // credentials: "include",
+      })
+      .then((res) => console.log(res))
+      .catch(function (error) {
+        // 에러인 경우 실행
+        console.log(error);
+      });
+  }, []);
   return (
     <MainContainer>
       <div className="questions">

@@ -3,9 +3,9 @@ import HelpItem from "../components/HelpItem";
 import InputHeader from "../components/InputHeader";
 import CreateTip from "../components/CreateTip";
 import { InputItem, TextareaItem } from "../components/CreateContent";
-
+import axios from "axios";
 import { Button } from "./Signup";
-
+import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import { useState, useEffect, useRef } from "react";
 
@@ -89,6 +89,7 @@ const Create = () => {
   const [isTitle, setIsTitle] = useState(false);
   const [isBody, setIsBody] = useState(false);
 
+  const navigate = useNavigate();
   const titleHandler = () => {
     let titleInputValue = titleInputRef.current.value;
     setTitle(titleInputValue);
@@ -128,26 +129,55 @@ const Create = () => {
       console.log(isBody ? "본문 문제" : "");
     }
   }, [title, body]);
-  console.log(title, body);
   // const navigate = useNavigate();
 
   // 신규 데이터 보내기
-  // const postData = () => {
-  //   let newData = {
-  //     questionTitle: title,
-  //     questionContent: body,
-  //   };
-
-  // }
+  const postData = () => {
+    let newData = {
+      title,
+      body,
+    };
+    axios
+      .post("/questions/create", newData, {
+        headers: {
+          Authorization: localStorage.getItem("token"), //post 요청시 인증토큰 필요
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   // Register 클릭시 이벤트
-  // const hanldeRegister = () =>{
-  //   postData();
-  //   navigate();//생성후 해당 질문 게시물 페이지로 이동
-  // }
+  const hanldeRegister = () => {
+    postData();
+
+    // fetch("/questions/create", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json", //;charset=UTF-8",
+    //     Authorization: localStorage.getItem("token"),
+    //   },
+    //   body: JSON.stringify(newData),
+    // })
+    //   .then((res) => console.log(res))
+    //   .then((data) => console.log(data));
+    // axios
+    //   .post("/questions/create", newData)
+    //   .then((response) => {
+    //     console.log(response.data);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    // navigate('/questions/{id}'); //생성후 해당 질문 게시물 페이지로 이동
+  };
   // Cancel 클릭시 이벤트
-  // const handleCancel = () => {
-  //   navigate('/question'); //메인 게시물로 이동
-  // }
+  const handleCancel = () => {
+    navigate("/questions"); //메인 게시물로 이동
+  };
 
   const help = [
     {
@@ -241,8 +271,10 @@ const Create = () => {
 
             {/* 버튼 */}
             <ButtonContainer>
-              <Button type="submit">Register</Button>
-              <Button>Cancel</Button>
+              <Button type="submit" onClick={hanldeRegister}>
+                Register
+              </Button>
+              <Button onClick={handleCancel}>Cancel</Button>
             </ButtonContainer>
             {/*  */}
           </FormContainer>
