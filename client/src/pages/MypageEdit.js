@@ -3,8 +3,10 @@ import Zzanggu from "../assets/Zzanggu.png";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { MdCake } from "react-icons/md";
 import { AiOutlineClockCircle } from "react-icons/ai";
-import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+// import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useEffect } from "react";
+// import axios from "axios";
 
 const MypageWrap = styled.section`
   width: 1062px;
@@ -182,31 +184,32 @@ const MypageEdit = () => {
   // };
 
   const handleSubmit = (e) => {
-    e.preventDefault;
-    fetch("https://1232-121-187-22-182.ngrok-free.app/users", {
-      method: "POST",
+    e.preventDefault();
+    fetch("/users/2", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "ngrok-skip-browser-warning": true,
+      },
       body: JSON.stringify(values),
     })
-      .then((res) => {
-        console.log(res);
-        return res.json;
-      })
-      .then((res) => {
-        console.log(res);
-      });
+      .then((res) => console.log(res))
+      .catch((error) => console.log(error));
   };
 
+  console.log(values);
+
   useEffect(() => {
-    fetch("/users", {
-      header: {
+    fetch("/users/2", {
+      method: "GET",
+      headers: {
         "Content-Type": "application/json",
-        Accept: "application/json",
+        "ngrok-skip-browser-warning": true,
       },
     })
       .then((res) => res.json())
       .then((data) => console.log(data));
   }, []);
-  // console.log(values);
 
   return (
     <MypageWrap>
@@ -230,9 +233,7 @@ const MypageEdit = () => {
       </MypageProfile>
       <MypageCategoryWrap>
         <MypageCategoty>Profile</MypageCategoty>
-        <Link to="/mypage">
-          <MypageCategoty>Activity</MypageCategoty>
-        </Link>
+        <MypageCategoty>Activity</MypageCategoty>
         <MypageCategoty>Saves</MypageCategoty>
         <MypageCategoty className="active">Settings</MypageCategoty>
       </MypageCategoryWrap>
@@ -273,9 +274,7 @@ const MypageEdit = () => {
             </EditContent>
             <div className="EditBtnWrap">
               <EditBtn>Save profile</EditBtn>
-              <Link to="/mypage">
-                <EditBtn>Cancel</EditBtn>
-              </Link>
+              <EditBtn>Cancel</EditBtn>
             </div>
           </form>
         </EditProfileForm>
@@ -287,11 +286,6 @@ const MypageEdit = () => {
 export default MypageEdit;
 
 // export async function getAllfetch() {
-//   const response = await fetch("/users", {
-//     method: "GET",
-//     header: { "Content-Type": "application/json" },
-//   })
-//     .then((res) => res.json())
-//     .then((data) => console.log(data));
+//   const response = await fetch("/users");
 //   return await response.json();
 // }

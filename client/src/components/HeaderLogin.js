@@ -175,14 +175,12 @@ const HeaderLogin = () => {
           <SearchBoxModal isFocused={isFocused} />
         </div>
         <IconsBtnWrap>
-          <Link to="/mypage">
-            <IconsBtn>
-              <IconBtnA>
-                <BsPersonCircle size={20} />
-                <span className="reputationCount">1</span>
-              </IconBtnA>
-            </IconsBtn>
-          </Link>
+          <IconsBtn>
+            <IconBtnA href="/mypage">
+              <BsPersonCircle size={20} />
+              <span className="reputationCount">1</span>
+            </IconBtnA>
+          </IconsBtn>
           <IconsBtn>
             <IconBtnA>
               <FaInbox size={20} />
