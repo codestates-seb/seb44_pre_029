@@ -6,32 +6,31 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
+@NoArgsConstructor
 @Table(name = "USERSS")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, updatable = false, unique = true, name = "user_id")
+    @Column( name = "userid")
     private long userid;
-    @Column(length = 50, nullable = false, updatable = true, unique = true, name = "email")
+    @Column(length = 50, updatable = true, unique = true, name = "email")
     private String email;
-    @Column(length = 50, nullable = false, updatable = true, unique = false, name = "nickname")
+    @Column(length = 12,  updatable = true, name = "nickname")
     private String nickname;
-    @Column(nullable = false, updatable = true, unique = false, name = "password")
+    @Column(length = 12, updatable = true, unique = false, name = "password")
     private String password;
-    @ElementCollection(fetch = FetchType.EAGER)
-    private List<String> roles = new ArrayList<>();
 
-    public User(String email, String nickname, String password){
+    public User(long userid, String email, String nickname, String password){
+        this.userid =  userid;
         this.email = email;
         this.nickname = nickname;
         this.password = password;
     }
+
+
 
 }

@@ -31,7 +31,7 @@ public class QuestionController {
         this.mapper = mapper;
     }
 
-    @PostMapping("/add")
+    @PostMapping("/create")
     public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.Post questionPostDto,
                                        Authentication authentication) {
         Map<String, Object> principal = (Map) authentication.getPrincipal();

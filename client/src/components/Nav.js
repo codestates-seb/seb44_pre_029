@@ -10,7 +10,6 @@ import styled from "styled-components";
 
 export const DivContainer = styled.div`
   width: 200px;
-  margin-top: 30px;
   border-right: 1px solid #e1e2e5;
   li {
     list-style: none;
