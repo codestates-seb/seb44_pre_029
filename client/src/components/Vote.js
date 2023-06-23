@@ -6,7 +6,7 @@ import {
 } from "react-icons/fa";
 import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export const VoteContainer = styled.div`
   padding-right: 16px;
@@ -29,7 +29,7 @@ export const VoteContainer = styled.div`
     }
   }
 `;
-const Vote = () => {
+const Vote = ({ vote }) => {
   const [voteSum, setVoteSum] = useState(0);
   //유저당 한번만 가능하게
   // const [voteUp, setVotedUp] = useState(false);
@@ -40,21 +40,12 @@ const Vote = () => {
     setBookmark(!bookmark);
   };
   const hanldeVoteUp = () => {
-    // if (!voteUp) {
-    //   setVoteSum((prev) => prev + 1);
-    //   setVotedUp(!voteUp);
-    //   setVotedDown(!voteDown);
-    // }
     setVoteSum((prev) => prev + 1);
   };
-  const hanldeVoteDown = () => {
-    // if (!voteDown) {
-    //   setVoteSum((prev) => prev - 1);
-    //   setVotedDown(!voteDown);
-    //   setVotedUp(!voteUp);
-    // }
-    setVoteSum((prev) => prev - 1);
-  };
+  const hanldeVoteDown = () => {};
+  useEffect(() => {
+    setVoteSum(vote);
+  }, []);
   return (
     <>
       <VoteContainer>

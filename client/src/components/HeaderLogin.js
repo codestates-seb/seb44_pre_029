@@ -2,12 +2,12 @@ import { styled } from "styled-components";
 import { HiMagnifyingGlass } from "react-icons/hi2";
 import { BsPersonCircle } from "react-icons/bs";
 import { FaInbox } from "react-icons/fa";
-import { AiFillTrophy } from "react-icons/ai";
-import { AiFillQuestionCircle } from "react-icons/ai";
+import { AiFillTrophy, AiFillQuestionCircle } from "react-icons/ai";
+
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useState } from "react";
 import SearchBoxModal from "./SearchBoxModal";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Header = styled.header`
   width: 100%;
@@ -145,11 +145,13 @@ const LogoutBtn = styled.button`
 `;
 const HeaderLogin = () => {
   const [isFocused, setIsFocused] = useState(false);
-
+  const navigate = useNavigate();
   const handleSearchFocus = () => {
     setIsFocused(!isFocused);
   };
-
+  const mypageHanlder = () => {
+    navigate(`/mypage/2`);
+  };
   return (
     <Header>
       <HeaderWrap>
@@ -176,10 +178,10 @@ const HeaderLogin = () => {
         </div>
         <IconsBtnWrap>
           <IconsBtn>
-            <IconBtnA href="/mypage">
+            <button onClick={mypageHanlder}>
               <BsPersonCircle size={20} />
               <span className="reputationCount">1</span>
-            </IconBtnA>
+            </button>
           </IconsBtn>
           <IconsBtn>
             <IconBtnA>

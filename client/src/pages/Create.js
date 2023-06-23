@@ -130,40 +130,21 @@ const Create = () => {
     }
   }, [title, body]);
   // const navigate = useNavigate();
-  console.log(title, body);
-  // 신규 데이터 보내기
-  // const postData = () => {
-  //   const newData = {
-  //     title,
-  //     body,
-  //     userid: 1,
-  //   };
 
-  //   axios
-  //     .post("/questions/add", newData, {
-  //       // headers: {
-  //       //   "Content-Type": "application/json",
-  //       //   //   Authorization: localStorage.getItem("token"), //post 요청시 인증토큰 필요
-  //       // },
-  //     })
-  //     .then((response) => {
-  //       console.log(response.data);
-  //       // navigate("")
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
+  //자기 자신은 로컬에 저장함
+  const currentUserId = localStorage.getItem("userId");
+
   // Register 클릭시 이벤트
   const hanldeRegister = (e) => {
     e.preventDefault();
     titleHandler();
     bodyHandler();
     // postData();
+
     const newData = {
       title,
       body,
-      userid: "1",
+      userid: currentUserId,
     };
 
     axios
@@ -173,9 +154,11 @@ const Create = () => {
         //   //   Authorization: localStorage.getItem("token"), //post 요청시 인증토큰 필요
         // },
       })
-      .then((response) => {
-        console.log(response.data);
-        navigate("/quest");
+      .then((res) => {
+        console.log(res.data);
+        const question_id = res.data.question.question_id;
+        console.log(question_id);
+        navigate(`/question/${question_id}`);
       })
       .catch((err) => {
         console.log(err);

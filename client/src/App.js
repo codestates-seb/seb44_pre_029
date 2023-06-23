@@ -11,6 +11,7 @@ import Question from "./pages/Questions";
 import Login from "./pages/Login";
 import MypageEdit from "./pages/MypageEdit";
 import Nav from "./components/Nav";
+import EditQuestion from "./pages/EditQuestion";
 function App() {
   return (
     <BrowserRouter>
@@ -26,9 +27,13 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/questions/create" element={<Create />} />
             <Route path="/introduce" element={<Introduce />} />
-            <Route path="/mypage" element={<Mypage />} />
-            <Route path="/questions" element={<Question />} />
-            <Route path="/mypage/edit" element={<MypageEdit />} />
+            <Route path="/mypage/:userId" element={<Mypage />} />
+            <Route path="/question/:questionId" element={<Question />} />
+            <Route path="/mypage/:userId/edit" element={<MypageEdit />} />
+            <Route
+              path="/question/:questionId/edit"
+              element={<EditQuestion />}
+            />
           </Routes>
         </main>
       </div>

@@ -3,10 +3,9 @@ import Zzanggu from "../assets/Zzanggu.png";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { MdCake } from "react-icons/md";
 import { AiOutlineClockCircle } from "react-icons/ai";
-// import { Link } from "react-router-dom";
-import { useState } from "react";
-import { useEffect } from "react";
-// import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const MypageWrap = styled.section`
   width: 1062px;
@@ -63,10 +62,10 @@ const MypageCategoty = styled.li`
 `;
 
 const EditProfileWrap = styled.div`
-  .EditBtnWrap {
+  /* .EditBtnWrap {
     display: flex;
     align-items: center;
-  }
+  } */
 `;
 
 const EditProfileForm = styled.div`
@@ -119,23 +118,6 @@ const EditContent = styled.div`
   }
 `;
 
-// const LinksContent = styled.div`
-//   width: 33.3%;
-//   display: inline-block;
-//   > h4 {
-//     margin: 10px 0;
-//   }
-//   input {
-//     width: 90%;
-//     height: 40px;
-//     border: 1px solid #d9d9d9;
-//     border-radius: 5px;
-//     &:focus {
-//       outline: none;
-//     }
-//   }
-// `;
-
 const EditBtn = styled.button`
   background-color: #0a95ff;
   border: 1px solid #81c5ff;
@@ -152,12 +134,9 @@ const EditBtn = styled.button`
 const MypageEdit = () => {
   // 이메일, 패스워드, 닉네임 일단 공란
   // 데이터 받아오게 되면 그때 채워넣기
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [nickname, setNickname] = useState("");
-
-  // 리팩토링할 때 참고
+  const user_id = 2;
   const [values, setValues] = useState({
+    userid: user_id,
     email: "",
     password: "",
     nickname: "",
@@ -170,53 +149,47 @@ const MypageEdit = () => {
     });
   };
 
-  // const changeEmail = (e) => {
-  //   setEmail(e.target.value);
-  //   console.log(email);
-  // };
-  // const changePassword = (e) => {
-  //   setPassword(e.target.value);
-  //   console.log(password);
-  // };
-  // const changeNickname = (e) => {
-  //   setNickname(e.target.value);
-  //   console.log(nickname);
-  // };
+  // get 요청 핸들러
+  useEffect(() => {
+    axios
+      .get(`/mypage/${user_id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "ngrok-skip-browser-warning": true,
+        },
+      })
+      .then((res) =>
+        setValues({
+          ...values,
+          email: res.data.email,
+          password: res.data.password,
+          nickname: res.data.nickname,
+        }),
+      )
+      .catch((error) => console.log(error));
+  }, []);
 
+  // patch 요청 핸들러
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("/users/2", {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        "ngrok-skip-browser-warning": true,
-      },
-      body: JSON.stringify(values),
-    })
-      .then((res) => console.log(res))
-      .catch((error) => console.log(error));
+    axios.patch(`/mypage/edit/${user_id}`, values).then(navigate(`/mypage/2`));
   };
+  // patch, get 확인 완료
+  // path 에 userid 끌어오기만 하면 됨
+  // 6월 23일 patch 안됨 -> 식 수정하니까 됨
 
-  console.log(values);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    fetch("/users/2", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "ngrok-skip-browser-warning": true,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => console.log(data));
-  }, []);
+  const handleMypage = () => {
+    navigate("/mypage/2");
+  };
 
   return (
     <MypageWrap>
       <MypageProfile>
         <img src={Zzanggu} alt="짱구" />
         <div className="profileContents">
-          <h1>Name</h1>
+          <h1>{values.nickname}</h1>
           <p>
             <MdCake />
             Member for 3 days
@@ -233,7 +206,7 @@ const MypageEdit = () => {
       </MypageProfile>
       <MypageCategoryWrap>
         <MypageCategoty>Profile</MypageCategoty>
-        <MypageCategoty>Activity</MypageCategoty>
+        <MypageCategoty onClick={handleMypage}>Activity</MypageCategoty>
         <MypageCategoty>Saves</MypageCategoty>
         <MypageCategoty className="active">Settings</MypageCategoty>
       </MypageCategoryWrap>
@@ -247,36 +220,36 @@ const MypageEdit = () => {
             <img src={Zzanggu} alt="짱구" />
             <p>Change picture</p>
           </div>
-          <form onSubmit={(e) => handleSubmit(e)}>
-            <EditContent>
-              <h3>Email</h3>
-              <input
-                type="text"
-                onChange={(e) => handleValueChange(e)}
-                name="email"
-              />
-            </EditContent>
-            <EditContent>
-              <h3>Password</h3>
-              <input
-                type="text"
-                onChange={(e) => handleValueChange(e)}
-                name="password"
-              />
-            </EditContent>
-            <EditContent>
-              <h3>Nickname</h3>
-              <input
-                type="text"
-                onChange={(e) => handleValueChange(e)}
-                name="nickname"
-              />
-            </EditContent>
-            <div className="EditBtnWrap">
-              <EditBtn>Save profile</EditBtn>
-              <EditBtn>Cancel</EditBtn>
-            </div>
-          </form>
+          <EditContent>
+            <h3>Email</h3>
+            <input
+              type="text"
+              onChange={(e) => handleValueChange(e)}
+              name="email"
+              value={values.email}
+            />
+          </EditContent>
+          <EditContent>
+            <h3>Password</h3>
+            <input
+              type="password"
+              onChange={(e) => handleValueChange(e)}
+              name="password"
+              value={values.password}
+              disabled
+            />
+          </EditContent>
+          <EditContent>
+            <h3>Nickname</h3>
+            <input
+              type="text"
+              onChange={(e) => handleValueChange(e)}
+              name="nickname"
+              value={values.nickname}
+            />
+          </EditContent>
+          <EditBtn onClick={handleSubmit}>Save profile</EditBtn>
+          <EditBtn onClick={handleMypage}>Cancel</EditBtn>
         </EditProfileForm>
       </EditProfileWrap>
     </MypageWrap>
@@ -284,8 +257,3 @@ const MypageEdit = () => {
 };
 
 export default MypageEdit;
-
-// export async function getAllfetch() {
-//   const response = await fetch("/users");
-//   return await response.json();
-// }
