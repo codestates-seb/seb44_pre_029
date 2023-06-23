@@ -19,7 +19,7 @@ public class QuestionAnswerResponseDto {
     private QuestionUserResponseDto user;
     private long answerId;
     private String body;
-    @JsonProperty("is_accpeted")
+    @JsonProperty("is_accepted")
     private boolean isAccepted;
     private int isVote;
     private int score;
