@@ -1,40 +1,31 @@
 package com.codestates.user;
 
-import com.codestates.exception.BusinessLogicException;
-import com.codestates.exception.ExceptionCode;
-import com.codestates.security.utils.CustomAuthorityUtils;
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import com.codestates.Exception.BusinessLogicException;
+import com.codestates.Exception.ExceptionCode;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
-@Transactional
 public class UserService {
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final CustomAuthorityUtils authorityUtils;
+    public UserService(UserRepository userRepository){
+        this.userRepository = userRepository;
+    }
 
-    public User createUser(User user) {
+    //회원가입
+    public User createUser(User user){
         verifyEmail(user.getEmail());
 
-        String encryptedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encryptedPassword);
 
-        List<String> roles = authorityUtils.createRoles(user.getEmail());
-        user.setRoles(roles);
-
-        User savedUser = userRepository.save(user);
-
-        return savedUser;
+        return userRepository.save(user);
     }
 
     //회원 프로필 변경
-    public User updateUser(User user) {
+    public User updateUser(User user){
         User findUser = findVerifiedUser(user.getUserid());
         Optional.of(user.getEmail())
                 .ifPresent(email -> findUser.setEmail(email));
@@ -47,13 +38,13 @@ public class UserService {
     }
 
     //회원 정보 조회
-    public User findUser(long userid) {
+    public User findUser(long userid){
 
         return findVerifiedUser(userid);
     }
 
     //모든 회원 정보 조회
-    public List<User> findUsers() {
+    public List<User> findUsers(){
         return (List<User>) userRepository.findAll();
     }
 
@@ -75,13 +66,12 @@ public class UserService {
 
         return findUser;
     }
-
     //이미 존재하는 이메일인지 검색. 있으면 로그인
-    public User findUserEmail(String email) {
+    public User findUserEmail(String email){
         Optional<User> optionalUser =
                 userRepository.findByEmail(email);
         User findUser =
-                optionalUser.orElseThrow(() ->
+                optionalUser.orElseThrow(()->
                         new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
         return findUser;
     }
@@ -92,4 +82,11 @@ public class UserService {
         if (user.isPresent())
             throw new BusinessLogicException(ExceptionCode.USER_EXISTS);
     }
+
+    //최신순 페이지네이션
+    public Page<User> findPageUsers(int page, int size){
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return userRepository.findAllByOrderByUseridDesc(pageRequest);
+    }
+
 }

@@ -1,7 +1,7 @@
 package com.codestates.question.service;
 
-import com.codestates.exception.BusinessLogicException;
-import com.codestates.exception.ExceptionCode;
+import com.codestates.Exception.BusinessLogicException;
+import com.codestates.Exception.ExceptionCode;
 import com.codestates.question.entity.Question;
 import com.codestates.question.repository.QuestionRepository;
 import com.codestates.user.User;

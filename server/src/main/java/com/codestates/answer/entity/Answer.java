@@ -36,6 +36,6 @@ public class Answer {
     private Question question;
 
     @ManyToOne
-    @JoinColumn(name = "USER_ID")
+    @JoinColumn(name = "userid")
     private User user;
 }

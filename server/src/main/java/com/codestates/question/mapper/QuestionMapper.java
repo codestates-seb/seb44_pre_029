@@ -1,6 +1,6 @@
 package com.codestates.question.mapper;
 
-import com.codestates.answer.entity.Answer;
+
 import com.codestates.question.dto.QuestionAnswerResponseDto;
 import com.codestates.question.dto.QuestionDto;
 import com.codestates.question.dto.QuestionUserResponseDto;
@@ -52,7 +52,7 @@ public interface QuestionMapper {
 
         getResponse.setUser(userToQuestionUserResponseDto(question.getUser()));
         getResponse.setQuestion(questionToQuestionResponseDto(question));
-        getResponse.setAnswer(answerListToQuestionAnswerResponseDtoList(question.getAnswers()));
+
 
         return getResponse;
     }
@@ -102,20 +102,6 @@ public interface QuestionMapper {
         return questionUserResponseDto;
     }
 
-    List<QuestionAnswerResponseDto> answerListToQuestionAnswerResponseDtoList(List<Answer> answers);
 
-    default QuestionAnswerResponseDto answerToQuestionAnswerResponseDto(Answer answer) {
-        if(answer == null) {
-            return null;
-        }
 
-        QuestionAnswerResponseDto questionAnswerResponseDto = new QuestionAnswerResponseDto();
-        // questionAnswerResponseDto.setUser(userToQuestionUserResponseDto(answer.getUser()));
-        questionAnswerResponseDto.setAnswerId(answer.getAnswerId());
-        questionAnswerResponseDto.setBody(answer.getBody());
-        questionAnswerResponseDto.setCreatedAt(answer.getCreatedAt());
-        questionAnswerResponseDto.setModifiedAt(answer.getModifiedAt());
-
-        return questionAnswerResponseDto;
-    }
 }

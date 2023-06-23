@@ -10,7 +10,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 
 
-//@Configuration
+@Configuration
 public class JpaConfiguration {
     private EntityManager em;
     private EntityTransaction tx;

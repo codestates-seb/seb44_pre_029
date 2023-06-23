@@ -44,7 +44,7 @@ public class Question {
     private LocalDateTime modifiedAt = LocalDateTime.now();
 
     @ManyToOne
-    @JoinColumn(name = "USER_ID")
+    @JoinColumn(name = "userid")
     private User user;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)

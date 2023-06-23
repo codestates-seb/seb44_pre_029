@@ -1,14 +1,17 @@
 package com.codestates.user;
 
+import com.codestates.user.dto.UserPageResponseDto;
 import com.codestates.user.dto.UserPatchDto;
 import com.codestates.user.dto.UserPostDto;
 import com.codestates.user.dto.UserResponseDto;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,6 +19,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/users")
 @Validated
+@CrossOrigin
 public class UserController {
     private final static String USER_URL = "/users";
     private final UserService userService;
@@ -48,14 +52,22 @@ public class UserController {
         return new ResponseEntity<>(userMapper.userToUserResponseDto(response), HttpStatus.OK);
     }
 
+
+
     @GetMapping
-    public ResponseEntity getUsers(){
-        List<User> users = userService.findUsers();
+    public ResponseEntity getPageUsers(@Positive @RequestParam("page") int page,
+                                       @Positive @RequestParam("size") int size){
+        Page<User> userPage = userService.findPageUsers(page-1, size);
+        PageInfo pageInfo = new PageInfo(page, size,(int)userPage.getTotalElements(), userPage.getTotalPages());
+
+        List<User> users = userPage.getContent();
         List<UserResponseDto> response =
                 users.stream()
-                        .map(user -> userMapper.userToUserResponseDto(user))
+                        .map(user-> userMapper.userToUserResponseDto(user))
                         .collect(Collectors.toList());
-        return new ResponseEntity<>(response, HttpStatus.OK);
+
+        return new ResponseEntity<>(new UserPageResponseDto(response, pageInfo),HttpStatus.OK);
+
     }
 
     @DeleteMapping("/{userid}")

@@ -1,10 +1,10 @@
-package com.codestates.security;
+package com.codestates;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SecurityApplicationTests {
+class PreProjectApplicationTests {
 
 	@Test
 	void contextLoads() {
