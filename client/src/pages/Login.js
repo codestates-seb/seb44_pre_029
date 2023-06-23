@@ -1,16 +1,98 @@
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import TopLogo from "../assets/Stack_Overflow_icon.png";
 import { SiGithub } from "react-icons/si";
 
 function LoginPage() {
-  //!!!!!예리님 숙제입니당!!!!!!
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState(false);
+  //   const [showPasswordError, setShowPasswordError] = useState(false);
+  const emailReg = /[a-z0-9]+@[a-z]+.[a-z]{2,6}/;
+  const pwdReg = /^(?=.*[a-zA-Z]).{8,}$/;
+  const navigate = useNavigate();
 
-  //1. state 설정하시구 !
-  //2. 유효성 검사해주세용!!!
-  // 유효성 검사 !
-  // 1. 아이디 -> 서버에서? 존재한다.
-  // 2. password -> 길이제한? 8글자 이상!
+  useEffect(() => {
+    if (!email.length) {
+      setEmailError("Email cannot be empty.");
+    } else if (!emailReg.test(email)) {
+      setEmailError("The email is not a valid email address.");
+    } else {
+      setEmailError("");
+    }
+  }, [email, emailReg]);
+
+  useEffect(() => {
+    if (!password.length) {
+      //   setShowPasswordError("Password cannot be empty.");
+
+      setPasswordError("Password cannot be empty.");
+    } else if (!pwdReg.test(password)) {
+      //   setShowPasswordError("Password must be at least 8 characters long.");
+
+      setPasswordError("Password must be at least 8 characters long.");
+    } else {
+      //   setShowPasswordError("");
+      setPasswordError("ok");
+    }
+  }, [password, pwdReg]);
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (
+      password.length &&
+      email.length &&
+      emailReg.test(email) &&
+      pwdReg.test(password)
+    ) {
+      console.log("로그인 성공!");
+      setEmailError("");
+      setPasswordError("");
+      try {
+        const response = await fetch(
+          `https://beef-121-160-105-82.ngrok-free.app/`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+            body: JSON.stringify({
+              email: email,
+              password: password,
+            }),
+          },
+        );
+        if (response.ok) {
+          const headers = response.headers;
+          const authorizationHeader = headers.get("Authorization");
+          const token = authorizationHeader.split(" ")[1];
+          localStorage.setItem("Authorization", token);
+          localStorage.setItem("member-id", headers.get("member-id"));
+          console.log(localStorage.getItem("member-id"));
+          setLogin(true);
+          navigate("/login");
+        } else if (response.status === 401) {
+          throw new Error("이메일 또는 비밀번호가 틀렸습니다.");
+        } else {
+          throw new Error("알 수 없는 에러가 발생했습니다.");
+        }
+      } catch (error) {
+        alert(error.message);
+      }
+    }
+  };
 
   return (
     <LoginPageBox>
@@ -24,29 +106,41 @@ function LoginPage() {
             <SocialLoginLogo>
               <SiGithub className="logo" />
             </SocialLoginLogo>
-            <SocialLoginContent>Log in with GitHub</SocialLoginContent>
+            <SocialLoginContent>Log in with Google</SocialLoginContent>
           </SocialLoginLinkBox>
         </SocialLoginBtn>
 
         <UserLoginFormBox>
-          <EmailFormBox>
-            <EmailIndicator>Email</EmailIndicator>
-            <EmailInput />
-          </EmailFormBox>
-          <PasswordFormBox>
-            <PasswordGuideBox>
-              <PasswordIndicator>Password</PasswordIndicator>
-              <FindPassword href="#">Forgot Password?</FindPassword>
-            </PasswordGuideBox>
-            <PasswordInput />
-          </PasswordFormBox>
-          <LoginSubmitBox>
-            <LoginSubmitBtn to="#">Log in</LoginSubmitBtn>
-          </LoginSubmitBox>
+          <form onSubmit={handleSubmit}>
+            <EmailFormBox>
+              <EmailIndicator>Email</EmailIndicator>
+              <EmailInput value={email} onChange={handleEmailChange} />
+            </EmailFormBox>
+            <PasswordFormBox>
+              <PasswordGuideBox>
+                <PasswordIndicator>Password</PasswordIndicator>
+                <FindPassword href="#">Forgot Password?</FindPassword>
+              </PasswordGuideBox>
+              <PasswordInput
+                type="password"
+                value={password}
+                onChange={handlePasswordChange}
+              />
+              {/* {showPasswordError && <span>{showPasswordError}</span>} */}
+
+              {passwordError && <span>{passwordError}</span>}
+            </PasswordFormBox>
+            <LoginSubmitBox>
+              {/* <button onClick={handleSubmit}>Log in</button> */}
+              <LoginSubmitBtn onClick={handleSubmit}>Log in</LoginSubmitBtn>
+
+              {/* <LoginSubmitBtn to="/Home">Log in</LoginSubmitBtn> */}
+            </LoginSubmitBox>
+          </form>
         </UserLoginFormBox>
 
         <SignUpLinkBox>
-          <SignUpText>Don&apos;t have an account?</SignUpText>
+          <SignUpText>Don't have an account?</SignUpText>
           <SignUpLink to="/signup">Sign up</SignUpLink>
         </SignUpLinkBox>
       </LoginBox>
