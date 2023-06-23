@@ -102,6 +102,24 @@ const IconsBtnWrap = styled.ul`
 const IconsBtn = styled.li`
   height: 100%;
   display: inline-block;
+
+  .mypageMoveBtn {
+    color: #666;
+    background-color: transparent;
+    border: none;
+    display: block;
+    height: 50px;
+    padding: 0 6px;
+  }
+
+  .mypageMoveBtn:hover {
+    cursor: pointer;
+    background-color: #eee;
+  }
+
+  &:hover path {
+    color: #333;
+  }
 `;
 
 const IconBtnA = styled.a`
@@ -178,7 +196,7 @@ const HeaderLogin = () => {
         </div>
         <IconsBtnWrap>
           <IconsBtn>
-            <button onClick={mypageHanlder}>
+            <button className="mypageMoveBtn" onClick={mypageHanlder}>
               <BsPersonCircle size={20} />
               <span className="reputationCount">1</span>
             </button>

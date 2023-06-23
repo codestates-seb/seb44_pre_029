@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import TopLogo from "../assets/Stack_Overflow_icon.png";
-import { SiGithub } from "react-icons/si";
+import { FcGoogle } from "react-icons/fc";
 import axios from "axios";
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -115,7 +115,7 @@ function LoginPage() {
         <SocialLoginBtn>
           <SocialLoginLinkBox>
             <SocialLoginLogo>
-              <SiGithub className="logo" />
+              <FcGoogle className="logo" />
             </SocialLoginLogo>
             <SocialLoginContent>Log in with Google</SocialLoginContent>
           </SocialLoginLinkBox>
@@ -171,7 +171,7 @@ const LoginPageBox = styled.div`
 `;
 
 const LoginBox = styled.div`
-  width: 278px;
+  width: 316px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -190,19 +190,23 @@ const LoginLogoImg = styled.img`
 `;
 
 const SocialLoginBtn = styled.div`
+  /* width: 278px; */
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
+  margin: 8px 0;
+  /* padding: 10px; */
+  line-height: 15px;
   height: 40px;
-  background-color: #232629;
-  border: 1px solid #232629;
+  background-color: #fff; //#232629;
+  border: 1px solid #ccc; //#232629;
   border-radius: 5px;
   cursor: pointer;
   margin-bottom: 20px;
 
   &:hover {
-    background-color: #000000;
+    background-color: #f2f2f2; //#000000;
   }
 `;
 
@@ -219,17 +223,18 @@ const SocialLoginLogo = styled.div`
   margin-right: 5px;
 
   .logo {
-    color: #fff;
+    color: black; //#fff;
   }
 `;
 
 const SocialLoginContent = styled.div`
-  color: #fff;
-  font-size: 13px;
+  color: black; //#fff;
+  font-size: 15px;
 `;
 
 const UserLoginFormBox = styled.div`
-  width: 278px;
+  box-sizing: border-box;
+  width: 100%;
   height: 234px;
   padding: 24px;
   background-color: #fff;
@@ -254,7 +259,7 @@ const EmailIndicator = styled.div`
 const EmailInput = styled.input`
   width: 100%;
   height: 32px;
-
+  box-sizing: border-box;
   &:focus {
     box-shadow: 0 0 0 4px rgba(0, 149, 255, 0.15);
     border: 1px solid #59a4de;
@@ -264,6 +269,9 @@ const EmailInput = styled.input`
 
 const PasswordFormBox = styled.div`
   margin-bottom: 15px;
+  > span {
+    font-size: 12px;
+  }
 `;
 
 const PasswordGuideBox = styled.div`
@@ -290,9 +298,9 @@ const FindPassword = styled.a`
 `;
 
 const PasswordInput = styled.input`
+  box-sizing: border-box;
   width: 100%;
   height: 32px;
-
   &:focus {
     box-shadow: 0 0 0 4px rgba(0, 149, 255, 0.15);
     border: 1px solid #59a4de;

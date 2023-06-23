@@ -1,5 +1,6 @@
 //signup.js
-import { FaQuestionCircle, FaSort, FaGithub } from "react-icons/fa";
+import { FaQuestionCircle, FaSort } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 import { ImPriceTags, ImTrophy } from "react-icons/im";
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -105,25 +106,25 @@ export const OauthDiv = styled.div`
   margin: 10px;
   button {
     width: 100%;
-    margin: 4px 0;
-    border: 1px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
     padding: 10px;
     font-size: 15px;
     display: flex;
     justify-content: center;
-    line-height: 15px;
     cursor: pointer;
     > svg {
       margin-right: 10px;
     }
   }
   .github {
-    font-weight: 500;
-    color: #ffffff;
-    background: #2d3535;
+    /* font-weight: 300; */
+    /* color: white; //#ffffff; */
+    /* background: #2d3535; */
+    background-color: #fff;
     border-radius: 5px;
     &:hover {
-      background-color: #232629;
+      background-color: #f2f2f2; //#232629;
     }
   }
 `;
@@ -510,7 +511,7 @@ const Signup = () => {
           {/* <GoogleButton /> */}
           <OauthDiv>
             <button className="github" onClick={handleGoogleLogin}>
-              <FaGithub />
+              <FcGoogle />
               Sign up with Google
             </button>
           </OauthDiv>
