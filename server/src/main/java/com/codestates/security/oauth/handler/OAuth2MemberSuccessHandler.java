@@ -36,39 +36,40 @@ public class OAuth2MemberSuccessHandler extends SavedRequestAwareAuthenticationS
 
         String nickname = String.valueOf(oAuth2User.getAttributes().get("name"));
 
-        saveMember(email, nickname);
+        User user = saveMember(email, nickname);
 
 //        Long userId = userRepository.findUseridbyEmail(email);
 
-        redirect(request, response, email, authorities);  // (6)
+        redirect(request, response, user);  // (6)
     }
 
-    private void saveMember(String email, String nickname) {
+    private User saveMember(String email, String nickname) {
         if(!verifyExistsEmail(email)) {
             User user = new User(email, nickname, "12345678");
 
             List<String> roles = authorityUtils.createRoles(user.getEmail());
             user.setRoles(roles);
-
-            userRepository.save(user);
+            User saveuser = userRepository.save(user);
+            return saveuser;
         }
+        return userRepository.findByEmail(email).orElse(null);
     }
 
-    private void redirect(HttpServletRequest request, HttpServletResponse response, String username, List<String> authorities) throws IOException {
-        String accessToken = delegateAccessToken(username, authorities);  // (6-1)
-        String refreshToken = delegateRefreshToken(username);     // (6-2)
+    private void redirect(HttpServletRequest request, HttpServletResponse response, User user) throws IOException {
+        String accessToken = delegateAccessToken(user);  // (6-1)
+        String refreshToken = delegateRefreshToken(user);     // (6-2)
 
         String uri = createURI(accessToken, refreshToken).toString();   // (6-3)
         getRedirectStrategy().sendRedirect(request, response, uri);   // (6-4)
     }
 
-    private String delegateAccessToken(String email, List<String> authorities) {
+    private String delegateAccessToken(User user) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("email", email);
-        claims.put("roles", authorities);
-/*        claims.put("userId", userId);*/
+        claims.put("email", user.getEmail());
+        claims.put("roles", user.getRoles());
+        claims.put("userId", user.getUserid());
 
-        String subject = email;
+        String subject = user.getEmail();
         Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getAccessTokenExpirationMinutes());
 
         String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
@@ -78,8 +79,8 @@ public class OAuth2MemberSuccessHandler extends SavedRequestAwareAuthenticationS
         return accessToken;
     }
 
-    private String delegateRefreshToken(String email) {
-        String subject = email;
+    private String delegateRefreshToken(User user) {
+        String subject = user.getEmail();
         Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getRefreshTokenExpirationMinutes());
         String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
 
