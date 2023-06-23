@@ -185,7 +185,7 @@ const Create = () => {
   };
   // Cancel 클릭시 이벤트
   const handleCancel = () => {
-    navigate("/questions"); //메인 게시물로 이동
+    navigate("/home"); //메인 게시물로 이동
   };
 
   const help = [

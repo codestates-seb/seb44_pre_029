@@ -29,9 +29,9 @@ function App() {
             <Route path="/introduce" element={<Introduce />} />
             <Route path="/mypage/:userId" element={<Mypage />} />
             <Route path="/question/:questionId" element={<Question />} />
-            <Route path="/mypage/:userId/edit" element={<MypageEdit />} />
+            <Route path="/mypage/edit/:userId" element={<MypageEdit />} />
             <Route
-              path="/question/:questionId/edit"
+              path="/question/edit/:questionId"
               element={<EditQuestion />}
             />
           </Routes>

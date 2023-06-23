@@ -4,9 +4,10 @@ import { HiPencil } from "react-icons/hi";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { MdCake } from "react-icons/md";
 import { AiOutlineClockCircle } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import { useEffect } from "react";
+
 const MypageWrap = styled.section`
   width: 1062px;
   text-align: left;
@@ -86,24 +87,34 @@ const PostWrap = styled.div`
   }
 `;
 const Mypage = () => {
-  const userId = 2;
+  // 받아오기 전까지 임시로
+  const user_id = 2;
+  const [nickname, setNickname] = useState("");
+
   useEffect(() => {
     axios
-      .get(`/mypage/${userId}`, {
+      .get(`/mypage/${user_id}`, {
         headers: {
           "Content-Type": "application/json",
           "ngrok-skip-browser-warning": true,
         },
       })
-      .then((res) => console.log(res))
+      .then((res) => setNickname(res.data.nickname))
       .catch((error) => console.log(error));
   }, []);
+
+  const navigate = useNavigate();
+
+  const handleMypageEdit = () => {
+    navigate(`/mypage/edit/2`);
+  };
+  console.log(nickname);
   return (
     <MypageWrap>
       <MypageProfile>
         <img src={Zzanggu} alt="짱구" />
         <div className="profileContents">
-          <h1>Name</h1>
+          <h1>{nickname}</h1>
           <p>
             <MdCake />
             Member for 3 days
@@ -117,20 +128,16 @@ const Mypage = () => {
             Visited 3 days, 3 consecutive
           </p>
         </div>
-        <Link to="/mypage/edit">
-          <ProfileBtn>
-            <HiPencil size={15} />
-            <span>Edit profile</span>
-          </ProfileBtn>
-        </Link>
+        <ProfileBtn onClick={handleMypageEdit}>
+          <HiPencil size={15} />
+          <span>Edit profile</span>
+        </ProfileBtn>
       </MypageProfile>
       <MypageCategoryWrap>
         <MypageCategoty>Profile</MypageCategoty>
         <MypageCategoty className="active">Activity</MypageCategoty>
         <MypageCategoty>Saves</MypageCategoty>
-        <Link to="/mypage/edit">
-          <MypageCategoty>Settings</MypageCategoty>
-        </Link>
+        <MypageCategoty onClick={handleMypageEdit}>Settings</MypageCategoty>
       </MypageCategoryWrap>
       <PostWrap>
         <h1>Likes</h1>

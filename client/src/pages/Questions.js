@@ -167,8 +167,8 @@ const Questions = () => {
   //해당 id로 게시물 조회
   useEffect(() => {
     axios
-      // .get(`/questions/${questionId}`, {
-      .get("/questions/1", {
+      .get(`/questions/${questionId}`, {
+        // .get("/questions/6", {
         // headers: {
         //   "ngrok-skip-browser-warning": "69420",
         // },
@@ -196,8 +196,8 @@ const Questions = () => {
     navigate("/questions/create");
   };
   const handleDataEdit = () => {
-    // navigate("/questions/questionsId/edit");
-    navigate("question/1/edit");
+    // navigate(`/questions/edit/${questionId}`);
+    navigate("/question/edit/6");
     //end point 가 이상하므로 수정 필요!
   };
   return (
