@@ -28,9 +28,9 @@ module.exports = function (app) {
     ),
     //글 작성 -> 수민님
     app.use(
-      "/questions/create",
+      "/questions/add",
       createProxyMiddleware({
-        target: "https://fa88-1-229-141-136.jp.ngrok.io",
+        target: "https://d626-121-187-22-182.ngrok-free.app",
         changeOrigin: true,
       }),
     ),
@@ -38,7 +38,7 @@ module.exports = function (app) {
     app.use(
       "/questions",
       createProxyMiddleware({
-        target: "https://fa88-1-229-141-136.jp.ngrok.io",
+        target: "https://d626-121-187-22-182.ngrok-free.app",
         changeOrigin: true,
       }),
     ),
@@ -46,7 +46,7 @@ module.exports = function (app) {
     app.use(
       "/questions/edit",
       createProxyMiddleware({
-        target: "https://fa88-1-229-141-136.jp.ngrok.io",
+        target: "https://d626-121-187-22-182.ngrok-free.app",
         changeOrigin: true,
       }),
     ),

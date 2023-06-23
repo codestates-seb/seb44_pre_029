@@ -130,30 +130,56 @@ const Create = () => {
     }
   }, [title, body]);
   // const navigate = useNavigate();
-
+  console.log(title, body);
   // 신규 데이터 보내기
-  const postData = () => {
-    let newData = {
+  // const postData = () => {
+  //   const newData = {
+  //     title,
+  //     body,
+  //     userid: 1,
+  //   };
+
+  //   axios
+  //     .post("/questions/add", newData, {
+  //       // headers: {
+  //       //   "Content-Type": "application/json",
+  //       //   //   Authorization: localStorage.getItem("token"), //post 요청시 인증토큰 필요
+  //       // },
+  //     })
+  //     .then((response) => {
+  //       console.log(response.data);
+  //       // navigate("")
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
+  // Register 클릭시 이벤트
+  const hanldeRegister = (e) => {
+    e.preventDefault();
+    titleHandler();
+    bodyHandler();
+    // postData();
+    const newData = {
       title,
       body,
+      userid: "1",
     };
+
     axios
-      .post("/questions/create", newData, {
-        headers: {
-          Authorization: localStorage.getItem("token"), //post 요청시 인증토큰 필요
-        },
+      .post("/questions/add", newData, {
+        // headers: {
+        //   "Content-Type": "application/json",
+        //   //   Authorization: localStorage.getItem("token"), //post 요청시 인증토큰 필요
+        // },
       })
       .then((response) => {
         console.log(response.data);
+        navigate("/quest");
       })
       .catch((err) => {
         console.log(err);
       });
-  };
-  // Register 클릭시 이벤트
-  const hanldeRegister = () => {
-    postData();
-
     // fetch("/questions/create", {
     //   method: "POST",
     //   headers: {
