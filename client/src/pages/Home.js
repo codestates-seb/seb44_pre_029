@@ -27,6 +27,7 @@ const Home = () => {
         // credentials: "include",
       })
       .then((res) => console.log(res))
+      //여기서의 데이터를 QuestionsList 로 props 전달
       .catch(function (error) {
         // 에러인 경우 실행
         console.log(error);

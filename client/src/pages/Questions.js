@@ -1,7 +1,8 @@
 //Questions.js
 import profile from "../assets/Zzanggu.png";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
+import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "../pages/Signup";
 import styled from "styled-components";
 import Aside from "../components/Aside";
@@ -141,43 +142,71 @@ export const AsideContainer = styled.div`
 `;
 const Questions = () => {
   //임시 데이터
-  const data = {
-    vote: 0,
-    answer: 0,
-    view: 0,
-    questionTitle:
-      "User interface for setting up notification reminders within the onboarding app",
-    questionContent:
-      "짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱",
-    //   userImgUrl: profile,
-    userName: "짱구",
-    userReputation: 20,
-  };
+  const [questionData, setQeustionData] = useState([]);
+  const [userData, setUserData] = useState([]);
+  const [answerData, setAnswerData] = useState([]);
+
+  const currentUserId = localStorage.getItem("userId");
+
+  // const data = {
+  //   vote: 0,
+  //   answer: 0,
+  //   view: 0,
+  //   questionTitle:
+  //     "User interface for setting up notification reminders within the onboarding app",
+  //   questionContent:
+  //     "짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱",
+  //   //   userImgUrl: profile,
+  //   userName: "짱구",
+  //   userReputation: 20,
+  // };
+
+  const { questionId } = useParams();
+  console.log(questionId);
 
   //해당 id로 게시물 조회
   useEffect(() => {
     axios
-      .get("/questions/{question-id}", {
+      // .get(`/questions/${questionId}`, {
+      .get("/questions/1", {
         // headers: {
         //   "ngrok-skip-browser-warning": "69420",
         // },
         // withCredentials: true,
         // credentials: "include",
       })
-      .then((res) => console.log(res))
+      .then((res) => {
+        // console.log(res.data);
+        setQeustionData(res.data.question);
+        setUserData(res.data.user);
+        setAnswerData(res.data.answer);
+      })
       .catch(function (error) {
         // 에러인 경우 실행
         console.log(error);
       });
   }, []);
+  // console.log(questionData);
+  // console.log(userData);
+  // console.log(answerData);
 
+  const navigate = useNavigate();
+  //질문 버튼 클릭 이벤트
+  const handleAskQuestion = () => {
+    navigate("/questions/create");
+  };
+  const handleDataEdit = () => {
+    // navigate("/questions/questionsId/edit");
+    navigate("question/1/edit");
+    //end point 가 이상하므로 수정 필요!
+  };
   return (
     <QuestionsSection>
       <QuestionTitle>
         <div className="header">
-          <h1>{data.questionTitle}</h1>
+          <h1>{questionData.title}</h1>
           {/* 버튼 링크 연결 -> 글 작성 페이지 */}
-          <Button>Ask Question</Button>
+          <Button onClick={handleAskQuestion}>Ask Question</Button>
         </div>
         <div className="header_info">
           <span>
@@ -202,29 +231,31 @@ const Questions = () => {
         <ContentContainer>
           {/* <본문 질문> <answer> <YourAnswer> -> flex: column*/}
           <div className="box">
-            <Vote />
+            <Vote vote={0} />
 
             {/* Sub -> Content -> Comment  */}
             <SubContent>
-              <div>{data.questionContent}</div>
+              <div>{questionData.body}</div>
 
               <div className="subContent">
                 {/* 왼쪽 */}
                 <div>
-                  {/* 자기가 작성한 글일 경우, Share Edit Delete */}
-                  <div className="subButton">
-                    <button>Share</button>
-                    {/* Edit 편집 페이지로 이동 Link 추가 */}
-                    <button>Edit</button>
-                    {/* Delete 메인 페이지로 이동 Link 추가 , 서버에서 삭제*/}
-                    <button>Delete</button>
-                  </div>
-
-                  {/* 자기가 작성한 글이 아닌 경우, Share Follow */}
-                  <div className="subButton">
-                    <button>Share</button>
-                    <button>Follow</button>
-                  </div>
+                  {/* 자기가 작성한 글일 경우, Share Edit Delete 
+                    아닌 경우, Share Follow */}
+                  {Number(currentUserId) === userData.user_id ? (
+                    <div className="subButton">
+                      <button>Share</button>
+                      {/* Edit 편집 페이지로 이동 Link 추가 */}
+                      <button onClick={handleDataEdit}>Edit</button>
+                      {/* Delete 메인 페이지로 이동 Link 추가 , 서버에서 삭제*/}
+                      <button>Delete</button>
+                    </div>
+                  ) : (
+                    <div className="subButton">
+                      <button>Share</button>
+                      <button>Follow</button>
+                    </div>
+                  )}
                 </div>
 
                 {/* 오른쪽 */}
@@ -235,8 +266,8 @@ const Questions = () => {
                     <span>
                       <img src={profile} alt={profile} />
                       <div>
-                        <span>{data.userName}</span>
-                        <span>{data.userReputation}</span>
+                        <span>{userData.display_name || "짱구"}</span>
+                        {/* <span>{data.userReputation}</span> */}
                       </div>
                     </span>
                   </div>
@@ -251,7 +282,7 @@ const Questions = () => {
 
           {/* Answer */}
           <div>
-            <Answer />
+            <Answer answerData={answerData} />
           </div>
 
           {/* Your Answer */}

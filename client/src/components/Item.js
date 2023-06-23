@@ -1,7 +1,7 @@
 //Item.js
+// import { useNavigate } from "react-router-dom";
 import profile from "../assets/Zzanggu.png";
 import { styled } from "styled-components";
-
 export const ItemContainer = styled.div`
   display: flex;
   border-bottom: 1px solid #ccc;
@@ -95,6 +95,12 @@ export const ItemContainer = styled.div`
 
 /* eslint-disable react/prop-types */
 const Item = ({ item }) => {
+  // const navigate = useNavigate();
+
+  // const handleDetailQuestoin = () => {
+  //   navigate("/question/:{questionId}");
+  // };
+
   return (
     <ItemContainer>
       <div className="summary_stats">
@@ -110,6 +116,7 @@ const Item = ({ item }) => {
       </div>
 
       <div className="summary_content">
+        {/* <h3 onClick={handleDetailQuestoin}>{item.questionTitle}</h3> */}
         <h3>{item.questionTitle}</h3>
         <div>{item.questionContent}</div>
 

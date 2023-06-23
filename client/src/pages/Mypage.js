@@ -5,7 +5,8 @@ import { FaRegCalendarAlt } from "react-icons/fa";
 import { MdCake } from "react-icons/md";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
-
+import axios from "axios";
+import { useEffect } from "react";
 const MypageWrap = styled.section`
   width: 1062px;
   text-align: left;
@@ -85,6 +86,18 @@ const PostWrap = styled.div`
   }
 `;
 const Mypage = () => {
+  const userId = 2;
+  useEffect(() => {
+    axios
+      .get(`/mypage/${userId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "ngrok-skip-browser-warning": true,
+        },
+      })
+      .then((res) => console.log(res))
+      .catch((error) => console.log(error));
+  }, []);
   return (
     <MypageWrap>
       <MypageProfile>

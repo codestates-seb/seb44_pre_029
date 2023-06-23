@@ -1,9 +1,11 @@
+//QuestionList.js
 import profile from "../assets/Zzanggu.png";
 import Item from "./Item";
 import { Button } from "../pages/Signup";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import styled from "styled-components";
-
 export const QuestionsContainer = styled.section`
   width: 750px;
   padding: 16px;
@@ -82,11 +84,6 @@ const QuestionList = () => {
   const [tabIndex, setTabIndex] = useState(0);
   const filterButton = ["Newest", "Hot"];
 
-  //  전체 게시물 불러오기
-  // useEffect(() => {
-  //
-  // })
-
   //임시 데이터
   const data = [
     {
@@ -111,13 +108,25 @@ const QuestionList = () => {
       //   createAt: new Date(),
     },
   ];
+  //  전체 게시물 불러오기
+  useEffect(() => {
+    //page, size 설정
+    axios.get("/questions?page=1&size=10").then((res) => console.log(res));
+  }, []);
+
+  //ask question 버튼 클릭 이벤트
+  const navigate = useNavigate();
+  const hanldeAskQuestion = () => {
+    navigate("/questions/create");
+  };
+
   return (
     <QuestionsContainer>
       <QuestionTitleDiv>
         <div className="header">
           <h3>All Questions</h3>
           {/* 버튼 링크 연결 -> 글 작성 페이지 */}
-          <Button>Ask Question</Button>
+          <Button onClick={hanldeAskQuestion}>Ask Question</Button>
         </div>
         <div className="header_filter">
           <span>{data.length}&nbsp;questions</span>
