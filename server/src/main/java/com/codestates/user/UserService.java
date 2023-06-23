@@ -41,7 +41,7 @@ public class UserService {
         Optional.of(user.getNickname())
                 .ifPresent(nickname -> findUser.setNickname(nickname));
         Optional.of(user.getPassword())
-                .ifPresent(password -> findUser.setPassword(password));
+                .ifPresent(password -> findUser.setPassword(passwordEncoder.encode(password)));
 
         return userRepository.save(findUser);
     }

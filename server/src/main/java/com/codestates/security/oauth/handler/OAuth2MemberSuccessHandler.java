@@ -37,6 +37,9 @@ public class OAuth2MemberSuccessHandler extends SavedRequestAwareAuthenticationS
         String nickname = String.valueOf(oAuth2User.getAttributes().get("name"));
 
         saveMember(email, nickname);
+
+//        Long userId = userRepository.findUseridbyEmail(email);
+
         redirect(request, response, email, authorities);  // (6)
     }
 
@@ -63,6 +66,7 @@ public class OAuth2MemberSuccessHandler extends SavedRequestAwareAuthenticationS
         Map<String, Object> claims = new HashMap<>();
         claims.put("email", email);
         claims.put("roles", authorities);
+/*        claims.put("userId", userId);*/
 
         String subject = email;
         Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getAccessTokenExpirationMinutes());
