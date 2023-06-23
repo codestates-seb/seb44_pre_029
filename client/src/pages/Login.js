@@ -71,12 +71,25 @@ function LoginPage() {
             // 요청이 성공한 경우의 처리
             // console.log(response.data);
             // navigate("/"); //로그인 페이지로 이동
-            const headers = response.headers;
-            const authorizationHeader = headers.get("Authorization");
-            const token = authorizationHeader.split(" ")[1];
-            localStorage.setItem("Authorization", token);
-            localStorage.setItem("member-id", headers.get("member-id"));
-            console.log(localStorage.getItem("member-id"));
+
+            // const headers = response.headers;
+            // const authorizationHeader = headers.get("Authorization");
+            // const token = authorizationHeader.split(" ")[1];
+            // localStorage.setItem("Authorization", token);
+            // localStorage.setItem("member-id", headers.get("member-id"));
+
+            // console.log(response.headers.authorization);
+            // console.log(token);
+            // console.log(response);
+            localStorage.setItem(
+              "Authorization",
+              response.headers.authorization,
+            );
+            localStorage.setItem("accessToken", response.data.accessToken);
+
+            localStorage.setItem("refreshToken", response.data.refreshToken);
+            localStorage.setItem("userId", response.data.userId);
+
             // setLogin(true);
             navigate("/home");
           })
@@ -86,31 +99,6 @@ function LoginPage() {
             console.log(emailError);
             console.log(passwordError);
           });
-        // fetch("/login", {
-        //   method: "POST",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        //   body: JSON.stringify({
-        //     email: email,
-        //     password: password,
-        //   }),
-        // });
-        // if (response.ok) {
-        //   const headers = response.headers;
-        //   const authorizationHeader = headers.get("Authorization");
-        //   const token = authorizationHeader.split(" ")[1];
-        //   localStorage.setItem("Authorization", token);
-        //   localStorage.setItem("member-id", headers.get("member-id"));
-        //   console.log(localStorage.getItem("member-id"));
-        //   // setLogin(true);
-        //   navigate("/home");
-        // } else if (response.status === 401) {
-        //   console.log(emailError);
-        //   throw new Error("이메일 또는 비밀번호가 틀렸습니다.");
-        // } else {
-        //   throw new Error("알 수 없는 에러가 발생했습니다.");
-        // }
       } catch (error) {
         alert(error.message);
       }
