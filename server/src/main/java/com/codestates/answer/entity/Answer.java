@@ -38,4 +38,6 @@ public class Answer {
     @ManyToOne
     @JoinColumn(name = "userid")
     private User user;
+
+    //commit
 }
