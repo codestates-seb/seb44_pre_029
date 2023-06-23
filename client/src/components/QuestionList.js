@@ -1,7 +1,9 @@
+//QuestionList.js
 import profile from "../assets/Zzanggu.png";
 import Item from "./Item";
 import { Button } from "../pages/Signup";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 export const QuestionsContainer = styled.section`
@@ -111,13 +113,19 @@ const QuestionList = () => {
       //   createAt: new Date(),
     },
   ];
+
+  //ask question 버튼 클릭 이벤트
+  const navigate = useNavigate();
+  const hanldeAskQuestion = () => {
+    navigate("/questions/create");
+  };
   return (
     <QuestionsContainer>
       <QuestionTitleDiv>
         <div className="header">
           <h3>All Questions</h3>
           {/* 버튼 링크 연결 -> 글 작성 페이지 */}
-          <Button>Ask Question</Button>
+          <Button onClick={hanldeAskQuestion}>Ask Question</Button>
         </div>
         <div className="header_filter">
           <span>{data.length}&nbsp;questions</span>

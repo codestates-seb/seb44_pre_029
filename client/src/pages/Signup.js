@@ -1,3 +1,4 @@
+//signup.js
 import { FaQuestionCircle, FaSort, FaGithub } from "react-icons/fa";
 import { ImPriceTags, ImTrophy } from "react-icons/im";
 import { useState, useEffect, useRef } from "react";
@@ -311,8 +312,8 @@ const Signup = () => {
     setEmail(emailInputValue);
 
     //유효성 검사 : 정규식 + 이메일 중복 -> 서버 측?
-    const emailRegex =
-      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    const emailRegex = /[a-z0-9]+@[a-z]+.[a-z]{2,6}/;
+    // /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 
     if (emailRegex.test(emailInputValue)) {
       setIsEmail(false);
@@ -334,6 +335,7 @@ const Signup = () => {
     }
   };
   const navigate = useNavigate();
+
   //폼 제출 핸들러
   const formSubmitHandler = (e) => {
     e.preventDefault();
@@ -353,6 +355,7 @@ const Signup = () => {
       .then((response) => {
         // 요청이 성공한 경우의 처리
         console.log(response.data);
+
         navigate("/"); //로그인 페이지로 이동
       })
       .catch((error) => {
@@ -392,35 +395,74 @@ const Signup = () => {
   //   const GOOGLE_LOGIN_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${GOOGLE_REDIRECT_URI}&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile`;
   //   return window.location.assign(GOOGLE_LOGIN_URL);
   // };
+
   const handleGoogleLogin = () => {
     // const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_REDIRECT_URI;
-    const GOOGLE_CLIENT_ID =
-      "701602214284-q0n78cf2eeagc6tijmch2oaimcjcprlh.apps.googleusercontent.com";
-    const GOOGLE_REDIRECT_URI = "http://localhost:3000/signup";
-
-    const GOOGLE_LOGIN_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${GOOGLE_REDIRECT_URI}&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile`;
-    return window.location.assign(GOOGLE_LOGIN_URL);
+    // 구글 로그인
+    // const GOOGLE_CLIENT_ID =
+    //   "701602214284-q0n78cf2eeagc6tijmch2oaimcjcprlh.apps.googleusercontent.com";
+    // const GOOGLE_REDIRECT_URI = "http://localhost:3000/signup";
+    // const GOOGLE_LOGIN_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${GOOGLE_REDIRECT_URI}&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile`;
+    // window.location.assign(GOOGLE_LOGIN_URL); //구글 로그인 페이지로 이동
+    window.location.href = "/oauth2/authorization/google";
+    // axios
+    //   .get("/oauth2/authorization/google")
+    //   .then((res) => {
+    //     // redirect(response.data);
+    //     if (res.status === 200) {
+    //       redirect("/oauth2/authorization/google");
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
+    // redirect("/oauth2/authorization/google");
   };
 
-  const code = new URL(window.location.href).searchParams.get("code");
-  console.log(code);
+  // const code = new URL(window.location.href).searchParams.get("code");
+  // console.log(code);
 
-  //구글 oauth 에서 인증받아 redirect 된 /signup 으로 돌아옴
-  //url 에서 뽑아온 code 를 가져오긴 하나
-  //서버가 닫혀있어서 404에러가 남!
+  // const clientId =
+  //   "701602214284-q0n78cf2eeagc6tijmch2oaimcjcprlh.apps.googleusercontent.com";
+  // const clientSecret = "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";
+  // const redirectUri = "http://localhost:3000/signup";
 
-  // client Id 와 secrect 을 가져오는 방법도 상수화 시켜야 함!
+  // const params = new URLSearchParams();
+  // params.append("code", code);
+  // params.append("client_id", clientId);
+  // params.append("client_secret", clientSecret);
+  // params.append("redirect_uri", redirectUri);
+  // params.append("grant_type", "authorization_code");
 
-  const clientID =
-    "701602214284-q0n78cf2eeagc6tijmch2oaimcjcprlh.apps.googleusercontent.com";
-  const clientSecret = "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";
-
-  axios.post("/oauth2/authorization/google", {
-    client_id: clientID,
-    client_secret: clientSecret,
-    code: code,
-    grant_type: "authorization_code",
-  });
+  // useEffect(() => {
+  //   axios
+  //     .post("https://oauth2.googleapis.com/token", params.toString(), {
+  //       headers: {
+  //         "Content-Type": "application/x-www-form-urlencoded",
+  //       },
+  //     })
+  //     .then((response) => {
+  //       console.log(response);
+  //       console.log(response.data.access_token);
+  //       let accessToken = response.data.access_token;
+  //       //액세스 토큰 서버에 전달 ( get 요청으로 헤더에 넣어서)
+  //       axios
+  //         .get("/oauth2/authorization/google", {
+  //           headers: {
+  //             Authorization: `Bearer ${accessToken}`,
+  //           },
+  //         })
+  //         .then((response) => {
+  //           console.log(response.data);
+  //         })
+  //         .catch((error) => {
+  //           console.error(error);
+  //         });
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // }, [code]);
 
   return (
     <DivContainer>
@@ -475,7 +517,7 @@ const Signup = () => {
 
           <SignupDiv>
             <FormContainer
-              onSubmit={formSubmitHandler}
+              // onSubmit={formSubmitHandler}
               $name={isName}
               $email={isEmail}
               $password={isPassword}
@@ -608,7 +650,9 @@ const Signup = () => {
                 </CheckDiv>
               </div>
               <div>
-                <Button type="submit">Sign up</Button>
+                <Button type="submit" onClick={formSubmitHandler}>
+                  Sign up
+                </Button>
               </div>
               <div>
                 By clicking “Sign up”, you agree to our{" "}

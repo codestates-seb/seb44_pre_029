@@ -1,19 +1,28 @@
+//setupProxy.js
 /*eslint-env node*/
 const { createProxyMiddleware } = require("http-proxy-middleware");
 
 module.exports = function (app) {
+  //로그인
   app.use(
-    "/users", //proxy가 필요한 path prameter를 입력합니다.
+    "/login",
     createProxyMiddleware({
-      target: "https://1232-121-187-22-182.ngrok-free.app", //타겟이 되는 api url를 입력합니다.
-      changeOrigin: true, //대상 서버 구성에 따라 호스트 헤더가 변경되도록 설정하는 부분입니다.
+      target: "https://beef-121-160-105-82.ngrok-free.app/ ",
+      changeOrigin: true,
+    }),
+  );
+  //회원가입 -> 상욱님
+  app.use(
+    "/users",
+    createProxyMiddleware({
+      target: "https://beef-121-160-105-82.ngrok-free.app",
+      changeOrigin: true,
     }),
   ),
-    //회원가입 -> 상욱님
     app.use(
-      "/users",
+      "/oauth2/authorization/google",
       createProxyMiddleware({
-        target: "https://2b59-121-160-105-82.jp.ngrok.io",
+        target: "https://beef-121-160-105-82.ngrok-free.app",
         changeOrigin: true,
       }),
     ),
@@ -43,18 +52,32 @@ module.exports = function (app) {
     ),
     // 메인 페이지 전체 게시물 불러오기 -> 현수님
     app.use(
-      "/home",
+      "/questions?page=1&size=10",
       createProxyMiddleware({
-        target: "https://fa88-1-229-141-136.jp.ngrok.io",
+        target: "https://d626-121-187-22-182.ngrok-free.app",
         changeOrigin: true,
       }),
     ),
-    //로그인
+    // 마이페이지 - 현수님
     app.use(
-      "/",
+      "/users",
       createProxyMiddleware({
-        target: "https://2b59-121-160-105-82.jp.ngrok.io",
-        changeOrigin: true,
+        target: "https://d626-121-187-22-182.ngrok-free.app", //타겟이 되는 api url를 입력합니다.
+        changeOrigin: true, //대상 서버 구성에 따라 호스트 헤더가 변경되도록 설정하는 부분입니다.
       }),
     );
+  // app.use(
+  //   "/token",
+  //   createProxyMiddleware({
+  //     target: "https://oauth2.googleapis.com", //타겟이 되는 api url를 입력합니다.
+  //     changeOrigin: true, //대상 서버 구성에 따라 호스트 헤더가 변경되도록 설정하는 부분입니다.
+  //   }),
+  // );
+  // app.use(
+  //   "/token",
+  //   createProxyMiddleware({
+  //     target: "https://oauth2.googleapis.com",
+  //     changeOrigin: true,
+  //   }),
+  // );
 };
