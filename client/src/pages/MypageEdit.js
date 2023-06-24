@@ -167,20 +167,17 @@ const MypageEdit = () => {
       .catch((error) => console.log(error));
   }, []);
 
-  // patch 요청 핸들러
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    axios
-      .patch(`/users/edit/${user_id}`, values)
-      .then(navigate(`/users/${user_id}`));
-  };
-
   const navigate = useNavigate();
 
   const handleMypage = () => {
-    navigate(`/users/${user_id}`);
+    navigate(`/mypage/${user_id}`);
   };
 
+  // patch 요청 핸들러
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios.patch(`/users/edit/${user_id}`, values).then(handleMypage());
+  };
   return (
     <MypageWrap>
       <MypageProfile>
