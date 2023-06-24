@@ -15,7 +15,7 @@ public class UserPatchDto {
     @Pattern(regexp = "^([a-zA-Z0-9가-힣]{2,12})$")
     private String nickname;
     @NotBlank
-    @Pattern(regexp = "^([a-zA-Z0-9!@#$%^&*]{8,12})$")
+//    @Pattern(regexp = "^([a-zA-Z0-9!@#$%^&*]{8,12})$")
     private String password;
 
     public long getUserid() {
