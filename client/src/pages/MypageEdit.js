@@ -150,7 +150,7 @@ const MypageEdit = () => {
   // get 요청 핸들러
   useEffect(() => {
     axios
-      .get(`/mypage/${user_id}`, {
+      .get(`/users/${user_id}`, {
         headers: {
           "Content-Type": "application/json",
           "ngrok-skip-browser-warning": true,
@@ -170,13 +170,15 @@ const MypageEdit = () => {
   // patch 요청 핸들러
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.patch(`/mypage/edit/${user_id}`, values).then(navigate(`/mypage/2`));
+    axios
+      .patch(`/users/edit/${user_id}`, values)
+      .then(navigate(`/users/${user_id}`));
   };
 
   const navigate = useNavigate();
 
   const handleMypage = () => {
-    navigate(`/mypage/${user_id}`);
+    navigate(`/users/${user_id}`);
   };
 
   return (

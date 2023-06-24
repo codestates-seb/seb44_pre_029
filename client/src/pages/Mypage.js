@@ -92,7 +92,7 @@ const Mypage = () => {
 
   useEffect(() => {
     axios
-      .get(`/mypage/${user_id}`, {
+      .get(`/users/${user_id}`, {
         headers: {
           "Content-Type": "application/json",
           "ngrok-skip-browser-warning": true,
@@ -105,7 +105,7 @@ const Mypage = () => {
   const navigate = useNavigate();
 
   const handleMypageEdit = () => {
-    navigate(`/mypage/edit/${user_id}`);
+    navigate(`/users/edit/${user_id}`);
   };
   return (
     <MypageWrap>
