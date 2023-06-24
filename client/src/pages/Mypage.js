@@ -87,13 +87,12 @@ const PostWrap = styled.div`
   }
 `;
 const Mypage = () => {
-  // 받아오기 전까지 임시로
-  const user_id = 2;
+  const user_id = localStorage.getItem("userId");
   const [nickname, setNickname] = useState("");
 
   useEffect(() => {
     axios
-      .get(`/mypage/${user_id}`, {
+      .get(`/users/${user_id}`, {
         headers: {
           "Content-Type": "application/json",
           "ngrok-skip-browser-warning": true,
@@ -106,9 +105,8 @@ const Mypage = () => {
   const navigate = useNavigate();
 
   const handleMypageEdit = () => {
-    navigate(`/mypage/edit/2`);
+    navigate(`/mypage/edit/${user_id}`);
   };
-  console.log(nickname);
   return (
     <MypageWrap>
       <MypageProfile>
