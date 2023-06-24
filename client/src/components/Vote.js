@@ -29,10 +29,10 @@ export const VoteContainer = styled.div`
     }
   }
 `;
-const Vote = ({ vote }) => {
+const Vote = ({ vote, data }) => {
   const [voteSum, setVoteSum] = useState(0);
   //유저당 한번만 가능하게
-  // const [voteUp, setVotedUp] = useState(false);
+  const [voteUp, setVotedUp] = useState(false);
   // const [voteDown, setVotedDown] = useState(false);
   const [bookmark, setBookmark] = useState(false);
 
@@ -40,12 +40,25 @@ const Vote = ({ vote }) => {
     setBookmark(!bookmark);
   };
   const hanldeVoteUp = () => {
-    setVoteSum((prev) => prev + 1);
+    if (!voteUp) {
+      //한번만 되게
+      setVoteSum((prev) => prev + 1);
+      setVotedUp(true);
+      //다시 post 요청
+    }
   };
   const hanldeVoteDown = () => {};
   useEffect(() => {
     setVoteSum(vote);
   }, []);
+  useEffect(() => {
+    console.log(data);
+    // console.log(voteSum);
+    // const newData = {
+    //   ...data,
+    // }
+    // axios.post(`questions/${questionData.question_id}`, );
+  }, [voteSum]);
   return (
     <>
       <VoteContainer>

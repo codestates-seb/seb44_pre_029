@@ -170,6 +170,11 @@ const HeaderLogin = () => {
   const mypageHanlder = () => {
     navigate(`/mypage/2`);
   };
+  const handleLogOut = () => {
+    localStorage.removeItem("Authorization");
+    localStorage.removeItem("userId");
+    navigate("/");
+  };
   return (
     <Header>
       <HeaderWrap>
@@ -222,7 +227,7 @@ const HeaderLogin = () => {
             </IconBtnA>
           </IconsBtn>
         </IconsBtnWrap>
-        <LogoutBtn>Log out</LogoutBtn>
+        <LogoutBtn onClick={handleLogOut}>Log out</LogoutBtn>
       </HeaderWrap>
     </Header>
   );
