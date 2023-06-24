@@ -104,7 +104,9 @@ function LoginPage() {
       }
     }
   };
-
+  const handleGoogleLogin = () => {
+    window.location.href = "/oauth2/authorization/google";
+  };
   return (
     <LoginPageBox>
       <LoginBox>
@@ -112,7 +114,7 @@ function LoginPage() {
           <LoginLogoImg src={TopLogo} alt="logo" />
         </LoginLogo>
 
-        <SocialLoginBtn>
+        <SocialLoginBtn onClick={handleGoogleLogin}>
           <SocialLoginLinkBox>
             <SocialLoginLogo>
               <FcGoogle className="logo" />
