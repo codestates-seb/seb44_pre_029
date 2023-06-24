@@ -2,6 +2,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { Button } from "../pages/Signup";
+import axios from "axios";
 export const YourAnswerTitle = styled.div`
   color: #27292c;
   font-size: 13px;
@@ -53,15 +54,45 @@ export const YourAnswerTipContainer = styled.div`
     }
   }
 `;
-const YourAnswer = () => {
+const YourAnswer = ({ questionId, answerData, userData, questionData }) => {
   const [onTip, setOnTip] = useState(false);
+  const [yourAnswer, setyourAnswer] = useState("");
+
+  const Authorization = localStorage.getItem("Authorization");
+  const userId = localStorage.getItem("userId");
+
+  const handlePostYourAnswer = () => {
+    axios
+      .post(
+        `questions/${questionId}`,
+        {
+          ...userData,
+          ...questionData,
+          answerData: [...answerData, { userId, yourAnswer }],
+        },
+        {
+          headers: {
+            Authorization,
+          },
+        },
+      )
+      .then((res) => console.log(res));
+  };
+  const handleText = (e) => {
+    setyourAnswer(e.target.value);
+  };
+  console.log(yourAnswer);
   return (
     <>
       <YourAnswerTitle>
         <h2>Your Answer</h2>
       </YourAnswerTitle>
       <YourAnswerInputDiv onClick={() => setOnTip(!onTip)}>
-        <textarea placeholder="답변 내용을 입력해주세요"></textarea>
+        <textarea
+          value={yourAnswer}
+          onChange={handleText}
+          placeholder="답변 내용을 입력해주세요"
+        ></textarea>
       </YourAnswerInputDiv>
       {onTip && (
         <YourAnswerTipContainer>
@@ -89,7 +120,7 @@ const YourAnswer = () => {
           </p>
         </YourAnswerTipContainer>
       )}
-      <YourAnswerButton>
+      <YourAnswerButton onClick={handlePostYourAnswer}>
         <Button>Post Your Answer</Button>
       </YourAnswerButton>
     </>

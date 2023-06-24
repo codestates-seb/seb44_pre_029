@@ -149,10 +149,10 @@ const Create = () => {
 
     axios
       .post("/questions/add", newData, {
-        // headers: {
-        //   "Content-Type": "application/json",
-        //   //   Authorization: localStorage.getItem("token"), //post 요청시 인증토큰 필요
-        // },
+        headers: {
+          // "Content-Type": "application/json",
+          Authorization: localStorage.getItem("Authorization"), //post 요청시 인증토큰 필요
+        },
       })
       .then((res) => {
         console.log(res.data);

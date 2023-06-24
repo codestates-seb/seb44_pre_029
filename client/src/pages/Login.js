@@ -69,28 +69,13 @@ function LoginPage() {
           .post("/login", userInfo)
           .then((response) => {
             // 요청이 성공한 경우의 처리
-            // console.log(response.data);
-            // navigate("/"); //로그인 페이지로 이동
 
-            // const headers = response.headers;
-            // const authorizationHeader = headers.get("Authorization");
-            // const token = authorizationHeader.split(" ")[1];
-            // localStorage.setItem("Authorization", token);
-            // localStorage.setItem("member-id", headers.get("member-id"));
-
-            // console.log(response.headers.authorization);
-            // console.log(token);
-            // console.log(response);
+            console.log(response);
             localStorage.setItem(
               "Authorization",
               response.headers.authorization,
             );
-            localStorage.setItem("accessToken", response.data.accessToken);
-
-            localStorage.setItem("refreshToken", response.data.refreshToken);
             localStorage.setItem("userId", response.data.userId);
-
-            // setLogin(true);
             navigate("/home");
           })
           .catch((error) => {
@@ -104,7 +89,9 @@ function LoginPage() {
       }
     }
   };
-
+  const handleGoogleLogin = () => {
+    window.location.href = "/oauth2/authorization/google";
+  };
   return (
     <LoginPageBox>
       <LoginBox>
@@ -112,7 +99,7 @@ function LoginPage() {
           <LoginLogoImg src={TopLogo} alt="logo" />
         </LoginLogo>
 
-        <SocialLoginBtn>
+        <SocialLoginBtn onClick={handleGoogleLogin}>
           <SocialLoginLinkBox>
             <SocialLoginLogo>
               <FcGoogle className="logo" />

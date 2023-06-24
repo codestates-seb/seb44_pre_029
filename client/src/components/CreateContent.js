@@ -1,4 +1,5 @@
 //CreateContent.js
+// import { faSpaghettiMonsterFlying } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 export const InputEl = styled.input`
   box-sizing: border-box;
@@ -34,7 +35,7 @@ export const TextEl = styled.textarea`
 `;
 /* eslint-disable react/prop-types */
 // react/prop-types 해결 주석
-const InputItem = ({ isTitle, titleInputRef, alert }) => {
+const InputItem = ({ isTitle, title, setTitle, alert }) => {
   return (
     <>
       {isTitle ? (
@@ -44,7 +45,8 @@ const InputItem = ({ isTitle, titleInputRef, alert }) => {
             shadow="0 0 0 4px #f0c0bd"
             focusborder="1px solid red"
             type="text"
-            ref={titleInputRef}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
             placeholder="e.g Is there an R function for finding the index of an element in a vector?"
           />
           <p>{alert}</p>
@@ -56,7 +58,8 @@ const InputItem = ({ isTitle, titleInputRef, alert }) => {
             shadow="0 0 0 4px #ddeaf7"
             focusborder="1px solid #0a95ff"
             type="text"
-            ref={titleInputRef}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
             placeholder="e.g Is there an R function for finding the index of an element in a vector?"
           />
         </>
@@ -65,7 +68,7 @@ const InputItem = ({ isTitle, titleInputRef, alert }) => {
   );
 };
 
-const TextareaItem = ({ isBody, bodyInputRef, alert }) => {
+const TextareaItem = ({ isBody, body, setBody, alert }) => {
   return (
     <>
       {isBody ? (
@@ -75,12 +78,13 @@ const TextareaItem = ({ isBody, bodyInputRef, alert }) => {
             border="1px solid red"
             shadow="0 0 0 4px #f0c0bd"
             focusborder="1px solid red"
-            ref={bodyInputRef}
+            value={body}
+            onChange={(e) => setBody(e.target.value)}
             placeholder="e.g Is there an R function for finding the index of an element in a vector?"
           />
           <p>
             {alert}
-            {bodyInputRef.current.value.length}.
+            {body.current.value.length}.
           </p>
         </>
       ) : (
@@ -90,7 +94,8 @@ const TextareaItem = ({ isBody, bodyInputRef, alert }) => {
             border="1px solid #b0b8bf"
             shadow="0 0 0 4px #ddeaf7"
             focusborder="1px solid #0a95ff"
-            ref={bodyInputRef}
+            value={body}
+            onChange={(e) => setBody(e.target.value)}
             // placeholder="e.g Is there an R function for finding the index of an element in a vector?"
           />
         </>

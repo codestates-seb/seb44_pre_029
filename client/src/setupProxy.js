@@ -7,7 +7,7 @@ module.exports = function (app) {
   app.use(
     "/login",
     createProxyMiddleware({
-      target: "https://beef-121-160-105-82.ngrok-free.app/ ",
+      target: "https://cdb0-121-187-22-182.ngrok-free.app",
       changeOrigin: true,
     }),
   );
@@ -15,14 +15,14 @@ module.exports = function (app) {
   app.use(
     "/users",
     createProxyMiddleware({
-      target: "https://beef-121-160-105-82.ngrok-free.app",
+      target: "https://cdb0-121-187-22-182.ngrok-free.app",
       changeOrigin: true,
     }),
   ),
     app.use(
       "/oauth2/authorization/google",
       createProxyMiddleware({
-        target: "https://beef-121-160-105-82.ngrok-free.app",
+        target: "https://cdb0-121-187-22-182.ngrok-free.app",
         changeOrigin: true,
       }),
     ),
@@ -30,7 +30,7 @@ module.exports = function (app) {
     app.use(
       "/questions/add",
       createProxyMiddleware({
-        target: "https://d626-121-187-22-182.ngrok-free.app",
+        target: "https://cdb0-121-187-22-182.ngrok-free.app",
         changeOrigin: true,
       }),
     ),
@@ -38,15 +38,15 @@ module.exports = function (app) {
     app.use(
       "/questions",
       createProxyMiddleware({
-        target: "https://d626-121-187-22-182.ngrok-free.app",
+        target: "https://cdb0-121-187-22-182.ngrok-free.app",
         changeOrigin: true,
       }),
     ),
-    // 게시물 불러오기 questions/eidt -> 수민님
+    // 게시물 불러오기 questions/edit -> 수민님
     app.use(
       "/questions/edit",
       createProxyMiddleware({
-        target: "https://d626-121-187-22-182.ngrok-free.app",
+        target: "https://cdb0-121-187-22-182.ngrok-free.app",
         changeOrigin: true,
       }),
     ),
@@ -54,7 +54,7 @@ module.exports = function (app) {
     app.use(
       "/questions?page=1&size=10",
       createProxyMiddleware({
-        target: "https://d626-121-187-22-182.ngrok-free.app",
+        target: "https://cdb0-121-187-22-182.ngrok-free.app",
         changeOrigin: true,
       }),
     ),
@@ -62,14 +62,14 @@ module.exports = function (app) {
     app.use(
       "/mypage",
       createProxyMiddleware({
-        target: "https://d626-121-187-22-182.ngrok-free.app", //타겟이 되는 api url를 입력합니다.
+        target: "https://cdb0-121-187-22-182.ngrok-free.app", //타겟이 되는 api url를 입력합니다.
         changeOrigin: true, //대상 서버 구성에 따라 호스트 헤더가 변경되도록 설정하는 부분입니다.
       }),
     );
   app.use(
     "/mypage/eidt",
     createProxyMiddleware({
-      target: "https://d626-121-187-22-182.ngrok-free.app", //타겟이 되는 api url를 입력합니다.
+      target: "https://cdb0-121-187-22-182.ngrok-free.app", //타겟이 되는 api url를 입력합니다.
       changeOrigin: true, //대상 서버 구성에 따라 호스트 헤더가 변경되도록 설정하는 부분입니다.
     }),
   );

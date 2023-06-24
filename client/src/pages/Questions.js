@@ -142,6 +142,8 @@ export const AsideContainer = styled.div`
 `;
 const Questions = () => {
   //임시 데이터
+  const [data, setData] = useState({});
+  const [vote, setVote] = useState(0);
   const [questionData, setQeustionData] = useState([]);
   const [userData, setUserData] = useState([]);
   const [answerData, setAnswerData] = useState([]);
@@ -163,32 +165,32 @@ const Questions = () => {
 
   const { questionId } = useParams();
   console.log(questionId);
-
   //해당 id로 게시물 조회
   useEffect(() => {
     axios
       .get(`/questions/${questionId}`, {
-        // .get("/questions/6", {
-        // headers: {
-        //   "ngrok-skip-browser-warning": "69420",
-        // },
-        // withCredentials: true,
-        // credentials: "include",
+        headers: {
+          // "Content-Type": "application/json",
+          Authorization: localStorage.getItem("Authorization"), //post 요청시 인증토큰 필요
+        },
       })
       .then((res) => {
-        // console.log(res.data);
+        console.log(res);
+        setData(res.data);
         setQeustionData(res.data.question);
         setUserData(res.data.user);
         setAnswerData(res.data.answer);
+        setVote(questionData.vote.score);
+        // console.log(questionData.vote.score);
       })
       .catch(function (error) {
         // 에러인 경우 실행
         console.log(error);
       });
   }, []);
-  // console.log(questionData);
-  // console.log(userData);
-  // console.log(answerData);
+  console.log(questionData);
+  console.log(userData);
+  console.log(answerData);
 
   const navigate = useNavigate();
   //질문 버튼 클릭 이벤트
@@ -196,10 +198,11 @@ const Questions = () => {
     navigate("/questions/create");
   };
   const handleDataEdit = () => {
-    // navigate(`/questions/edit/${questionId}`);
-    navigate("/question/edit/6");
+    navigate(`/question/edit/${questionId}`);
+    // navigate("/question/edit/6");
     //end point 가 이상하므로 수정 필요!
   };
+
   return (
     <QuestionsSection>
       <QuestionTitle>
@@ -231,7 +234,7 @@ const Questions = () => {
         <ContentContainer>
           {/* <본문 질문> <answer> <YourAnswer> -> flex: column*/}
           <div className="box">
-            <Vote vote={0} />
+            <Vote vote={vote} data={data} />
 
             {/* Sub -> Content -> Comment  */}
             <SubContent>
@@ -288,7 +291,12 @@ const Questions = () => {
           {/* Your Answer */}
           <div>
             {/* Answer 컴포넌트로 분리*/}
-            <YourAnswer />
+            <YourAnswer
+              questionId={questionId}
+              userData={userData}
+              questionData={questionData}
+              answerData={answerData}
+            />
           </div>
         </ContentContainer>
 

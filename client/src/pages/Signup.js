@@ -378,93 +378,10 @@ const Signup = () => {
     //   .then((res) => console.log(res))
     //   .then((data) => console.log(data));
   };
-  // const GOOGLE_CLIENT_ID =
-  //   "701602214284-q0n78cf2eeagc6tijmch2oaimcjcprlh.apps.googleusercontent.com"; //REACT_APP_GOOGLE_CLIENT_ID;
-  // // const GOOGLE_REDIRECT_URI = process.env.REACT_APP_GOOGLE_REDIRECT_URI;
-  // const GOOGLE_REDIRECT_URI = "http://localhost:3000/";
-  // console.log(GOOGLE_REDIRECT_URI);
-
-  // http://localhost:3000/?code=4%2F0AbUR2VN61bet3lQ7YCTt55P2gcL4CGpzARO0GnL75z28dK1dGOU1ASkfXHa3jTfaH1QqZw&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid&authuser=0&prompt=consent
-  //authorization code = 4%2F0AbUR2VN61bet3lQ7YCTt55P2gcL4CGpzARO0GnL75z28dK1dGOU1ASkfXHa3jTfaH1QqZw&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid&authuser=0&prompt=consent
-  /*eslint-env node*/
-  // const handleGoogleLogin = () => {
-  //   // const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_REDIRECT_URI;
-  //   const GOOGLE_CLIENT_ID =
-  //     "701602214284-q0n78cf2eeagc6tijmch2oaimcjcprlh.apps.googleusercontent.com";
-  //   const GOOGLE_REDIRECT_URI = "http://localhost:3000/home";
-
-  //   const GOOGLE_LOGIN_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${GOOGLE_REDIRECT_URI}&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile`;
-  //   return window.location.assign(GOOGLE_LOGIN_URL);
-  // };
 
   const handleGoogleLogin = () => {
-    // const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_REDIRECT_URI;
-    // 구글 로그인
-    // const GOOGLE_CLIENT_ID =
-    //   "701602214284-q0n78cf2eeagc6tijmch2oaimcjcprlh.apps.googleusercontent.com";
-    // const GOOGLE_REDIRECT_URI = "http://localhost:3000/signup";
-    // const GOOGLE_LOGIN_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${GOOGLE_REDIRECT_URI}&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile`;
-    // window.location.assign(GOOGLE_LOGIN_URL); //구글 로그인 페이지로 이동
     window.location.href = "/oauth2/authorization/google";
-    // axios
-    //   .get("/oauth2/authorization/google")
-    //   .then((res) => {
-    //     // redirect(response.data);
-    //     if (res.status === 200) {
-    //       redirect("/oauth2/authorization/google");
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.error(error);
-    //   });
-    // redirect("/oauth2/authorization/google");
   };
-
-  // const code = new URL(window.location.href).searchParams.get("code");
-  // console.log(code);
-
-  // const clientId =
-  //   "701602214284-q0n78cf2eeagc6tijmch2oaimcjcprlh.apps.googleusercontent.com";
-  // const clientSecret = "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";
-  // const redirectUri = "http://localhost:3000/signup";
-
-  // const params = new URLSearchParams();
-  // params.append("code", code);
-  // params.append("client_id", clientId);
-  // params.append("client_secret", clientSecret);
-  // params.append("redirect_uri", redirectUri);
-  // params.append("grant_type", "authorization_code");
-
-  // useEffect(() => {
-  //   axios
-  //     .post("https://oauth2.googleapis.com/token", params.toString(), {
-  //       headers: {
-  //         "Content-Type": "application/x-www-form-urlencoded",
-  //       },
-  //     })
-  //     .then((response) => {
-  //       console.log(response);
-  //       console.log(response.data.access_token);
-  //       let accessToken = response.data.access_token;
-  //       //액세스 토큰 서버에 전달 ( get 요청으로 헤더에 넣어서)
-  //       axios
-  //         .get("/oauth2/authorization/google", {
-  //           headers: {
-  //             Authorization: `Bearer ${accessToken}`,
-  //           },
-  //         })
-  //         .then((response) => {
-  //           console.log(response.data);
-  //         })
-  //         .catch((error) => {
-  //           console.error(error);
-  //         });
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //     });
-  // }, [code]);
-
   return (
     <DivContainer>
       <DivContent>
