@@ -132,9 +132,7 @@ const EditBtn = styled.button`
 `;
 
 const MypageEdit = () => {
-  // 이메일, 패스워드, 닉네임 일단 공란
-  // 데이터 받아오게 되면 그때 채워넣기
-  const user_id = 2;
+  const user_id = localStorage.getItem("userId");
   const [values, setValues] = useState({
     userid: user_id,
     email: "",
@@ -174,14 +172,11 @@ const MypageEdit = () => {
     e.preventDefault();
     axios.patch(`/mypage/edit/${user_id}`, values).then(navigate(`/mypage/2`));
   };
-  // patch, get 확인 완료
-  // path 에 userid 끌어오기만 하면 됨
-  // 6월 23일 patch 안됨 -> 식 수정하니까 됨
 
   const navigate = useNavigate();
 
   const handleMypage = () => {
-    navigate("/mypage/2");
+    navigate(`/mypage/${user_id}`);
   };
 
   return (
