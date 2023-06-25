@@ -1,6 +1,7 @@
 package com.codestates.question.entity;
 
 import com.codestates.answer.entity.Answer;
+import com.codestates.like.Like;
 import com.codestates.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -49,4 +50,7 @@ public class Question {
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Answer> answers;
+
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
+    private List<Like> likes;
 }

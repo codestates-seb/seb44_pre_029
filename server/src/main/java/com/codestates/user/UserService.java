@@ -4,6 +4,8 @@ import com.codestates.exception.BusinessLogicException;
 import com.codestates.exception.ExceptionCode;
 import com.codestates.security.utils.CustomAuthorityUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +22,7 @@ public class UserService {
     private final CustomAuthorityUtils authorityUtils;
 
     public User createUser(User user) {
-        findUserEmail(user.getEmail());
+        verifyEmail(user.getEmail());
 
         String encryptedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encryptedPassword);
@@ -35,21 +37,21 @@ public class UserService {
 
     //회원 프로필 변경
     public User updateUser(User user) {
-        User findUser = findVerifiedUser(user.getUserid());
+        User findUser = findVerifiedUser(user.getUserId());
         Optional.of(user.getEmail())
                 .ifPresent(email -> findUser.setEmail(email));
         Optional.of(user.getNickname())
                 .ifPresent(nickname -> findUser.setNickname(nickname));
         Optional.of(user.getPassword())
-                .ifPresent(password -> findUser.setPassword(password));
+                .ifPresent(password -> findUser.setPassword(passwordEncoder.encode(password)));
 
         return userRepository.save(findUser);
     }
 
     //회원 정보 조회
-    public User findUser(long userid) {
+    public User findUser(long userId) {
 
-        return findVerifiedUser(userid);
+        return findVerifiedUser(userId);
     }
 
     //모든 회원 정보 조회
@@ -58,16 +60,16 @@ public class UserService {
     }
 
     //회원 삭제
-    public void deleteUser(long userid) {
-        User findUser = findVerifiedUser(userid);
+    public void deleteUser(long userId) {
+        User findUser = findVerifiedUser(userId);
 
         userRepository.delete(findUser);
     }
 
     //유저 정보 검색
-    public User findVerifiedUser(long userid) {
+    public User findVerifiedUser(long userId) {
         Optional<User> optionalUser =
-                userRepository.findByUserid(userid);
+                userRepository.findByUserId(userId);
 
         User findUser =
                 optionalUser.orElseThrow(() ->
@@ -91,5 +93,10 @@ public class UserService {
         Optional<User> user = userRepository.findByEmail(email);
         if (user.isPresent())
             throw new BusinessLogicException(ExceptionCode.USER_EXISTS);
+    }
+    //최신순 페이지네이션
+    public Page<User> findPageUsers(int page, int size){
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return userRepository.findAllByOrderByUserIdDesc(pageRequest);
     }
 }

@@ -9,7 +9,9 @@ public enum ExceptionCode {
     QUESTION_EXISTS(409, "Question title exists"),
     CANNOT_CHANGE_QUESTION(403, "Question can not change"),
     CANNOT_CHANGE_USER(403, "User can not change"),
-    NOT_IMPLEMENTATION(501, "Not Implementation");
+    NOT_IMPLEMENTATION(501, "Not Implementation"),
+    ANSWER_NOT_FOUND(404, "Answer not found"),
+    LIKE_NOT_FOUND(404, "Like not found");
 
 
 

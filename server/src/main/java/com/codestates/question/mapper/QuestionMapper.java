@@ -21,7 +21,7 @@ public interface QuestionMapper {
         Question question = new Question();
 
         User user = new User();
-        user.setUserid(questionPostDto.getUserId());
+        user.setUserId(questionPostDto.getUserId());
         question.setUser(user);
         question.setTitle(questionPostDto.getTitle());
         question.setBody(questionPostDto.getBody());
@@ -96,7 +96,7 @@ public interface QuestionMapper {
         }
 
         QuestionUserResponseDto questionUserResponseDto = new QuestionUserResponseDto();
-        questionUserResponseDto.setUserId(user.getUserid());
+        questionUserResponseDto.setUserId(user.getUserId());
         questionUserResponseDto.setDisplayName(user.getNickname());
         // questionUserResponseDto.setImageUrl(user.getImageUrl());
         return questionUserResponseDto;
