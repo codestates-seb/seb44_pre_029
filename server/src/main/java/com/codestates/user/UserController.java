@@ -1,14 +1,18 @@
 package com.codestates.user;
 
+import com.codestates.response.PageInfo;
+import com.codestates.user.dto.UserPageResponseDto;
 import com.codestates.user.dto.UserPatchDto;
 import com.codestates.user.dto.UserPostDto;
 import com.codestates.user.dto.UserResponseDto;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,34 +37,40 @@ public class UserController {
 
     //해당 이메일 유저의 이메일 비밀번호 닉네임 변경
     //데이터베이스 구축 이후 uri user_id로 변경
-    @PatchMapping("/{userid}")
-    public ResponseEntity patchUser(@Valid @PathVariable("userid") long userid,
+    @PatchMapping("/{userId}")
+    public ResponseEntity patchUser(@Valid @PathVariable("userId") long userId,
                                     @Valid @RequestBody UserPatchDto userPatchDto){
-        userPatchDto.setUserid(userid);
+        userPatchDto.setUserId(userId);
         User response = userService.updateUser(userMapper.userPatchDtoToUser(userPatchDto));
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/{userid}")
-    public ResponseEntity getUser(@PathVariable("userid") long userid){
-        User response = userService.findUser(userid);
+    @GetMapping("/{userId}")
+    public ResponseEntity getUser(@PathVariable("userId") long userId){
+        User response = userService.findUser(userId);
         return new ResponseEntity<>(userMapper.userToUserResponseDto(response), HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity getUsers(){
-        List<User> users = userService.findUsers();
+    public ResponseEntity getPageUsers(@Positive @RequestParam("page") int page,
+                                       @Positive @RequestParam("size") int size){
+        Page<User> userPage = userService.findPageUsers(page-1, size);
+        PageInfo pageInfo = new PageInfo(page, size,(int)userPage.getTotalElements(), userPage.getTotalPages());
+
+        List<User> users = userPage.getContent();
         List<UserResponseDto> response =
                 users.stream()
-                        .map(user -> userMapper.userToUserResponseDto(user))
+                        .map(user-> userMapper.userToUserResponseDto(user))
                         .collect(Collectors.toList());
-        return new ResponseEntity<>(response, HttpStatus.OK);
+
+        return new ResponseEntity<>(new UserPageResponseDto(response, pageInfo),HttpStatus.OK);
+
     }
 
-    @DeleteMapping("/{userid}")
-    public ResponseEntity deleteUser(@PathVariable("userid") long userid){
-        userService.deleteUser(userid);
+    @DeleteMapping("/{userId}")
+    public ResponseEntity deleteUser(@PathVariable("userId") long userId){
+        userService.deleteUser(userId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 

@@ -28,7 +28,7 @@ public class AnswerService {
     }
 
     public Answer CreateAnswer(Answer answer) {
-        long userId = answer.getUser().getUserid();
+        long userId = answer.getUser().getUserId();
         User user = userService.findUser(userId);
 
         answer.setUser(user);

@@ -5,6 +5,7 @@ import com.codestates.question.dto.QuestionDto;
 import com.codestates.question.entity.Question;
 import com.codestates.question.mapper.QuestionMapper;
 import com.codestates.question.service.QuestionService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import javax.validation.constraints.Positive;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @RestController
 @RequestMapping("/questions")
 @Validated
@@ -31,11 +33,12 @@ public class QuestionController {
         this.mapper = mapper;
     }
 
-    @PostMapping("/add")
+    @PostMapping("/create")
     public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.Post questionPostDto,
                                        Authentication authentication) {
+
         Map<String, Object> principal = (Map) authentication.getPrincipal();
-        long userId = ((Number) principal.get("user_id")).longValue();
+        long userId = ((Number) principal.get("userId")).longValue();
         questionPostDto.setUserId(userId);
         Question question = questionService.createQuestion(mapper.questionPostDtoToQuestion(questionPostDto));
         return new ResponseEntity<>(mapper.questionToQuestionPOSTResponseDto(question), HttpStatus.CREATED);
@@ -48,7 +51,7 @@ public class QuestionController {
         Map<String, Object> principal = (Map) authentication.getPrincipal();
         long userId = ((Number) principal.get("userId")).longValue();
 
-        long findUserId = questionService.findQuestion(questionId).getUser().getUserid();
+        long findUserId = questionService.findQuestion(questionId).getUser().getUserId();
         if(userId != findUserId) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 
         questionPatchDto.setQuestionId(questionId);
@@ -79,7 +82,7 @@ public class QuestionController {
         Map<String, Object> principal = (Map) authentication.getPrincipal();
         long userId = ((Number) principal.get("userId")).longValue();
 
-        long findUserId = questionService.findQuestion(questionId).getUser().getUserid();
+        long findUserId = questionService.findQuestion(questionId).getUser().getUserId();
         if(userId != findUserId) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 
         questionService.deleteQuestion(questionId);
