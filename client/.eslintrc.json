@@ -28,6 +28,10 @@
         "trailingComma": "all",
         "endOfLine": "auto"
       }
-    ]
-  }
+    ],
+    "react/prop-types": "off"
+  },
+  "plugins": [
+    "prettier"
+  ]
 }
