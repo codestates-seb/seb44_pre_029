@@ -8,10 +8,12 @@ import com.codestates.user.User;
 import com.codestates.user.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -59,6 +61,20 @@ public class QuestionService {
     public Page<Question> findQuestions(int page, int size) {
         return questionRepository.findAll(PageRequest.of(page, size, Sort.by("questionId").descending()));
     }
+
+
+    public Page<Question> findUserQuestions(User user, int page, int size) {
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by("questionId").descending());
+
+
+        return questionRepository.findAllByUser(user,pageable);
+    }
+
+    public List<Question> findUsersQuestions(User user){
+        return questionRepository.findAllByUser(user);
+    }
+
 
     public void deleteQuestion(long questionId) {
         Question findQuestion = findQuestion(questionId);
