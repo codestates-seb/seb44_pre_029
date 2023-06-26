@@ -33,7 +33,7 @@ const Home = () => {
         },
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setAllData(res.data.data);
       })
       //여기서의 데이터를 QuestionsList 로 props 전달
@@ -42,7 +42,6 @@ const Home = () => {
         console.log(error);
       });
   }, []);
-  console.log(allData);
   return (
     <MainContainer>
       <div className="questions">

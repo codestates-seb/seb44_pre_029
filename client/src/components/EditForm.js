@@ -43,7 +43,7 @@ const EditForm = ({ questionId }) => {
         },
       })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
 
         setTitle(res.data.question.title);
         setBody(res.data.question.body);
@@ -54,10 +54,10 @@ const EditForm = ({ questionId }) => {
     const isValid = !isTitle && !isBody;
     if (isValid) {
       console.log("유효함");
-      console.log(title, body);
+      // console.log(title, body);
     } else {
-      console.log(isTitle ? "제목 문제" : "");
-      console.log(isBody ? "본문 문제" : "");
+      // console.log(isTitle ? "제목 문제" : "");
+      // console.log(isBody ? "본문 문제" : "");
     }
   }, [title, body]);
 
@@ -78,36 +78,33 @@ const EditForm = ({ questionId }) => {
       setIsBody(false);
     }
   };
-  const userid = localStorage.getItem("userId");
   const navigate = useNavigate();
   const hanldeSaveEdit = (e) => {
     e.preventDefault();
     titleHandler();
     bodyHandler();
     const newData = {
-      // questions: {
+      questionId,
       title,
       body,
-      userid,
-      // },
     };
-    // axios
-    //   .patch(`/questions/edit/${questionId}`, newData, {
-    //     headers: {
-    //       // "Content-Type": "application/json",
-    //       Authorization: localStorage.getItem("Authorization"), //post 요청시 인증토큰 필요
-    //     },
-    //   })
-    //   .then((res) => console.log(res));
     axios
-      .post(`/questions/edit/${questionId}`, newData, {
+      .patch(`/questions/${questionId}/edit`, newData, {
         headers: {
-          //       // "Content-Type": "application/json",
+          // "Content-Type": "application/json",
           Authorization: localStorage.getItem("Authorization"), //post 요청시 인증토큰 필요
         },
       })
       .then((res) => console.log(res));
-    navigate(`/questions/${questionId}`);
+    // axios
+    //   .post(`/questions/edit/${questionId}`, newData, {
+    //     headers: {
+    //       //       // "Content-Type": "application/json",
+    //       Authorization: localStorage.getItem("Authorization"), //post 요청시 인증토큰 필요
+    //     },
+    //   })
+    //   .then((res) => console.log(res));
+    navigate(`/question/${questionId}`);
 
     // navigate() 해당 게시물로
   };
@@ -129,6 +126,7 @@ const EditForm = ({ questionId }) => {
           setValue={setTitle}
           // titleInputRef={titleInputRef}
           alert={alert[0]}
+          type="text"
         />
         <h3>Body</h3>
         {/* <textarea value={body} onChange={(e) => setBody(e.target.value)} /> */}
