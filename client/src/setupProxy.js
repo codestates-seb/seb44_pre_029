@@ -7,22 +7,22 @@ module.exports = function (app) {
   app.use(
     "/login",
     createProxyMiddleware({
-      target: "https://3b4b-121-187-22-182.ngrok-free.app",
+      target: "http://ec2-3-34-52-125.ap-northeast-2.compute.amazonaws.com:8080",
       changeOrigin: true,
     }),
   );
-  //회원가입 -> 상욱님
+  //회원가입 -> 상욱님, 마이페이지 정보 조회
   app.use(
     "/users",
     createProxyMiddleware({
-      target: "https://3b4b-121-187-22-182.ngrok-free.app",
+      target: "http://ec2-3-34-52-125.ap-northeast-2.compute.amazonaws.com:8080",
       changeOrigin: true,
     }),
   ),
     app.use(
       "/oauth2/authorization/google",
       createProxyMiddleware({
-        target: "https://3b4b-121-187-22-182.ngrok-free.app",
+        target: "http://ec2-3-34-52-125.ap-northeast-2.compute.amazonaws.com:8080",
         changeOrigin: true,
       }),
     ),
@@ -30,7 +30,7 @@ module.exports = function (app) {
     app.use(
       "/questions/add",
       createProxyMiddleware({
-        target: "https://3b4b-121-187-22-182.ngrok-free.app",
+        target: "http://ec2-3-34-52-125.ap-northeast-2.compute.amazonaws.com:8080",
         changeOrigin: true,
       }),
     ),
@@ -38,7 +38,7 @@ module.exports = function (app) {
     app.use(
       "/questions",
       createProxyMiddleware({
-        target: "https://3b4b-121-187-22-182.ngrok-free.app",
+        target: "http://ec2-3-34-52-125.ap-northeast-2.compute.amazonaws.com:8080",
         changeOrigin: true,
       }),
     ),
@@ -46,7 +46,7 @@ module.exports = function (app) {
     app.use(
       "/questions/edit",
       createProxyMiddleware({
-        target: "https://3b4b-121-187-22-182.ngrok-free.app",
+        target: "http://ec2-3-34-52-125.ap-northeast-2.compute.amazonaws.com:8080",
         changeOrigin: true,
       }),
     ),
@@ -54,37 +54,16 @@ module.exports = function (app) {
     app.use(
       "/questions?page=1&size=10",
       createProxyMiddleware({
-        target: "https://3b4b-121-187-22-182.ngrok-free.app",
+        target: "http://ec2-3-34-52-125.ap-northeast-2.compute.amazonaws.com:8080",
         changeOrigin: true,
       }),
     ),
-    // 마이페이지 - 현수님
-    app.use(
-      "/mypage",
-      createProxyMiddleware({
-        target: "https://3b4b-121-187-22-182.ngrok-free.app", //타겟이 되는 api url를 입력합니다.
-        changeOrigin: true, //대상 서버 구성에 따라 호스트 헤더가 변경되도록 설정하는 부분입니다.
-      }),
-    );
+    // 마이페이지 수정 -> 현수님 
   app.use(
-    "/mypage/eidt",
+    "/users/edit",
     createProxyMiddleware({
-      target: "https://3b4b-121-187-22-182.ngrok-free.app", //타겟이 되는 api url를 입력합니다.
-      changeOrigin: true, //대상 서버 구성에 따라 호스트 헤더가 변경되도록 설정하는 부분입니다.
+      target: "http://ec2-3-34-52-125.ap-northeast-2.compute.amazonaws.com:8080", //타겟이 되는 api url를 입력합니다.
+      changeOrigin: true,
     }),
   );
-  // app.use(
-  //   "/token",
-  //   createProxyMiddleware({
-  //     target: "https://oauth2.googleapis.com", //타겟이 되는 api url를 입력합니다.
-  //     changeOrigin: true, //대상 서버 구성에 따라 호스트 헤더가 변경되도록 설정하는 부분입니다.
-  //   }),
-  // );
-  // app.use(
-  //   "/token",
-  //   createProxyMiddleware({
-  //     target: "https://oauth2.googleapis.com",
-  //     changeOrigin: true,
-  //   }),
-  // );
 };
