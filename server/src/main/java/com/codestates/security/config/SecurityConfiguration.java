@@ -63,6 +63,14 @@ public class SecurityConfiguration {
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
                         .antMatchers(HttpMethod.GET,"/users").hasRole("USER")
+                        .antMatchers(HttpMethod.PATCH,"/users/**").hasRole("USER")
+                        .antMatchers(HttpMethod.DELETE,"/users/**").hasRole("USER")
+                        .antMatchers(HttpMethod.POST,"/questions").hasRole("USER")
+                        .antMatchers(HttpMethod.PATCH,"/questions/**").hasRole("USER")
+                        .antMatchers(HttpMethod.DELETE,"/questions/**").hasRole("USER")
+                        .antMatchers(HttpMethod.PATCH, "/answers/**").hasRole("USER")
+                        .antMatchers(HttpMethod.POST, "/answers").hasRole("USER")
+                        .antMatchers(HttpMethod.DELETE, "/answers/**").hasRole("USER")
                         .anyRequest().permitAll()
                 )
                 .oauth2Login(oauth2 -> oauth2
@@ -76,9 +84,6 @@ public class SecurityConfiguration {
     @Bean
     CorsConfigurationSource corsConfigurationSource(){
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(Arrays.asList(
-                "http://localhost:3000",
-                "https://f243-121-160-105-82.ngrok-free.app"));
         configuration.setAllowedOrigins(Arrays.asList("*"));
         configuration.setAllowedMethods(Arrays.asList("GET","POST","PATCH","DELETE"));
         configuration.setAllowedHeaders(Arrays.asList("*"));

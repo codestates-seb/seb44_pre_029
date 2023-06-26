@@ -28,7 +28,7 @@ module.exports = function (app) {
     ),
     //글 작성 -> 수민님
     app.use(
-      "/questions/add",
+      "/questions/create",
       createProxyMiddleware({
         target: "http://ec2-3-34-52-125.ap-northeast-2.compute.amazonaws.com:8080",
         changeOrigin: true,

@@ -2,6 +2,7 @@ package com.codestates.user;
 
 
 import com.codestates.like.Like;
+import com.codestates.question.entity.Question;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,10 +32,19 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Like> likes;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Question> questions;
+
     public User(String email, String nickname, String password){
         this.email = email;
         this.nickname = nickname;
         this.password = password;
     }
 
+    public User(long userId, String email, String nickname, String password) {
+        this.userId = userId;
+        this.email = email;
+        this.nickname = nickname;
+        this.password = password;
+    }
 }

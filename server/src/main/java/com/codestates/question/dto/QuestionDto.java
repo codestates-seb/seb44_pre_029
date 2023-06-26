@@ -92,7 +92,7 @@ public class QuestionDto {
         private boolean isSelected;
         private int viewCount;
         private int answerCount;
-        private QuestionVoteResponseDto vote = new QuestionVoteResponseDto();
+        private int likes;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
     }

@@ -16,6 +16,7 @@ public class UserMapper {
 
     public User userPatchDtoToUser(UserPatchDto userPatchDto){
         return new User(
+                userPatchDto.getUserId(),
                 userPatchDto.getEmail(),
                 userPatchDto.getNickname(),
                 userPatchDto.getPassword());

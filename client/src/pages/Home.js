@@ -26,9 +26,14 @@ const Home = () => {
         // },
         // withCredentials: true,
         // credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          "ngrok-skip-browser-warning": true,
+          Authorization: localStorage.getItem("Authorization"),
+        },
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setAllData(res.data.data);
       })
       //여기서의 데이터를 QuestionsList 로 props 전달
@@ -37,7 +42,6 @@ const Home = () => {
         console.log(error);
       });
   }, []);
-  console.log(allData);
   return (
     <MainContainer>
       <div className="questions">
