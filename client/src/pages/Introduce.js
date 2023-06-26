@@ -1,36 +1,31 @@
 import styled from "styled-components";
 import Zzanggu from "../assets/Zzanggu.png";
 
+const IntroduceWrap = styled.div`
+  padding: 20px;
+  width: 1082px;
+  h1 {
+    text-align: left;
+  }
+  div.introWrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+`;
+const IntroduceContent = styled.div`
+  width: 260px;
+  height: 300px;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 5px 5px 0 #ccc;
+  span.githubTag {
+    color: #aaa;
+    font-size: 12px;
+    padding: 0 5px;
+  }
+`;
 const Introduce = () => {
-  const IntroduceWrap = styled.div`
-    padding: 20px;
-    width: 1082px;
-
-    h1 {
-      text-align: left;
-    }
-
-    div.introWrap {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-  `;
-
-  const IntroduceContent = styled.div`
-    width: 260px;
-    height: 300px;
-    padding: 20px;
-    border-radius: 20px;
-    box-shadow: 0 5px 5px 0 #ccc;
-
-    span.githubTag {
-      color: #aaa;
-      font-size: 12px;
-      padding: 0 5px;
-    }
-  `;
-
   return (
     <IntroduceWrap>
       <div>

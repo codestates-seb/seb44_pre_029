@@ -1,6 +1,6 @@
 import "./App.css";
 import HeaderLogin from "./components/HeaderLogin";
-// import HeaderLogout from "./components/HeaderLogout";
+import HeaderLogout from "./components/HeaderLogout";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
@@ -12,16 +12,21 @@ import Login from "./pages/Login";
 import MypageEdit from "./pages/MypageEdit";
 import Nav from "./components/Nav";
 import EditQuestion from "./pages/EditQuestion";
+import { useState, useEffect } from "react";
+
 function App() {
+  console.log(localStorage.getItem("Authorization") !== null);
+  const [storage, setStorage] = useState(null);
+  useEffect(() => {
+    setStorage(localStorage.getItem("Authorization"));
+  }, []);
   return (
     <BrowserRouter>
       <div className="App">
-        <HeaderLogin />
-        {/* 로그인 X 경우에는 Logout 컴포넌트로 */}
+        {storage !== null ? <HeaderLogin /> : <HeaderLogout />}
         <main>
-          <Nav />
+          {storage !== null ? <Nav /> : ""}
           <Routes>
-            {/* 로그인 -> 초기*/}
             <Route path="/" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/home" element={<Home />} />
