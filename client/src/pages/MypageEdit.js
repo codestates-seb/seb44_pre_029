@@ -176,7 +176,11 @@ const MypageEdit = () => {
   // patch 요청 핸들러
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.patch(`/users/edit/${user_id}`, values).then(handleMypage());
+    axios
+      .patch(`/users/${user_id}`, values, {
+        Authorization: localStorage.getItem("Authorization"),
+      })
+      .then(handleMypage());
   };
   return (
     <MypageWrap>

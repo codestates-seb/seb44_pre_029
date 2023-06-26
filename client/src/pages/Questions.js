@@ -8,7 +8,7 @@ import styled from "styled-components";
 import Aside from "../components/Aside";
 import Vote from "../components/Vote";
 import Answer from "../components/Answer";
-import Comment from "../components/Comment";
+// import Comment from "../components/Comment";
 import YourAnswer from "../components/YourAnswer";
 export const QuestionsSection = styled.section`
   padding: 30px;
@@ -142,45 +142,36 @@ export const AsideContainer = styled.div`
 `;
 const Questions = () => {
   //임시 데이터
-  const [data, setData] = useState({});
+  // const [data, setData] = useState({});
   const [vote, setVote] = useState(0);
   const [questionData, setQeustionData] = useState([]);
   const [userData, setUserData] = useState([]);
   const [answerData, setAnswerData] = useState([]);
 
   const currentUserId = localStorage.getItem("userId");
-
-  // const data = {
-  //   vote: 0,
-  //   answer: 0,
-  //   view: 0,
-  //   questionTitle:
-  //     "User interface for setting up notification reminders within the onboarding app",
-  //   questionContent:
-  //     "짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱",
-  //   //   userImgUrl: profile,
-  //   userName: "짱구",
-  //   userReputation: 20,
-  // };
-
   const { questionId } = useParams();
   console.log(questionId);
   //해당 id로 게시물 조회
+
   useEffect(() => {
     axios
       .get(`/questions/${questionId}`, {
         headers: {
           // "Content-Type": "application/json",
+          "Content-Type": "application/json",
+          "ngrok-skip-browser-warning": true,
           Authorization: localStorage.getItem("Authorization"), //post 요청시 인증토큰 필요
         },
       })
       .then((res) => {
         console.log(res);
-        setData(res.data);
+
+        // setData(res.data);
+
         setQeustionData(res.data.question);
         setUserData(res.data.user);
         setAnswerData(res.data.answer);
-        setVote(questionData.vote.score);
+        setVote(questionData.like);
         // console.log(questionData.vote.score);
       })
       .catch(function (error) {
@@ -188,9 +179,10 @@ const Questions = () => {
         console.log(error);
       });
   }, []);
-  console.log(questionData);
-  console.log(userData);
-  console.log(answerData);
+  // console.log(data);
+  // console.log(questionData);
+  // console.log(userData);
+  // console.log(answerData);
 
   const navigate = useNavigate();
   //질문 버튼 클릭 이벤트
@@ -234,7 +226,7 @@ const Questions = () => {
         <ContentContainer>
           {/* <본문 질문> <answer> <YourAnswer> -> flex: column*/}
           <div className="box">
-            <Vote vote={vote} data={data} />
+            <Vote vote={vote} questionId={questionId} />
 
             {/* Sub -> Content -> Comment  */}
             <SubContent>
@@ -279,7 +271,7 @@ const Questions = () => {
 
               {/* Add a comment */}
 
-              <Comment />
+              {/* <Comment /> */}
             </SubContent>
           </div>
 
@@ -291,12 +283,7 @@ const Questions = () => {
           {/* Your Answer */}
           <div>
             {/* Answer 컴포넌트로 분리*/}
-            <YourAnswer
-              questionId={questionId}
-              userData={userData}
-              questionData={questionData}
-              answerData={answerData}
-            />
+            <YourAnswer questionId={questionId} />
           </div>
         </ContentContainer>
 

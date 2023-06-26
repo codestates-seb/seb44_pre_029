@@ -7,6 +7,7 @@ import {
 import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 export const VoteContainer = styled.div`
   padding-right: 16px;
@@ -29,7 +30,7 @@ export const VoteContainer = styled.div`
     }
   }
 `;
-const Vote = ({ vote, data }) => {
+const Vote = ({ vote, questionId }) => {
   const [voteSum, setVoteSum] = useState(0);
   //유저당 한번만 가능하게
   const [voteUp, setVotedUp] = useState(false);
@@ -45,6 +46,23 @@ const Vote = ({ vote, data }) => {
       setVoteSum((prev) => prev + 1);
       setVotedUp(true);
       //다시 post 요청
+      const YourAnswer = {
+        checklike: 1,
+      };
+      axios
+        .post(
+          `/questions/${questionId}/like`,
+          YourAnswer,
+
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "ngrok-skip-browser-warning": true,
+              Authorization: localStorage.getItem("Authorization"),
+            },
+          },
+        )
+        .then((res) => console.log(res));
     }
   };
   const hanldeVoteDown = () => {};
@@ -52,7 +70,6 @@ const Vote = ({ vote, data }) => {
     setVoteSum(vote);
   }, []);
   useEffect(() => {
-    console.log(data);
     // console.log(voteSum);
     // const newData = {
     //   ...data,

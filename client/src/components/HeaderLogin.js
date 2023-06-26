@@ -163,17 +163,19 @@ const LogoutBtn = styled.button`
 `;
 const HeaderLogin = () => {
   const [isFocused, setIsFocused] = useState(false);
+  const user_id = localStorage.getItem("userId");
   const navigate = useNavigate();
   const handleSearchFocus = () => {
     setIsFocused(!isFocused);
-  };
-  const mypageHanlder = () => {
-    navigate(`/mypage/2`);
   };
   const handleLogOut = () => {
     localStorage.removeItem("Authorization");
     localStorage.removeItem("userId");
     navigate("/");
+    window.location.reload();
+  };
+  const handleMypage = () => {
+    navigate(`/mypage/${user_id}`);
   };
   return (
     <Header>
@@ -201,7 +203,7 @@ const HeaderLogin = () => {
         </div>
         <IconsBtnWrap>
           <IconsBtn>
-            <button className="mypageMoveBtn" onClick={mypageHanlder}>
+            <button className="mypageMoveBtn" onClick={handleMypage}>
               <BsPersonCircle size={20} />
               <span className="reputationCount">1</span>
             </button>

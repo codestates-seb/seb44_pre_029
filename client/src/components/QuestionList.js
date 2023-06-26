@@ -1,5 +1,5 @@
 //QuestionList.js
-import profile from "../assets/Zzanggu.png";
+// import profile from "../assets/Zzanggu.png";
 import Item from "./Item";
 import { Button } from "../pages/Signup";
 import { useState, useEffect } from "react";
@@ -80,34 +80,11 @@ export const QuestionLi = styled.div`
     }
   }
 `;
-const QuestionList = () => {
+const QuestionList = ({ data }) => {
   const [tabIndex, setTabIndex] = useState(0);
   const filterButton = ["Newest", "Hot"];
+  console.log(data);
 
-  //임시 데이터
-  const data = [
-    {
-      vote: 0,
-      answer: 0,
-      view: 0,
-      questionTitle: "ㅁㄹㅇㅁㄴㄹㅁㄴㅇㄹㅁㅇㄴㄹㅁㅇㄴㄹㅁ",
-      questionContent: "dfafsdafadsfsadfasdfadsfadsffasfaf",
-      userImgUrl: profile,
-      userName: "짱구",
-      userReputation: 20,
-    },
-    {
-      vote: 1,
-      answer: 1,
-      view: 1,
-      questionTitle: "맹구",
-      questionContent: "dfafsdafadsfsadfasdfadsfadsffasfaf",
-      userImgUrl: profile,
-      userName: "맹구",
-      userReputation: 1,
-      //   createAt: new Date(),
-    },
-  ];
   //  전체 게시물 불러오기
   useEffect(() => {
     //page, size 설정
@@ -128,8 +105,9 @@ const QuestionList = () => {
           {/* 버튼 링크 연결 -> 글 작성 페이지 */}
           <Button onClick={hanldeAskQuestion}>Ask Question</Button>
         </div>
+
         <div className="header_filter">
-          <span>{data.length}&nbsp;questions</span>
+          <span>{data ? data.length : 0}&nbsp;questions</span>
           <div className="filter_button">
             {filterButton.map((el, idx) => (
               <button
@@ -145,11 +123,14 @@ const QuestionList = () => {
           </div>
         </div>
       </QuestionTitleDiv>
-      <QuestionLi>
-        {data.map((e, idx) => {
-          return <Item key={idx} item={e} />;
-        })}
-      </QuestionLi>
+      {}
+      {data && (
+        <QuestionLi>
+          {data.map((e, idx) => {
+            return <Item key={idx} item={e} />;
+          })}
+        </QuestionLi>
+      )}
     </QuestionsContainer>
   );
 };

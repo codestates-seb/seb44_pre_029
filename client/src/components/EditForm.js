@@ -43,7 +43,7 @@ const EditForm = ({ questionId }) => {
         },
       })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
 
         setTitle(res.data.question.title);
         setBody(res.data.question.body);
@@ -54,10 +54,10 @@ const EditForm = ({ questionId }) => {
     const isValid = !isTitle && !isBody;
     if (isValid) {
       console.log("유효함");
-      console.log(title, body);
+      // console.log(title, body);
     } else {
-      console.log(isTitle ? "제목 문제" : "");
-      console.log(isBody ? "본문 문제" : "");
+      // console.log(isTitle ? "제목 문제" : "");
+      // console.log(isBody ? "본문 문제" : "");
     }
   }, [title, body]);
 
@@ -84,20 +84,27 @@ const EditForm = ({ questionId }) => {
     titleHandler();
     bodyHandler();
     const newData = {
-      questions: {
-        title,
-        body,
-      },
+      questionId,
+      title,
+      body,
     };
     axios
-      .patch(`/questions/edit/${questionId}`, newData, {
+      .patch(`/questions/${questionId}/edit`, newData, {
         headers: {
           // "Content-Type": "application/json",
           Authorization: localStorage.getItem("Authorization"), //post 요청시 인증토큰 필요
         },
       })
       .then((res) => console.log(res));
-    navigate(`/questions/${questionId}`);
+    // axios
+    //   .post(`/questions/edit/${questionId}`, newData, {
+    //     headers: {
+    //       //       // "Content-Type": "application/json",
+    //       Authorization: localStorage.getItem("Authorization"), //post 요청시 인증토큰 필요
+    //     },
+    //   })
+    //   .then((res) => console.log(res));
+    navigate(`/question/${questionId}`);
 
     // navigate() 해당 게시물로
   };
@@ -115,17 +122,18 @@ const EditForm = ({ questionId }) => {
         {/* <input value={title} onChange={(e) => setTitle(e.target.value)} /> */}
         <InputItem
           isTitle={isTitle}
-          title={title}
-          setTitle={setTitle}
+          value={title}
+          setValue={setTitle}
           // titleInputRef={titleInputRef}
           alert={alert[0]}
+          type="text"
         />
         <h3>Body</h3>
         {/* <textarea value={body} onChange={(e) => setBody(e.target.value)} /> */}
         <TextareaItem
           isBody={isBody}
-          body={body}
-          setBody={setBody}
+          value={body}
+          setValue={setBody}
           alert={alert[1]}
         />
       </InputContainer>

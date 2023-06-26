@@ -7,7 +7,7 @@ import axios from "axios";
 import { Button } from "./Signup";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 export const CreateDiv = styled.div`
   box-sizing: border-box;
@@ -82,8 +82,8 @@ const Create = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 
-  const titleInputRef = useRef(null);
-  const bodyInputRef = useRef(null);
+  // const titleInputRef = useRef(null);
+  // const bodyInputRef = useRef(null);
 
   //false -> 기본값 , true -> 통과되지 못함(red)
   const [isTitle, setIsTitle] = useState(false);
@@ -91,11 +91,11 @@ const Create = () => {
 
   const navigate = useNavigate();
   const titleHandler = () => {
-    let titleInputValue = titleInputRef.current.value;
-    setTitle(titleInputValue);
+    // let titleInputValue = titleInputRef.current.value;
+    // setTitle(titleInputValue);
 
     //유효성 검사 : 제목 150자 이상 제한
-    if (titleInputValue.length > 150 || titleInputValue.length < 15) {
+    if (title.length > 150 || title.length < 15) {
       setIsTitle(true);
     } else {
       setIsTitle(false);
@@ -103,11 +103,11 @@ const Create = () => {
   };
 
   const bodyHandler = () => {
-    let bodyInputValue = bodyInputRef.current.value;
-    setBody(bodyInputValue);
+    // let bodyInputValue = bodyInputRef.current.value;
+    // setBody(bodyInputValue);
 
     //유효성 검사 : 바디 최소 20자 이상
-    if (bodyInputValue.length < 20) {
+    if (body.length < 20) {
       setIsBody(true);
     } else {
       setIsBody(false);
@@ -132,7 +132,7 @@ const Create = () => {
   // const navigate = useNavigate();
 
   //자기 자신은 로컬에 저장함
-  const currentUserId = localStorage.getItem("userId");
+  // const currentUserId = localStorage.getItem("userId");
 
   // Register 클릭시 이벤트
   const hanldeRegister = (e) => {
@@ -144,13 +144,14 @@ const Create = () => {
     const newData = {
       title,
       body,
-      userid: currentUserId,
+      // userid: currentUserId,
     };
 
     axios
-      .post("/questions/add", newData, {
+      .post("/questions/create", newData, {
         headers: {
-          // "Content-Type": "application/json",
+          "Content-Type": "application/json",
+          "ngrok-skip-browser-warning": true,
           Authorization: localStorage.getItem("Authorization"), //post 요청시 인증토큰 필요
         },
       })
@@ -243,9 +244,16 @@ const Create = () => {
                   detail={inputBox[0].detail}
                 />
                 <div className="isTitle">
-                  <InputItem
+                  {/* <InputItem
                     isTitle={isTitle}
                     titleInputRef={titleInputRef}
+                    alert={alert[0]}
+                  /> */}
+                  <InputItem
+                    isTitle={isTitle}
+                    value={title}
+                    setValue={setTitle}
+                    // titleInputRef={titleInputRef}
                     alert={alert[0]}
                   />
                 </div>
@@ -266,9 +274,15 @@ const Create = () => {
                 />
 
                 <div className="isBody">
-                  <TextareaItem
+                  {/* <TextareaItem
                     isBody={isBody}
                     bodyInputRef={bodyInputRef}
+                    alert={alert[1]}
+                  /> */}
+                  <TextareaItem
+                    isBody={isBody}
+                    value={body}
+                    setValue={setBody}
                     alert={alert[1]}
                   />
                 </div>

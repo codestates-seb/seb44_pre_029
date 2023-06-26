@@ -2,8 +2,9 @@
 import { FaQuestionCircle, FaSort } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { ImPriceTags, ImTrophy } from "react-icons/im";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { InputItem } from "../components/CreateContent";
 import styled from "styled-components";
 import axios from "axios";
 // import GoogleButton from "../components/GoogleButton";
@@ -145,7 +146,7 @@ export const SignupDiv = styled.div`
   line-height: 17px;
   margin-bottom: 32px;
 `;
-export const FormContainer = styled.form`
+export const FormContainer = styled.div`
   padding: 24px;
   display: flex;
   flex-direction: column;
@@ -276,9 +277,9 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const NameInputRef = useRef(null);
-  const EmailInputRef = useRef(null);
-  const PasswordInputRef = useRef(null);
+  // const NameInputRef = useRef(null);
+  // const EmailInputRef = useRef(null);
+  // const PasswordInputRef = useRef(null);
   // const navigate = useNavigate();
 
   //false -> 기본값 , true -> 통과되지 못함(red)
@@ -289,34 +290,28 @@ const Signup = () => {
   useEffect(() => {
     const isValid = !isName && !isEmail && !isPassword;
     if (isValid) {
-      console.log("유효함");
-      console.log(name, email, password);
+      // console.log("유효함");
+      // console.log(name, email, password);
     } else {
-      console.log(isName ? "이름 문제" : "");
-      console.log(isEmail ? "이메일 문제" : "");
-      console.log(isPassword ? "패스워드 문제" : "");
+      // console.log(isName ? "이름 문제" : "");
+      // console.log(isEmail ? "이메일 문제" : "");
+      // console.log(isPassword ? "패스워드 문제" : "");
     }
   }, [name, email, password]);
 
   //이름 핸들러
   const nameHanlder = () => {
-    let nameInputValue = NameInputRef.current.value;
-    setName(nameInputValue);
-
     //!!!!유효성 검사 : 이름 중복 -> 서버 측?
     setIsName(false);
   };
 
   //이메일 핸들러
   const emailHandler = () => {
-    let emailInputValue = EmailInputRef.current.value;
-    setEmail(emailInputValue);
-
     //유효성 검사 : 정규식 + 이메일 중복 -> 서버 측?
     const emailRegex = /[a-z0-9]+@[a-z]+.[a-z]{2,6}/;
     // /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 
-    if (emailRegex.test(emailInputValue)) {
+    if (emailRegex.test(email)) {
       setIsEmail(false);
     } else {
       setIsEmail(true);
@@ -325,11 +320,8 @@ const Signup = () => {
 
   //비밀번호 핸들러
   const passwordHanlder = () => {
-    let passwordInputValue = PasswordInputRef.current.value;
-    setPassword(passwordInputValue);
-
     //유효성 검사 : 비밀번호 글자수 제한 - 8글자 이상 12글자 이하로만 가능7글자 이하 혹은 13글자 이상
-    if (passwordInputValue.length >= 8 && passwordInputValue.length <= 12) {
+    if (password.length >= 8 && password.length <= 12) {
       setIsPassword(false);
     } else {
       setIsPassword(true);
@@ -363,25 +355,16 @@ const Signup = () => {
         // 요청이 실패한 경우의 처리
         console.error(error);
       });
-
-    // fetch("/users", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json", //;charset=UTF-8",
-    //     // Accept: "application/json",
-    //     // "Content-Type": "text/html; charset=utf-8",
-    //     // "application/json",
-    //     // "Access-Control-Allow-Origin": "http://127.0.0.1:3000",
-    //   },
-    //   body: JSON.stringify(userInfo),
-    // })
-    //   .then((res) => console.log(res))
-    //   .then((data) => console.log(data));
   };
 
   const handleGoogleLogin = () => {
     window.location.href = "/oauth2/authorization/google";
   };
+  const alert = [
+    "이름이 중복됩니다",
+    "이메일을 정규식에 맞게 작성해주세요.",
+    "Please write password at least 8 characters.",
+  ];
   return (
     <DivContainer>
       <DivContent>
@@ -444,7 +427,15 @@ const Signup = () => {
               <div>
                 <label htmlFor="display_name">Display name</label>
                 <div className="isName">
-                  {isName ? (
+                  <InputItem
+                    isTitle={isName}
+                    value={name}
+                    setValue={setName}
+                    // titleInputRef={titleInputRef}
+                    alert={alert[0]}
+                    type="text"
+                  />
+                  {/* {isName ? (
                     <>
                       <InputEl
                         border="1px solid red"
@@ -455,7 +446,7 @@ const Signup = () => {
                         id="display_name"
                         ref={NameInputRef}
                       />
-                      <p>Please </p>
+                      <p></p>
                     </>
                   ) : (
                     <>
@@ -469,14 +460,22 @@ const Signup = () => {
                         ref={NameInputRef}
                       />
                     </>
-                  )}
+                  )} */}
                 </div>
               </div>
               {/* 이메일 input */}
               <div className="emailInput">
                 <label htmlFor="email">Email</label>
                 <div className="isEmail">
-                  {isEmail ? (
+                  <InputItem
+                    isTitle={isEmail}
+                    value={email}
+                    setValue={setEmail}
+                    // titleInputRef={titleInputRef}
+                    alert={alert[1]}
+                    type="text"
+                  />
+                  {/* {isEmail ? (
                     <>
                       <InputEl
                         border="1px solid red"
@@ -501,14 +500,22 @@ const Signup = () => {
                         ref={EmailInputRef}
                       />
                     </>
-                  )}
+                  )} */}
                 </div>
               </div>
               {/* 패스워드 input */}
               <div className="passwordInput">
                 <label htmlFor="password">Password</label>
                 <div className="isPassword">
-                  {isPassword ? (
+                  <InputItem
+                    isTitle={isPassword}
+                    value={password}
+                    setValue={setPassword}
+                    // titleInputRef={titleInputRef}
+                    alert={alert[2]}
+                    type="password"
+                  />
+                  {/* {isPassword ? (
                     <>
                       <InputEl
                         border="1px solid red"
@@ -534,7 +541,7 @@ const Signup = () => {
                         required
                       />
                     </>
-                  )}
+                  )} */}
                 </div>
                 <p>
                   Passwords must contain at least eight characters, including at

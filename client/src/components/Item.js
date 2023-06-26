@@ -1,5 +1,5 @@
 //Item.js
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import profile from "../assets/Zzanggu.png";
 import { styled } from "styled-components";
 export const ItemContainer = styled.div`
@@ -35,6 +35,7 @@ export const ItemContainer = styled.div`
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    width: 600px;
     h3 {
       margin: 0;
       cursor: pointer;
@@ -42,6 +43,17 @@ export const ItemContainer = styled.div`
       &:hover {
         color: #0a95ff;
       }
+    }
+    div.body {
+      width: 600px;
+      /* white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis; */
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
     }
     .user_info {
       display: flex;
@@ -95,58 +107,58 @@ export const ItemContainer = styled.div`
 
 /* eslint-disable react/prop-types */
 const Item = ({ item }) => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  // const handleDetailQuestoin = () => {
-  //   navigate("/question/:{questionId}");
-  // };
+  const handleDetailQuestoin = () => {
+    navigate(`/question/${item.question.question_id}`);
+  };
 
   //작성시간계산 : ~~시간전 으로 표기
-  // function displayedAt(createdAt) {
-  //   const milliSeconds = new Date() - createdAt;
-  //   const seconds = milliSeconds / 1000;
-  //   if (seconds < 60) return `${Math.floor(seconds)} secs ago`;
-  //   const minutes = seconds / 60;
-  //   if (minutes < 60) return `${Math.floor(minutes)} min ago`;
-  //   const hours = minutes / 60;
-  //   if (hours < 24) return `${Math.floor(hours)} hour ago`;
-  //   const days = hours / 24;
-  //   if (days < 7) return `${Math.floor(days)} days ago`;
-  //   const weeks = days / 7;
-  //   if (weeks < 5) return `${Math.floor(weeks)} weeks ago`;
-  //   const months = days / 30;
-  //   if (months < 12) return `${Math.floor(months)} months ago`;
-  //   const years = days / 365;
-  //   return `${Math.floor(years)}years ago`;
-  // }
+  function displayedAt(createdAt) {
+    const milliSeconds = new Date() - createdAt;
+    const seconds = milliSeconds / 1000;
+    if (seconds < 60) return `${Math.floor(seconds)} secs ago`;
+    const minutes = seconds / 60;
+    if (minutes < 60) return `${Math.floor(minutes)} min ago`;
+    const hours = minutes / 60;
+    if (hours < 24) return `${Math.floor(hours)} hour ago`;
+    const days = hours / 24;
+    if (days < 7) return `${Math.floor(days)} days ago`;
+    const weeks = days / 7;
+    if (weeks < 5) return `${Math.floor(weeks)} weeks ago`;
+    const months = days / 30;
+    if (months < 12) return `${Math.floor(months)} months ago`;
+    const years = days / 365;
+    return `${Math.floor(years)}years ago`;
+  }
 
   return (
-    <ItemContainer>
+    <ItemContainer onClick={handleDetailQuestoin}>
       <div className="summary_stats">
         <span>
-          <strong>{item.vote}</strong>&nbsp;views
+          <strong>{item.question.likes}</strong>&nbsp;views
         </span>
         <span>
-          <strong>{item.answer}</strong>&nbsp;answers
+          <strong>{item.question.answer_count}</strong>&nbsp;answers
         </span>
         <span>
-          <strong>{item.view}</strong>&nbsp;views
+          <strong>{item.question.view_count}</strong>&nbsp;views
         </span>
       </div>
 
       <div className="summary_content">
         {/* <h3 onClick={handleDetailQuestoin}>{item.questionTitle}</h3> */}
-        <h3>{item.questionTitle}</h3>
-        <div>{item.questionContent}</div>
+        <h3>{item.question.title}</h3>
+        <div className="body">{item.question.body}</div>
 
         <div className="user_info">
           <img src={profile} alt={profile}></img>
-          <span>{item.userName}</span>
-          <span>{item.userReputation}</span>
+          <span>{item.user.display_name}</span>
+          {/* <span>{item.userReputation}</span> */}
 
           {/* 마지막 createAt 시각 */}
           <span>asked </span>
-          {/* <span>asked {displayedAt(new Date(data.createdAt))}</span> */}
+          <span>asked {displayedAt(new Date(item.question.created_at))}</span>
         </div>
       </div>
     </ItemContainer>
