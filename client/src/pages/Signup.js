@@ -328,7 +328,7 @@ const Signup = () => {
     }
   };
   const navigate = useNavigate();
-  const PROXY = window.location.hostname === 'localhost' ? '' : '/proxy';
+  const PROXY = window.location.hostname === "localhost" ? "" : "/proxy";
   const URL = `${PROXY}/users`;
 
   //폼 제출 핸들러
