@@ -87,6 +87,7 @@ public interface QuestionMapper {
         response.setAnswerCount(question.getAnswerCount());
         response.setCreatedAt(question.getCreateAt());
         response.setModifiedAt(question.getModifiedAt());
+        response.setLikes(question.getLikes());
         return response;
     }
 
