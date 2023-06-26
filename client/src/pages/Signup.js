@@ -328,6 +328,8 @@ const Signup = () => {
     }
   };
   const navigate = useNavigate();
+  const PROXY = window.location.hostname === 'localhost' ? '' : '/proxy';
+  const URL = `${PROXY}/users`;
 
   //폼 제출 핸들러
   const formSubmitHandler = (e) => {
@@ -344,7 +346,7 @@ const Signup = () => {
     };
 
     axios
-      .post("/users", userInfo)
+      .post(URL, userInfo)
       .then((response) => {
         // 요청이 성공한 경우의 처리
         console.log(response.data);
