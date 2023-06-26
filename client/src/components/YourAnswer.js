@@ -64,7 +64,7 @@ const YourAnswer = ({ questionId, answerData, userData, questionData }) => {
   const handlePostYourAnswer = () => {
     axios
       .post(
-        `questions/${questionId}`,
+        `/questions/${questionId}`,
         {
           ...userData,
           ...questionData,
