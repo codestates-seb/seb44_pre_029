@@ -35,7 +35,7 @@ export const TextEl = styled.textarea`
 `;
 /* eslint-disable react/prop-types */
 // react/prop-types 해결 주석
-const InputItem = ({ isTitle, value, setValue, alert }) => {
+const InputItem = ({ isTitle, value, setValue, alert, type }) => {
   return (
     <>
       {isTitle ? (
@@ -44,7 +44,7 @@ const InputItem = ({ isTitle, value, setValue, alert }) => {
             border="1px solid red"
             shadow="0 0 0 4px #f0c0bd"
             focusborder="1px solid red"
-            type="text"
+            type={type}
             value={value}
             onChange={(e) => setValue(e.target.value)}
             // placeholder="e.g Is there an R function for finding the index of an element in a vector?"
@@ -57,7 +57,7 @@ const InputItem = ({ isTitle, value, setValue, alert }) => {
             border="1px solid #b0b8bf"
             shadow="0 0 0 4px #ddeaf7"
             focusborder="1px solid #0a95ff"
-            type="text"
+            type={type}
             value={value}
             onChange={(e) => setValue(e.target.value)}
             // placeholder="e.g Is there an R function for finding the index of an element in a vector?"
