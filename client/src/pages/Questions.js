@@ -149,23 +149,10 @@ const Questions = () => {
   const [answerData, setAnswerData] = useState([]);
 
   const currentUserId = localStorage.getItem("userId");
-
-  // const data = {
-  //   vote: 0,
-  //   answer: 0,
-  //   view: 0,
-  //   questionTitle:
-  //     "User interface for setting up notification reminders within the onboarding app",
-  //   questionContent:
-  //     "짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱짱짜라짱짱",
-  //   //   userImgUrl: profile,
-  //   userName: "짱구",
-  //   userReputation: 20,
-  // };
-
   const { questionId } = useParams();
   console.log(questionId);
   //해당 id로 게시물 조회
+
   useEffect(() => {
     axios
       .get(`/questions/${questionId}`, {
@@ -177,6 +164,7 @@ const Questions = () => {
       .then((res) => {
         console.log(res);
         setData(res.data);
+
         setQeustionData(res.data.question);
         setUserData(res.data.user);
         setAnswerData(res.data.answer);
@@ -188,9 +176,10 @@ const Questions = () => {
         console.log(error);
       });
   }, []);
-  console.log(questionData);
-  console.log(userData);
-  console.log(answerData);
+  console.log(data);
+  // console.log(questionData);
+  // console.log(userData);
+  // console.log(answerData);
 
   const navigate = useNavigate();
   //질문 버튼 클릭 이벤트
