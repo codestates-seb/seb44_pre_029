@@ -37,7 +37,7 @@ public class UserController {
 
     //해당 이메일 유저의 이메일 비밀번호 닉네임 변경
     //데이터베이스 구축 이후 uri user_id로 변경
-    @PatchMapping("/{userId}")
+    @PatchMapping("/edit/{userId}")
     public ResponseEntity patchUser(@Valid @PathVariable("userId") long userId,
                                     @Valid @RequestBody UserPatchDto userPatchDto){
         userPatchDto.setUserId(userId);
@@ -68,7 +68,7 @@ public class UserController {
 
     }
 
-    @DeleteMapping("/{userId}")
+    @DeleteMapping("/delete/{userId}")
     public ResponseEntity deleteUser(@PathVariable("userId") long userId){
         userService.deleteUser(userId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);

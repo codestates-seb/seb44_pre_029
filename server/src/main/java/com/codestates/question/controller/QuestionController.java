@@ -5,6 +5,8 @@ import com.codestates.question.dto.QuestionDto;
 import com.codestates.question.entity.Question;
 import com.codestates.question.mapper.QuestionMapper;
 import com.codestates.question.service.QuestionService;
+import com.codestates.response.PageInfo;
+import com.codestates.response.QuestionPageResponseDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
@@ -69,11 +72,18 @@ public class QuestionController {
     @GetMapping
     public ResponseEntity getQuestions(@Positive @RequestParam int page,
                                        @Positive @RequestParam int size) {
-        Page<Question> pageQuestions = questionService.findQuestions(page - 1, size);
-        List<Question>questions = pageQuestions.getContent();
+        Page<Question> QuestionPage = questionService.findQuestions(page - 1, size);
+        PageInfo pageInfo = new PageInfo(page, size,(int)QuestionPage.getTotalElements(), QuestionPage.getTotalPages());
+        List<Question>questions = QuestionPage.getContent();
 
-        List<QuestionDto.GETAllResponse> questionResponseDtos = mapper.questionToQuestionGetAllResponse(questions);
-        return new ResponseEntity<>(new MultiResponseDto(questionResponseDtos, pageQuestions), HttpStatus.OK);
+
+        List<QuestionDto.GETResponse> response =
+                questions.stream()
+                        .map(question-> mapper.questionToQuestionGETResponseDto(question))
+                        .collect(Collectors.toList());
+
+
+        return new ResponseEntity<>(new QuestionPageResponseDto(response, pageInfo), HttpStatus.OK);
     }
 
     @DeleteMapping("/{question-id}")
