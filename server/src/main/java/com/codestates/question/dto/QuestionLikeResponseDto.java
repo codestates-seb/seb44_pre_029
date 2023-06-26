@@ -12,8 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class QuestionVoteResponseDto {
-    private int dislikeVote;
-    private int likeVote;
-    private int score;
+public class QuestionLikeResponseDto {
+    private int likes;
+
 }

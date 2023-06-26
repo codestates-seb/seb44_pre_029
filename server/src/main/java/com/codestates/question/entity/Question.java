@@ -52,5 +52,10 @@ public class Question {
     private List<Answer> answers;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
-    private List<Like> likes;
+    private List<Like> likelist;
+
+    @Column
+    private int likes;
+
+
 }
