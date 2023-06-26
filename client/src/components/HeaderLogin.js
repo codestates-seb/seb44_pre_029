@@ -167,9 +167,6 @@ const HeaderLogin = () => {
   const handleSearchFocus = () => {
     setIsFocused(!isFocused);
   };
-  const mypageHanlder = () => {
-    navigate(`/mypage/2`);
-  };
   const handleLogOut = () => {
     localStorage.removeItem("Authorization");
     localStorage.removeItem("userId");
@@ -201,7 +198,7 @@ const HeaderLogin = () => {
         </div>
         <IconsBtnWrap>
           <IconsBtn>
-            <button className="mypageMoveBtn" onClick={mypageHanlder}>
+            <button className="mypageMoveBtn">
               <BsPersonCircle size={20} />
               <span className="reputationCount">1</span>
             </button>
