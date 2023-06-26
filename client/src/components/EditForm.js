@@ -78,21 +78,31 @@ const EditForm = ({ questionId }) => {
       setIsBody(false);
     }
   };
+  const userid = localStorage.getItem("userId");
   const navigate = useNavigate();
   const hanldeSaveEdit = (e) => {
     e.preventDefault();
     titleHandler();
     bodyHandler();
     const newData = {
-      questions: {
-        title,
-        body,
-      },
+      // questions: {
+      title,
+      body,
+      userid,
+      // },
     };
+    // axios
+    //   .patch(`/questions/edit/${questionId}`, newData, {
+    //     headers: {
+    //       // "Content-Type": "application/json",
+    //       Authorization: localStorage.getItem("Authorization"), //post 요청시 인증토큰 필요
+    //     },
+    //   })
+    //   .then((res) => console.log(res));
     axios
-      .patch(`/questions/edit/${questionId}`, newData, {
+      .post(`/questions/edit/${questionId}`, newData, {
         headers: {
-          // "Content-Type": "application/json",
+          //       // "Content-Type": "application/json",
           Authorization: localStorage.getItem("Authorization"), //post 요청시 인증토큰 필요
         },
       })
@@ -115,8 +125,8 @@ const EditForm = ({ questionId }) => {
         {/* <input value={title} onChange={(e) => setTitle(e.target.value)} /> */}
         <InputItem
           isTitle={isTitle}
-          title={title}
-          setTitle={setTitle}
+          value={title}
+          setValue={setTitle}
           // titleInputRef={titleInputRef}
           alert={alert[0]}
         />
@@ -124,8 +134,8 @@ const EditForm = ({ questionId }) => {
         {/* <textarea value={body} onChange={(e) => setBody(e.target.value)} /> */}
         <TextareaItem
           isBody={isBody}
-          body={body}
-          setBody={setBody}
+          value={body}
+          setValue={setBody}
           alert={alert[1]}
         />
       </InputContainer>
