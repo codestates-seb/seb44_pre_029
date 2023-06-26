@@ -7,7 +7,7 @@ module.exports = function (app) {
   app.use(
     "/login",
     createProxyMiddleware({
-      target: "http://ec2-3-34-52-125.ap-northeast-2.compute.amazonaws.com:8080",
+      target: "https://461d-3-34-52-125.ngrok-free.app/",
       changeOrigin: true,
     }),
   );
@@ -15,14 +15,14 @@ module.exports = function (app) {
   app.use(
     "/users",
     createProxyMiddleware({
-      target: "http://ec2-3-34-52-125.ap-northeast-2.compute.amazonaws.com:8080",
+      target: "https://461d-3-34-52-125.ngrok-free.app/",
       changeOrigin: true,
     }),
   ),
     app.use(
       "/oauth2/authorization/google",
       createProxyMiddleware({
-        target: "http://ec2-3-34-52-125.ap-northeast-2.compute.amazonaws.com:8080",
+        target: "https://461d-3-34-52-125.ngrok-free.app/",
         changeOrigin: true,
       }),
     ),
@@ -30,7 +30,7 @@ module.exports = function (app) {
     app.use(
       "/questions/create",
       createProxyMiddleware({
-        target: "http://ec2-3-34-52-125.ap-northeast-2.compute.amazonaws.com:8080",
+        target: "https://461d-3-34-52-125.ngrok-free.app/",
         changeOrigin: true,
       }),
     ),
@@ -38,7 +38,7 @@ module.exports = function (app) {
     app.use(
       "/questions",
       createProxyMiddleware({
-        target: "http://ec2-3-34-52-125.ap-northeast-2.compute.amazonaws.com:8080",
+        target: "https://461d-3-34-52-125.ngrok-free.app/",
         changeOrigin: true,
       }),
     ),
@@ -46,7 +46,7 @@ module.exports = function (app) {
     app.use(
       "/questions/edit",
       createProxyMiddleware({
-        target: "http://ec2-3-34-52-125.ap-northeast-2.compute.amazonaws.com:8080",
+        target: "https://461d-3-34-52-125.ngrok-free.app/",
         changeOrigin: true,
       }),
     ),
@@ -54,7 +54,7 @@ module.exports = function (app) {
     app.use(
       "/questions?page=1&size=10",
       createProxyMiddleware({
-        target: "http://ec2-3-34-52-125.ap-northeast-2.compute.amazonaws.com:8080",
+        target: "https://461d-3-34-52-125.ngrok-free.app/",
         changeOrigin: true,
       }),
     ),
@@ -62,7 +62,7 @@ module.exports = function (app) {
   app.use(
     "/users/edit",
     createProxyMiddleware({
-      target: "http://ec2-3-34-52-125.ap-northeast-2.compute.amazonaws.com:8080", //타겟이 되는 api url를 입력합니다.
+      target: "https://461d-3-34-52-125.ngrok-free.app/",
       changeOrigin: true,
     }),
   );
