@@ -47,7 +47,7 @@ const InputItem = ({ isTitle, value, setValue, alert }) => {
             type="text"
             value={value}
             onChange={(e) => setValue(e.target.value)}
-            placeholder="e.g Is there an R function for finding the index of an element in a vector?"
+            // placeholder="e.g Is there an R function for finding the index of an element in a vector?"
           />
           <p>{alert}</p>
         </>
@@ -60,7 +60,7 @@ const InputItem = ({ isTitle, value, setValue, alert }) => {
             type="text"
             value={value}
             onChange={(e) => setValue(e.target.value)}
-            placeholder="e.g Is there an R function for finding the index of an element in a vector?"
+            // placeholder="e.g Is there an R function for finding the index of an element in a vector?"
           />
         </>
       )}

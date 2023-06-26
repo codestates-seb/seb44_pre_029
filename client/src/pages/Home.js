@@ -26,6 +26,11 @@ const Home = () => {
         // },
         // withCredentials: true,
         // credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          "ngrok-skip-browser-warning": true,
+          Authorization: localStorage.getItem("Authorization"),
+        },
       })
       .then((res) => {
         console.log(res);

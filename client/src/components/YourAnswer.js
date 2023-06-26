@@ -54,25 +54,24 @@ export const YourAnswerTipContainer = styled.div`
     }
   }
 `;
-const YourAnswer = ({ questionId, answerData, userData, questionData }) => {
+const YourAnswer = ({ questionId }) => {
   const [onTip, setOnTip] = useState(false);
   const [yourAnswer, setyourAnswer] = useState("");
 
-  const Authorization = localStorage.getItem("Authorization");
-  const userId = localStorage.getItem("userId");
-
   const handlePostYourAnswer = () => {
+    const YourAnswer = {
+      checklike: 1,
+    };
     axios
       .post(
-        `/questions/${questionId}`,
-        {
-          ...userData,
-          ...questionData,
-          answerData: [...answerData, { userId, yourAnswer }],
-        },
+        `/questions/${questionId}/like`,
+        YourAnswer,
+
         {
           headers: {
-            Authorization,
+            "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": true,
+            Authorization: localStorage.getItem("Authorization"),
           },
         },
       )
