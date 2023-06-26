@@ -58,6 +58,13 @@ module.exports = function (app) {
         changeOrigin: true,
       }),
     ),
+    app.use(
+      "/questions/like",
+      createProxyMiddleware({
+        target: "https://3b4b-121-187-22-182.ngrok-free.app",
+        changeOrigin: true,
+      }),
+    ),
     // 마이페이지 - 현수님
     app.use(
       "/mypage",
