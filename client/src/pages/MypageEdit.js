@@ -170,7 +170,7 @@ const MypageEdit = () => {
   const navigate = useNavigate();
 
   const handleMypage = () => {
-    navigate(`/users/${user_id}`);
+    navigate(`/mypage/${user_id}`);
   };
 
   // patch 요청 핸들러

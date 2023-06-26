@@ -105,7 +105,7 @@ const Mypage = () => {
   const navigate = useNavigate();
 
   const handleMypageEdit = () => {
-    navigate(`/users/edit/${user_id}`);
+    navigate(`/mypage/edit/${user_id}`);
   };
   return (
     <MypageWrap>
