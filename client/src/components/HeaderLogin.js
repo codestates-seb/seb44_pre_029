@@ -172,6 +172,7 @@ const HeaderLogin = () => {
     localStorage.removeItem("Authorization");
     localStorage.removeItem("userId");
     navigate("/");
+    window.location.reload();
   };
   const handleMypage = () => {
     navigate(`/mypage/${user_id}`);
