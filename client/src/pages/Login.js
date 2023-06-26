@@ -77,6 +77,7 @@ function LoginPage() {
             );
             localStorage.setItem("userId", response.data.userId);
             navigate("/home");
+            
             window.location.reload();
           })
           .catch((error) => {
