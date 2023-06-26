@@ -96,9 +96,9 @@ public class OAuth2MemberSuccessHandler extends SavedRequestAwareAuthenticationS
 
         return UriComponentsBuilder
                 .newInstance()
-                .scheme("http")
-                .host("localhost")
-                .port(3000)
+                .scheme("https")
+                .host("seb44-pre-029.netlify.app")
+                .port(443)
                 .path("/home")
                 .queryParams(queryParams)
                 .build()
