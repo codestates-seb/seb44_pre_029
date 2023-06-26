@@ -132,7 +132,7 @@ const Create = () => {
   // const navigate = useNavigate();
 
   //자기 자신은 로컬에 저장함
-  const currentUserId = localStorage.getItem("userId");
+  // const currentUserId = localStorage.getItem("userId");
 
   // Register 클릭시 이벤트
   const hanldeRegister = (e) => {
@@ -144,13 +144,14 @@ const Create = () => {
     const newData = {
       title,
       body,
-      userid: currentUserId,
+      // userid: currentUserId,
     };
 
     axios
-      .post("/questions/add", newData, {
+      .post("/questions/create", newData, {
         headers: {
-          // "Content-Type": "application/json",
+          "Content-Type": "application/json",
+          "ngrok-skip-browser-warning": true,
           Authorization: localStorage.getItem("Authorization"), //post 요청시 인증토큰 필요
         },
       })

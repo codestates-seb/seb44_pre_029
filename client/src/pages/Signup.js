@@ -290,12 +290,12 @@ const Signup = () => {
   useEffect(() => {
     const isValid = !isName && !isEmail && !isPassword;
     if (isValid) {
-      console.log("유효함");
-      console.log(name, email, password);
+      // console.log("유효함");
+      // console.log(name, email, password);
     } else {
-      console.log(isName ? "이름 문제" : "");
-      console.log(isEmail ? "이메일 문제" : "");
-      console.log(isPassword ? "패스워드 문제" : "");
+      // console.log(isName ? "이름 문제" : "");
+      // console.log(isEmail ? "이메일 문제" : "");
+      // console.log(isPassword ? "패스워드 문제" : "");
     }
   }, [name, email, password]);
 
@@ -433,6 +433,7 @@ const Signup = () => {
                     setValue={setName}
                     // titleInputRef={titleInputRef}
                     alert={alert[0]}
+                    type="text"
                   />
                   {/* {isName ? (
                     <>
@@ -472,6 +473,7 @@ const Signup = () => {
                     setValue={setEmail}
                     // titleInputRef={titleInputRef}
                     alert={alert[1]}
+                    type="text"
                   />
                   {/* {isEmail ? (
                     <>
@@ -511,6 +513,7 @@ const Signup = () => {
                     setValue={setPassword}
                     // titleInputRef={titleInputRef}
                     alert={alert[2]}
+                    type="password"
                   />
                   {/* {isPassword ? (
                     <>
