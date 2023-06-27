@@ -22,9 +22,9 @@
 
 ## BE
 
-| 김수민 | <a href="github.com/soomni95">@soomni95</a> |Question, Answer, CRUD, AWS deployment |
-|:--:|:--:|:--|
 | 남상욱 (부팀장) |<a href="github.com/nkower">@nkower</a>|Jwt, Login, Oauth2, Signup |
+|:--:|:--:|:--|
+| 김수민 | <a href="github.com/soomni95">@soomni95</a> |Question, Answer, CRUD, AWS deployment |
 | 이현수 |<a href="github.com/gustn5309">@gustn5309</a>| User, Like CRUD, mypage 작성한 게시글 불러오기, mainpage 전체글 불러오기, 최신순정렬 |
 
 
