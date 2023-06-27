@@ -85,10 +85,12 @@ const QuestionList = ({ data }) => {
   const filterButton = ["Newest", "Hot"];
   console.log(data);
 
+  const PROXY = window.location.hostname === "localhost" ? "" : "/proxy";
+  const URL = `${PROXY}/questions?page=1&size=10`;
   //  전체 게시물 불러오기
   useEffect(() => {
     //page, size 설정
-    axios.get("/questions?page=1&size=10").then((res) => console.log(res));
+    axios.get(URL).then((res) => console.log(res));
   }, []);
 
   //ask question 버튼 클릭 이벤트

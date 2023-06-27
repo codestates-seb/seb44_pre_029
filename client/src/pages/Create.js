@@ -135,6 +135,8 @@ const Create = () => {
   // const currentUserId = localStorage.getItem("userId");
 
   // Register 클릭시 이벤트
+  const PROXY = window.location.hostname === "localhost" ? "" : "/proxy";
+  const URL = `${PROXY}/questions/create`;
   const hanldeRegister = (e) => {
     e.preventDefault();
     titleHandler();
@@ -148,7 +150,7 @@ const Create = () => {
     };
 
     axios
-      .post("/questions/create", newData, {
+      .post(URL, newData, {
         headers: {
           "Content-Type": "application/json",
           "ngrok-skip-browser-warning": true,
