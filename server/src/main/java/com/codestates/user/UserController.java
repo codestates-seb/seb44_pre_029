@@ -54,7 +54,14 @@ public class UserController {
     //데이터베이스 구축 이후 uri user_id로 변경
     @PatchMapping("/edit/{userId}")
     public ResponseEntity patchUser(@Valid @PathVariable("userId") long userId,
-                                    @Valid @RequestBody UserPatchDto userPatchDto){
+                                    @Valid @RequestBody UserPatchDto userPatchDto,
+                                    Authentication authentication){
+        Map<String,Object> principal = (Map) authentication.getPrincipal();
+        long authuserId = ((Number) principal.get("userId")).longValue();
+
+        if(authuserId != userId){
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
         userPatchDto.setUserId(userId);
         User response = userService.updateUser(userMapper.userPatchDtoToUser(userPatchDto));
 
@@ -106,7 +113,14 @@ public class UserController {
     }
 
     @DeleteMapping("/delete/{userId}")
-    public ResponseEntity deleteUser(@PathVariable("userId") long userId){
+    public ResponseEntity deleteUser(@PathVariable("userId") long userId,
+                                     Authentication authentication){
+        Map<String,Object> principal = (Map) authentication.getPrincipal();
+        long authuserId = ((Number) principal.get("userId")).longValue();
+
+        if(authuserId != userId){
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
         userService.deleteUser(userId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
