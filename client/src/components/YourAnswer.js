@@ -58,13 +58,15 @@ const YourAnswer = ({ questionId }) => {
   const [onTip, setOnTip] = useState(false);
   const [yourAnswer, setyourAnswer] = useState("");
 
+  const PROXY = window.location.hostname === "localhost" ? "" : "/proxy";
+  const URL = `${PROXY}/questions/${questionId}/like`;
   const handlePostYourAnswer = () => {
     const YourAnswer = {
       checklike: 1,
     };
     axios
       .post(
-        `/questions/${questionId}/like`,
+        URL,
         YourAnswer,
 
         {

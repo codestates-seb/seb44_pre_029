@@ -33,10 +33,13 @@ const EditForm = ({ questionId }) => {
   //false -> 기본값 , true -> 통과되지 못함(red)
   const [isTitle, setIsTitle] = useState(false);
   const [isBody, setIsBody] = useState(false);
+  const PROXY = window.location.hostname === "localhost" ? "" : "/proxy";
+  const URL = `${PROXY}/questions/${questionId}`;
+  const URL_2 = `${PROXY}/questions/${questionId}/edit`;
 
   useEffect(() => {
     axios
-      .get(`/questions/${questionId}`, {
+      .get(URL, {
         headers: {
           // "Content-Type": "application/json",
           Authorization: localStorage.getItem("Authorization"), //post 요청시 인증토큰 필요
@@ -89,7 +92,7 @@ const EditForm = ({ questionId }) => {
       body,
     };
     axios
-      .patch(`/questions/${questionId}/edit`, newData, {
+      .patch(URL_2, newData, {
         headers: {
           // "Content-Type": "application/json",
           Authorization: localStorage.getItem("Authorization"), //post 요청시 인증토큰 필요
