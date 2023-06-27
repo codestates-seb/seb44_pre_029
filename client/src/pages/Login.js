@@ -78,6 +78,7 @@ function LoginPage() {
               response.headers.authorization,
             );
             localStorage.setItem("userId", response.data.userId);
+            window.location.reload();
             navigate("/home");
           })
           .catch((error) => {
