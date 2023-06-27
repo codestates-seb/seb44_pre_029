@@ -47,7 +47,7 @@ public class UserController {
         long authuserId = ((Number) principal.get("userId")).longValue();
 
         if(authuserId != userId){
-            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         userPatchDto.setUserId(userId);
         User response = userService.updateUser(userMapper.userPatchDtoToUser(userPatchDto));
@@ -84,7 +84,7 @@ public class UserController {
         long authuserId = ((Number) principal.get("userId")).longValue();
 
         if(authuserId != userId){
-            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         userService.deleteUser(userId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
