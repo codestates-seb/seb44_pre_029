@@ -8,6 +8,8 @@ import styled from "styled-components";
 import Aside from "../components/Aside";
 import Vote from "../components/Vote";
 import Answer from "../components/Answer";
+import Nav from "../components/Nav";
+import HeaderLogin from "../components/HeaderLogin";
 // import Comment from "../components/Comment";
 import YourAnswer from "../components/YourAnswer";
 export const QuestionsSection = styled.section`
@@ -197,103 +199,111 @@ const Questions = () => {
   };
 
   return (
-    <QuestionsSection>
-      <QuestionTitle>
-        <div className="header">
-          <h1>{questionData.title}</h1>
-          {/* 버튼 링크 연결 -> 글 작성 페이지 */}
-          <Button onClick={handleAskQuestion}>Ask Question</Button>
-        </div>
-        <div className="header_info">
-          <span>
-            Asked
-            <strong>&nbsp;today</strong>
-          </span>
-          <span>
-            Modifed
-            <strong>&nbsp;today</strong>
-          </span>
-          <span>
-            Viewed
-            <strong>&nbsp;7 times</strong>
-          </span>
-        </div>
-      </QuestionTitle>
+    <>
+      <header>
+        <HeaderLogin />
+      </header>
+      <main>
+        <Nav />
+        <QuestionsSection>
+          <QuestionTitle>
+            <div className="header">
+              <h1>{questionData.title}</h1>
+              {/* 버튼 링크 연결 -> 글 작성 페이지 */}
+              <Button onClick={handleAskQuestion}>Ask Question</Button>
+            </div>
+            <div className="header_info">
+              <span>
+                Asked
+                <strong>&nbsp;today</strong>
+              </span>
+              <span>
+                Modifed
+                <strong>&nbsp;today</strong>
+              </span>
+              <span>
+                Viewed
+                <strong>&nbsp;7 times</strong>
+              </span>
+            </div>
+          </QuestionTitle>
 
-      <QuestionContent>
-        {/* 질문 본문  + Aside -> flex */}
+          <QuestionContent>
+            {/* 질문 본문  + Aside -> flex */}
 
-        {/* Vote ,  */}
-        <ContentContainer>
-          {/* <본문 질문> <answer> <YourAnswer> -> flex: column*/}
-          <div className="box">
-            <Vote vote={vote} questionId={questionId} />
+            {/* Vote ,  */}
+            <ContentContainer>
+              {/* <본문 질문> <answer> <YourAnswer> -> flex: column*/}
+              <div className="box">
+                <Vote vote={vote} questionId={questionId} />
 
-            {/* Sub -> Content -> Comment  */}
-            <SubContent>
-              <div>{questionData.body}</div>
+                {/* Sub -> Content -> Comment  */}
+                <SubContent>
+                  <div>{questionData.body}</div>
 
-              <div className="subContent">
-                {/* 왼쪽 */}
-                <div>
-                  {/* 자기가 작성한 글일 경우, Share Edit Delete 
+                  <div className="subContent">
+                    {/* 왼쪽 */}
+                    <div>
+                      {/* 자기가 작성한 글일 경우, Share Edit Delete 
                     아닌 경우, Share Follow */}
-                  {Number(currentUserId) === userData.user_id ? (
-                    <div className="subButton">
-                      <button>Share</button>
-                      {/* Edit 편집 페이지로 이동 Link 추가 */}
-                      <button onClick={handleDataEdit}>Edit</button>
-                      {/* Delete 메인 페이지로 이동 Link 추가 , 서버에서 삭제*/}
-                      <button>Delete</button>
+                      {Number(currentUserId) === userData.user_id ? (
+                        <div className="subButton">
+                          <button>Share</button>
+                          {/* Edit 편집 페이지로 이동 Link 추가 */}
+                          <button onClick={handleDataEdit}>Edit</button>
+                          {/* Delete 메인 페이지로 이동 Link 추가 , 서버에서 삭제*/}
+                          <button>Delete</button>
+                        </div>
+                      ) : (
+                        <div className="subButton">
+                          <button>Share</button>
+                          <button>Follow</button>
+                        </div>
+                      )}
                     </div>
-                  ) : (
-                    <div className="subButton">
-                      <button>Share</button>
-                      <button>Follow</button>
-                    </div>
-                  )}
-                </div>
 
-                {/* 오른쪽 */}
+                    {/* 오른쪽 */}
 
-                <div>
-                  <div className="user">
-                    <span>asked hours ago</span>
-                    <span>
-                      <img src={profile} alt={profile} />
-                      <div>
-                        <span>{userData.display_name || "짱구"}</span>
-                        {/* <span>{data.userReputation}</span> */}
+                    <div>
+                      <div className="user">
+                        <span>asked hours ago</span>
+                        <span>
+                          <img src={profile} alt={profile} />
+                          <div>
+                            <span>{userData.display_name || "짱구"}</span>
+                            {/* <span>{data.userReputation}</span> */}
+                          </div>
+                        </span>
                       </div>
-                    </span>
+                    </div>
                   </div>
-                </div>
+
+                  {/* Add a comment */}
+
+                  {/* <Comment /> */}
+                </SubContent>
               </div>
 
-              {/* Add a comment */}
+              {/* Answer */}
+              <div>
+                <Answer answerData={answerData} />
+              </div>
 
-              {/* <Comment /> */}
-            </SubContent>
-          </div>
+              {/* Your Answer */}
+              <div>
+                {/* Answer 컴포넌트로 분리*/}
+                <YourAnswer questionId={questionId} />
+              </div>
+            </ContentContainer>
 
-          {/* Answer */}
-          <div>
-            <Answer answerData={answerData} />
-          </div>
-
-          {/* Your Answer */}
-          <div>
-            {/* Answer 컴포넌트로 분리*/}
-            <YourAnswer questionId={questionId} />
-          </div>
-        </ContentContainer>
-
-        {/* 본문 안 aside */}
-        <AsideContainer>
-          <Aside />
-        </AsideContainer>
-      </QuestionContent>
-    </QuestionsSection>
+            {/* 본문 안 aside */}
+            <AsideContainer>
+              <Aside />
+            </AsideContainer>
+          </QuestionContent>
+        </QuestionsSection>
+      </main>
+    </>
   );
 };
 

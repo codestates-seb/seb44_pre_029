@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Zzanggu from "../assets/Zzanggu.png";
-
+import Nav from "../components/Nav";
+import HeaderLogin from "../components/HeaderLogin";
 const IntroduceWrap = styled.div`
   padding: 20px;
   width: 1082px;
@@ -27,54 +28,62 @@ const IntroduceContent = styled.div`
 `;
 const Introduce = () => {
   return (
-    <IntroduceWrap>
-      <div>
-        <h1>Front</h1>
-        <div className="introWrap">
-          <IntroduceContent>
-            <img src={Zzanggu} alt="Zzanggu" />
-            <p>[FE] 박효정</p>
-            <span className="githubTag">Github</span>
-            <span>HyoJeong-Park</span>
-          </IntroduceContent>
-          <IntroduceContent>
-            <img src={Zzanggu} alt="Zzanggu" />
-            <p>[FE] 정지원</p>
-            <span className="githubTag">Github</span>
-            <span>Jeongjwon</span>
-          </IntroduceContent>
-          <IntroduceContent>
-            <img src={Zzanggu} alt="Zzanggu" />
-            <p>[FE] 이예리</p>
-            <span className="githubTag">Github</span>
-            <span>Yeeri</span>
-          </IntroduceContent>
-        </div>
-      </div>
-      <div>
-        <h1>Back</h1>
-        <div className="introWrap">
-          <IntroduceContent>
-            <img src={Zzanggu} alt="Zzanggu" />
-            <p>[FE] 이현수</p>
-            <span className="githubTag">Github</span>
-            <span>gustn5309</span>
-          </IntroduceContent>
-          <IntroduceContent>
-            <img src={Zzanggu} alt="Zzanggu" />
-            <p>[FE] 김수민</p>
-            <span className="githubTag">Github</span>
-            <span>soomni95</span>
-          </IntroduceContent>
-          <IntroduceContent>
-            <img src={Zzanggu} alt="Zzanggu" />
-            <p>[FE] 남상욱</p>
-            <span className="githubTag">Github</span>
-            <span>nkower</span>
-          </IntroduceContent>
-        </div>
-      </div>
-    </IntroduceWrap>
+    <>
+      <header>
+        <HeaderLogin />
+      </header>
+      <main>
+        <Nav />
+        <IntroduceWrap>
+          <div>
+            <h1>Front</h1>
+            <div className="introWrap">
+              <IntroduceContent>
+                <img src={Zzanggu} alt="Zzanggu" />
+                <p>[FE] 박효정</p>
+                <span className="githubTag">Github</span>
+                <span>HyoJeong-Park</span>
+              </IntroduceContent>
+              <IntroduceContent>
+                <img src={Zzanggu} alt="Zzanggu" />
+                <p>[FE] 정지원</p>
+                <span className="githubTag">Github</span>
+                <span>Jeongjwon</span>
+              </IntroduceContent>
+              <IntroduceContent>
+                <img src={Zzanggu} alt="Zzanggu" />
+                <p>[FE] 이예리</p>
+                <span className="githubTag">Github</span>
+                <span>Yeeri</span>
+              </IntroduceContent>
+            </div>
+          </div>
+          <div>
+            <h1>Back</h1>
+            <div className="introWrap">
+              <IntroduceContent>
+                <img src={Zzanggu} alt="Zzanggu" />
+                <p>[FE] 이현수</p>
+                <span className="githubTag">Github</span>
+                <span>gustn5309</span>
+              </IntroduceContent>
+              <IntroduceContent>
+                <img src={Zzanggu} alt="Zzanggu" />
+                <p>[FE] 김수민</p>
+                <span className="githubTag">Github</span>
+                <span>soomni95</span>
+              </IntroduceContent>
+              <IntroduceContent>
+                <img src={Zzanggu} alt="Zzanggu" />
+                <p>[FE] 남상욱</p>
+                <span className="githubTag">Github</span>
+                <span>nkower</span>
+              </IntroduceContent>
+            </div>
+          </div>
+        </IntroduceWrap>
+      </main>
+    </>
   );
 };
 

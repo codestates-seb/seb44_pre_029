@@ -7,6 +7,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { InputItem } from "../components/CreateContent";
 import styled from "styled-components";
 import axios from "axios";
+import Nav from "../components/Nav";
+import HeaderLogout from "../components/HeaderLogout";
 // import GoogleButton from "../components/GoogleButton";
 export const DivContainer = styled.div`
   display: flex;
@@ -368,76 +370,82 @@ const Signup = () => {
     "Please write password at least 8 characters.",
   ];
   return (
-    <DivContainer>
-      <DivContent>
-        <LeftDiv>
-          <h1>Join the Stack Overflow community</h1>
-          <div>
-            <IconDiv>
-              <FaQuestionCircle />
-            </IconDiv>
-            <div>Get unstuck - ask a question</div>
-          </div>
-          <div>
-            <IconDiv>
-              <FaSort />
-            </IconDiv>
-            <div>Unlock new privileges like voting and commenting</div>
-          </div>
-          <div>
-            <IconDiv>
-              <ImPriceTags />
-            </IconDiv>
-            <div>
-              Save your favorite questions, answers, watch tags, and more
-            </div>
-          </div>
-          <div>
-            <IconDiv>
-              <ImTrophy />
-            </IconDiv>
-            <div>Earn reputation and badges</div>
-          </div>
-          <div>
-            <div>
-              Collaborate and share knowledge with a private group for FREE.
-            </div>
-            <div>
-              <a href="https://stackoverflow.co/teams/?utm_source=so-owned&utm_medium=product&utm_campaign=free-50&utm_content=public-sign-up">
-                Get Stack Overflow for Teams free for up to 50 users
-              </a>
-            </div>
-          </div>
-        </LeftDiv>
-        <RightDiv>
-          {/* <GoogleButton /> */}
-          <OauthDiv>
-            <button className="github" onClick={handleGoogleLogin}>
-              <FcGoogle />
-              Sign up with Google
-            </button>
-          </OauthDiv>
-
-          <SignupDiv>
-            <FormContainer
-              // onSubmit={formSubmitHandler}
-              $name={isName}
-              $email={isEmail}
-              $password={isPassword}
-            >
-              {/* 이름 input */}
+    <>
+      <header>
+        <HeaderLogout />
+      </header>
+      <main>
+        <Nav />
+        <DivContainer>
+          <DivContent>
+            <LeftDiv>
+              <h1>Join the Stack Overflow community</h1>
               <div>
-                <label htmlFor="display_name">Display name</label>
-                <div className="isName">
-                  <InputItem
-                    isTitle={isName}
-                    value={name}
-                    setValue={setName}
-                    // titleInputRef={titleInputRef}
-                    alert={alert[0]}
-                    type="text"
-                  />
-                  {/* {isName ? (
+                <IconDiv>
+                  <FaQuestionCircle />
+                </IconDiv>
+                <div>Get unstuck - ask a question</div>
+              </div>
+              <div>
+                <IconDiv>
+                  <FaSort />
+                </IconDiv>
+                <div>Unlock new privileges like voting and commenting</div>
+              </div>
+              <div>
+                <IconDiv>
+                  <ImPriceTags />
+                </IconDiv>
+                <div>
+                  Save your favorite questions, answers, watch tags, and more
+                </div>
+              </div>
+              <div>
+                <IconDiv>
+                  <ImTrophy />
+                </IconDiv>
+                <div>Earn reputation and badges</div>
+              </div>
+              <div>
+                <div>
+                  Collaborate and share knowledge with a private group for FREE.
+                </div>
+                <div>
+                  <a href="https://stackoverflow.co/teams/?utm_source=so-owned&utm_medium=product&utm_campaign=free-50&utm_content=public-sign-up">
+                    Get Stack Overflow for Teams free for up to 50 users
+                  </a>
+                </div>
+              </div>
+            </LeftDiv>
+            <RightDiv>
+              {/* <GoogleButton /> */}
+              <OauthDiv>
+                <button className="github" onClick={handleGoogleLogin}>
+                  <FcGoogle />
+                  Sign up with Google
+                </button>
+              </OauthDiv>
+
+              <SignupDiv>
+                <FormContainer
+                  // onSubmit={formSubmitHandler}
+                  $name={isName}
+                  $email={isEmail}
+                  $password={isPassword}
+                >
+                  {/* 이름 input */}
+                  <div>
+                    <label htmlFor="display_name">Display name</label>
+                    <div className="isName">
+                      <InputItem
+                        isTitle={isName}
+                        value={name}
+                        setValue={setName}
+                        // titleInputRef={titleInputRef}
+                        alert={alert[0]}
+                        type="text"
+                      />
+                      {/* {isName ? (
                     <>
                       <InputEl
                         border="1px solid red"
@@ -463,21 +471,21 @@ const Signup = () => {
                       />
                     </>
                   )} */}
-                </div>
-              </div>
-              {/* 이메일 input */}
-              <div className="emailInput">
-                <label htmlFor="email">Email</label>
-                <div className="isEmail">
-                  <InputItem
-                    isTitle={isEmail}
-                    value={email}
-                    setValue={setEmail}
-                    // titleInputRef={titleInputRef}
-                    alert={alert[1]}
-                    type="text"
-                  />
-                  {/* {isEmail ? (
+                    </div>
+                  </div>
+                  {/* 이메일 input */}
+                  <div className="emailInput">
+                    <label htmlFor="email">Email</label>
+                    <div className="isEmail">
+                      <InputItem
+                        isTitle={isEmail}
+                        value={email}
+                        setValue={setEmail}
+                        // titleInputRef={titleInputRef}
+                        alert={alert[1]}
+                        type="text"
+                      />
+                      {/* {isEmail ? (
                     <>
                       <InputEl
                         border="1px solid red"
@@ -503,21 +511,21 @@ const Signup = () => {
                       />
                     </>
                   )} */}
-                </div>
-              </div>
-              {/* 패스워드 input */}
-              <div className="passwordInput">
-                <label htmlFor="password">Password</label>
-                <div className="isPassword">
-                  <InputItem
-                    isTitle={isPassword}
-                    value={password}
-                    setValue={setPassword}
-                    // titleInputRef={titleInputRef}
-                    alert={alert[2]}
-                    type="password"
-                  />
-                  {/* {isPassword ? (
+                    </div>
+                  </div>
+                  {/* 패스워드 input */}
+                  <div className="passwordInput">
+                    <label htmlFor="password">Password</label>
+                    <div className="isPassword">
+                      <InputItem
+                        isTitle={isPassword}
+                        value={password}
+                        setValue={setPassword}
+                        // titleInputRef={titleInputRef}
+                        alert={alert[2]}
+                        type="password"
+                      />
+                      {/* {isPassword ? (
                     <>
                       <InputEl
                         border="1px solid red"
@@ -544,71 +552,74 @@ const Signup = () => {
                       />
                     </>
                   )} */}
-                </div>
-                <p>
-                  Passwords must contain at least eight characters, including at
-                  least 1 letter and 1 number.{" "}
-                </p>
-              </div>
-              <div>
-                <RobotCheckDiv>
-                  <div>
-                    <div>
-                      <input type="checkbox" id="robot" />
-                      <div>
-                        <label>{`I'm not a robot`}</label>
-                      </div>
                     </div>
-                  </div>
-                </RobotCheckDiv>
-                <CheckDiv>
-                  <div>
-                    <input type="checkbox" id="opt_in"></input>
-                  </div>
-                  <div>
-                    <label htmlFor="opt_in">
-                      Opt-in to receive occasional product updates, user
-                      research invitations, company announcements, and digests.
-                    </label>
+                    <p>
+                      Passwords must contain at least eight characters,
+                      including at least 1 letter and 1 number.{" "}
+                    </p>
                   </div>
                   <div>
-                    <FaQuestionCircle />
+                    <RobotCheckDiv>
+                      <div>
+                        <div>
+                          <input type="checkbox" id="robot" />
+                          <div>
+                            <label>{`I'm not a robot`}</label>
+                          </div>
+                        </div>
+                      </div>
+                    </RobotCheckDiv>
+                    <CheckDiv>
+                      <div>
+                        <input type="checkbox" id="opt_in"></input>
+                      </div>
+                      <div>
+                        <label htmlFor="opt_in">
+                          Opt-in to receive occasional product updates, user
+                          research invitations, company announcements, and
+                          digests.
+                        </label>
+                      </div>
+                      <div>
+                        <FaQuestionCircle />
+                      </div>
+                    </CheckDiv>
                   </div>
-                </CheckDiv>
-              </div>
+                  <div>
+                    <Button type="submit" onClick={formSubmitHandler}>
+                      Sign up
+                    </Button>
+                  </div>
+                  <div>
+                    By clicking “Sign up”, you agree to our{" "}
+                    <span>
+                      <a href="https://stackoverflow.com/legal/terms-of-service/public">
+                        terms of service
+                      </a>
+                    </span>{" "}
+                    and acknowledge that you have read and understand our{" "}
+                    <span>
+                      <a href="https://stackoverflow.com/legal/privacy-policy">
+                        privacy policy
+                      </a>
+                    </span>{" "}
+                    and{" "}
+                    <span>
+                      <a href="https://stackoverflow.com/conduct">
+                        code of conduct.
+                      </a>
+                    </span>
+                  </div>
+                </FormContainer>
+              </SignupDiv>
               <div>
-                <Button type="submit" onClick={formSubmitHandler}>
-                  Sign up
-                </Button>
+                Already have an account? <Link to="/">Log in</Link>
               </div>
-              <div>
-                By clicking “Sign up”, you agree to our{" "}
-                <span>
-                  <a href="https://stackoverflow.com/legal/terms-of-service/public">
-                    terms of service
-                  </a>
-                </span>{" "}
-                and acknowledge that you have read and understand our{" "}
-                <span>
-                  <a href="https://stackoverflow.com/legal/privacy-policy">
-                    privacy policy
-                  </a>
-                </span>{" "}
-                and{" "}
-                <span>
-                  <a href="https://stackoverflow.com/conduct">
-                    code of conduct.
-                  </a>
-                </span>
-              </div>
-            </FormContainer>
-          </SignupDiv>
-          <div>
-            Already have an account? <Link to="/">Log in</Link>
-          </div>
-        </RightDiv>
-      </DivContent>
-    </DivContainer>
+            </RightDiv>
+          </DivContent>
+        </DivContainer>
+      </main>
+    </>
   );
 };
 

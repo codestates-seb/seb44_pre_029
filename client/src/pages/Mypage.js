@@ -7,6 +7,8 @@ import { AiOutlineClockCircle } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Nav from "../components/Nav";
+import HeaderLogin from "../components/HeaderLogin";
 
 const MypageWrap = styled.section`
   width: 1062px;
@@ -110,44 +112,52 @@ const Mypage = () => {
     navigate(`/mypage/edit/${user_id}`);
   };
   return (
-    <MypageWrap>
-      <MypageProfile>
-        <img src={Zzanggu} alt="짱구" />
-        <div className="profileContents">
-          <h1>{nickname}</h1>
-          <p>
-            <MdCake />
-            Member for 3 days
-          </p>
-          <p>
-            <AiOutlineClockCircle />
-            Last seen this week
-          </p>
-          <p>
-            <FaRegCalendarAlt />
-            Visited 3 days, 3 consecutive
-          </p>
-        </div>
-        <ProfileBtn onClick={handleMypageEdit}>
-          <HiPencil size={15} />
-          <span>Edit profile</span>
-        </ProfileBtn>
-      </MypageProfile>
-      <MypageCategoryWrap>
-        <MypageCategoty>Profile</MypageCategoty>
-        <MypageCategoty className="active">Activity</MypageCategoty>
-        <MypageCategoty>Saves</MypageCategoty>
-        <MypageCategoty onClick={handleMypageEdit}>Settings</MypageCategoty>
-      </MypageCategoryWrap>
-      <PostWrap>
-        <h1>Likes</h1>
-        <div></div>
-      </PostWrap>
-      <PostWrap>
-        <h1>Questions</h1>
-        <div></div>
-      </PostWrap>
-    </MypageWrap>
+    <>
+      <header>
+        <HeaderLogin />
+      </header>
+      <main>
+        <Nav />
+        <MypageWrap>
+          <MypageProfile>
+            <img src={Zzanggu} alt="짱구" />
+            <div className="profileContents">
+              <h1>{nickname}</h1>
+              <p>
+                <MdCake />
+                Member for 3 days
+              </p>
+              <p>
+                <AiOutlineClockCircle />
+                Last seen this week
+              </p>
+              <p>
+                <FaRegCalendarAlt />
+                Visited 3 days, 3 consecutive
+              </p>
+            </div>
+            <ProfileBtn onClick={handleMypageEdit}>
+              <HiPencil size={15} />
+              <span>Edit profile</span>
+            </ProfileBtn>
+          </MypageProfile>
+          <MypageCategoryWrap>
+            <MypageCategoty>Profile</MypageCategoty>
+            <MypageCategoty className="active">Activity</MypageCategoty>
+            <MypageCategoty>Saves</MypageCategoty>
+            <MypageCategoty onClick={handleMypageEdit}>Settings</MypageCategoty>
+          </MypageCategoryWrap>
+          <PostWrap>
+            <h1>Likes</h1>
+            <div></div>
+          </PostWrap>
+          <PostWrap>
+            <h1>Questions</h1>
+            <div></div>
+          </PostWrap>
+        </MypageWrap>
+      </main>
+    </>
   );
 };
 

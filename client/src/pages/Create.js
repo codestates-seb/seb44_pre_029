@@ -8,6 +8,8 @@ import { Button } from "./Signup";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import { useState, useEffect } from "react";
+import Nav from "../components/Nav";
+import HeaderLogin from "../components/HeaderLogin";
 
 export const CreateDiv = styled.div`
   box-sizing: border-box;
@@ -226,86 +228,94 @@ const Create = () => {
   ];
 
   return (
-    <CreateDiv>
-      <DivContainer>
-        {/* 헤더 + 파란색 팁 박스 */}
-        <HedaerSection>
-          <h1>Ask a public question</h1>
-          <CreateTip />
-        </HedaerSection>
+    <>
+      <header>
+        <HeaderLogin />
+      </header>
+      <main>
+        <Nav />
+        <CreateDiv>
+          <DivContainer>
+            {/* 헤더 + 파란색 팁 박스 */}
+            <HedaerSection>
+              <h1>Ask a public question</h1>
+              <CreateTip />
+            </HedaerSection>
 
-        {/* 메인 + 인풋 + 팁 박스 */}
-        <MainSection>
-          <FormContainer onSubmit={handleFormSubmit}>
-            {/* 질문 제목 */}
-            <FormWrapper onClick={() => setSelected(0)}>
-              {/* 인풋 박스 */}
-              <div className="input_container">
-                <InputHeader
-                  title={inputBox[0].title}
-                  detail={inputBox[0].detail}
-                />
-                <div className="isTitle">
-                  {/* <InputItem
+            {/* 메인 + 인풋 + 팁 박스 */}
+            <MainSection>
+              <FormContainer onSubmit={handleFormSubmit}>
+                {/* 질문 제목 */}
+                <FormWrapper onClick={() => setSelected(0)}>
+                  {/* 인풋 박스 */}
+                  <div className="input_container">
+                    <InputHeader
+                      title={inputBox[0].title}
+                      detail={inputBox[0].detail}
+                    />
+                    <div className="isTitle">
+                      {/* <InputItem
                     isTitle={isTitle}
                     titleInputRef={titleInputRef}
                     alert={alert[0]}
                   /> */}
-                  <InputItem
-                    isTitle={isTitle}
-                    value={title}
-                    setValue={setTitle}
-                    // titleInputRef={titleInputRef}
-                    alert={alert[0]}
-                  />
-                </div>
-              </div>
+                      <InputItem
+                        isTitle={isTitle}
+                        value={title}
+                        setValue={setTitle}
+                        // titleInputRef={titleInputRef}
+                        alert={alert[0]}
+                      />
+                    </div>
+                  </div>
 
-              {/* 팁 박스*/}
-              {selected === 0 ? (
-                <HelpItem title={help[0].title} content={help[0].content} />
-              ) : null}
-            </FormWrapper>
+                  {/* 팁 박스*/}
+                  {selected === 0 ? (
+                    <HelpItem title={help[0].title} content={help[0].content} />
+                  ) : null}
+                </FormWrapper>
 
-            {/* question */}
-            <FormWrapper onClick={() => setSelected(1)}>
-              <div className="input_container">
-                <InputHeader
-                  title={inputBox[1].title}
-                  detail={inputBox[1].detail}
-                />
+                {/* question */}
+                <FormWrapper onClick={() => setSelected(1)}>
+                  <div className="input_container">
+                    <InputHeader
+                      title={inputBox[1].title}
+                      detail={inputBox[1].detail}
+                    />
 
-                <div className="isBody">
-                  {/* <TextareaItem
+                    <div className="isBody">
+                      {/* <TextareaItem
                     isBody={isBody}
                     bodyInputRef={bodyInputRef}
                     alert={alert[1]}
                   /> */}
-                  <TextareaItem
-                    isBody={isBody}
-                    value={body}
-                    setValue={setBody}
-                    alert={alert[1]}
-                  />
-                </div>
-              </div>
-              {selected === 1 ? (
-                <HelpItem title={help[1].title} content={help[1].content} />
-              ) : null}
-            </FormWrapper>
+                      <TextareaItem
+                        isBody={isBody}
+                        value={body}
+                        setValue={setBody}
+                        alert={alert[1]}
+                      />
+                    </div>
+                  </div>
+                  {selected === 1 ? (
+                    <HelpItem title={help[1].title} content={help[1].content} />
+                  ) : null}
+                </FormWrapper>
 
-            {/* 버튼 */}
-            <ButtonContainer>
-              <Button type="submit" onClick={hanldeRegister}>
-                Register
-              </Button>
-              <Button onClick={handleCancel}>Cancel</Button>
-            </ButtonContainer>
-            {/*  */}
-          </FormContainer>
-        </MainSection>
-      </DivContainer>
-    </CreateDiv>
+                {/* 버튼 */}
+                <ButtonContainer>
+                  <Button type="submit" onClick={hanldeRegister}>
+                    Register
+                  </Button>
+                  <Button onClick={handleCancel}>Cancel</Button>
+                </ButtonContainer>
+                {/*  */}
+              </FormContainer>
+            </MainSection>
+          </DivContainer>
+        </CreateDiv>
+      </main>
+    </>
   );
 };
 
