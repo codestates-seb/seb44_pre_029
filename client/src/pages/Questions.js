@@ -152,10 +152,11 @@ const Questions = () => {
   const { questionId } = useParams();
   console.log(questionId);
   //해당 id로 게시물 조회
-
+  const PROXY = window.location.hostname === "localhost" ? "" : "/proxy";
+  const URL = `${PROXY}/questions/${questionId}`;
   useEffect(() => {
     axios
-      .get(`/questions/${questionId}`, {
+      .get(URL, {
         headers: {
           // "Content-Type": "application/json",
           "Content-Type": "application/json",

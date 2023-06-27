@@ -16,11 +16,13 @@ export const MainContainer = styled.div`
   }
 `;
 const Home = () => {
+  const PROXY = window.location.hostname === "localhost" ? "" : "/proxy";
+  const URL = `${PROXY}/questions?page=1&size=10`;
   const [allData, setAllData] = useState([]);
   //전체게시물 조회
   useEffect(() => {
     axios
-      .get("/questions?page=1&size=10", {
+      .get(URL, {
         // headers: {
         //   "ngrok-skip-browser-warning": "69420",
         // },

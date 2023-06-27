@@ -40,6 +40,8 @@ const Vote = ({ vote, questionId }) => {
   const handleBookmark = () => {
     setBookmark(!bookmark);
   };
+  const PROXY = window.location.hostname === "localhost" ? "" : "/proxy";
+  const URL = `${PROXY}/questions/${questionId}/like`;
   const hanldeVoteUp = () => {
     if (!voteUp) {
       //한번만 되게
@@ -51,7 +53,7 @@ const Vote = ({ vote, questionId }) => {
       };
       axios
         .post(
-          `/questions/${questionId}/like`,
+          URL,
           YourAnswer,
 
           {

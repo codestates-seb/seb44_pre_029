@@ -89,10 +89,12 @@ const PostWrap = styled.div`
 const Mypage = () => {
   const user_id = localStorage.getItem("userId");
   const [nickname, setNickname] = useState("");
+  const PROXY = window.location.hostname === "localhost" ? "" : "/proxy";
+  const URL = `${PROXY}/users/${user_id}`;
 
   useEffect(() => {
     axios
-      .get(`/users/${user_id}`, {
+      .get(URL, {
         headers: {
           "Content-Type": "application/json",
           "ngrok-skip-browser-warning": true,
