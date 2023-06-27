@@ -8,12 +8,14 @@ import com.codestates.user.dto.UserResponseDto;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 //api 변경 필요, 인메모리 db필요, repository 및 페이지 요청에 맞는 service메소드 만들기
@@ -39,7 +41,14 @@ public class UserController {
     //데이터베이스 구축 이후 uri user_id로 변경
     @PatchMapping("/edit/{userId}")
     public ResponseEntity patchUser(@Valid @PathVariable("userId") long userId,
-                                    @Valid @RequestBody UserPatchDto userPatchDto){
+                                    @Valid @RequestBody UserPatchDto userPatchDto,
+                                    Authentication authentication){
+        Map<String,Object> principal = (Map) authentication.getPrincipal();
+        long authuserId = ((Number) principal.get("userId")).longValue();
+
+        if(authuserId != userId){
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        }
         userPatchDto.setUserId(userId);
         User response = userService.updateUser(userMapper.userPatchDtoToUser(userPatchDto));
 
@@ -69,7 +78,14 @@ public class UserController {
     }
 
     @DeleteMapping("/delete/{userId}")
-    public ResponseEntity deleteUser(@PathVariable("userId") long userId){
+    public ResponseEntity deleteUser(@PathVariable("userId") long userId,
+                                     Authentication authentication){
+        Map<String,Object> principal = (Map) authentication.getPrincipal();
+        long authuserId = ((Number) principal.get("userId")).longValue();
+
+        if(authuserId != userId){
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        }
         userService.deleteUser(userId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }

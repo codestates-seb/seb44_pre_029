@@ -28,9 +28,9 @@ mail:
     admin: admin@gmail.com
 
 jwt:
-  key: jwt123412341234123412341234123412341234123412341234
-  access-token-expiration-minutes: 3000
-  refresh-token-expiration-minutes: 4200000
+  key: jwtasdfasdfasdfasdf
+  access-token-expiration-minutes: 300
+  refresh-token-expiration-minutes: 4200
 
 logging:
   level:
