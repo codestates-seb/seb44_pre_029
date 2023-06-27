@@ -19,7 +19,8 @@ function App() {
   const [storage, setStorage] = useState(null);
   useEffect(() => {
     setStorage(localStorage.getItem("Authorization"));
-  }, []);
+    window.location.reload();
+  }, [storage]);
   return (
     <BrowserRouter>
       <div className="App">
