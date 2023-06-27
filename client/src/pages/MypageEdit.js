@@ -146,11 +146,13 @@ const MypageEdit = () => {
       [e.target.name]: e.target.value,
     });
   };
+  const PROXY = window.location.hostname === "localhost" ? "" : "/proxy";
+  const URL = `${PROXY}/users/${user_id}`;
 
   // get 요청 핸들러
   useEffect(() => {
     axios
-      .get(`/users/${user_id}`, {
+      .get(URL, {
         headers: {
           "Content-Type": "application/json",
           "ngrok-skip-browser-warning": true,
@@ -177,7 +179,7 @@ const MypageEdit = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .patch(`/users/${user_id}`, values, {
+      .patch(URL, values, {
         Authorization: localStorage.getItem("Authorization"),
       })
       .then(handleMypage());

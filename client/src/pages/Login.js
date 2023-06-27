@@ -48,6 +48,8 @@ function LoginPage() {
     setPassword(e.target.value);
   };
 
+  const PROXY = window.location.hostname === "localhost" ? "" : "/proxy";
+  const URL = `${PROXY}/login`;
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (
@@ -66,7 +68,7 @@ function LoginPage() {
           password,
         };
         axios
-          .post("/login", userInfo)
+          .post(URL, userInfo)
           .then((response) => {
             // 요청이 성공한 경우의 처리
 
