@@ -79,7 +79,6 @@ function LoginPage() {
             );
             localStorage.setItem("userId", response.data.userId);
             navigate("/home");
-            window.location.reload();
           })
           .catch((error) => {
             // 요청이 실패한 경우의 처리
