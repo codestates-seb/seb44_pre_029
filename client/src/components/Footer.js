@@ -33,16 +33,16 @@ const FooterContainer = styled.footer`
       display: flex;
       flex: 2 1 auto;
 
-> ul {
+      > ul {
         flex: 1 0 auto;
         padding: 0 12px 24px 0;
-> h5 {
+        > h5 {
           margin: 0 0 12px;
           color: #babfc4;
           font-weight: bold;
           font-size: 13px;
         }
-> li {
+        > li {
           line-height: 17px;
           font-size: 13px;
         }
@@ -56,12 +56,12 @@ const FooterContainer = styled.footer`
       justify-content: space-between;
       text-align: left;
       .sns-container {
-> ul {
+        > ul {
           padding: 0;
           display: flex;
 
           gap: 12px;
-> li {
+          > li {
             /* margin-left: 12px; */
             padding: 4px 0;
           }
@@ -72,9 +72,9 @@ const FooterContainer = styled.footer`
       margin: auto 0 24px;
       font-size: 11px;
 
-> span {
+      > span {
         display: inline-block;
-> a {
+        > a {
           text-decoration: underline;
         }
       }

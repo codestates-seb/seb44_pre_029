@@ -3,6 +3,8 @@ import QuestionList from "../components/QuestionList";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Nav from "../components/Nav";
+import HeaderLogin from "../components/HeaderLogin";
 export const MainContainer = styled.div`
   display: flex;
 
@@ -45,14 +47,22 @@ const Home = () => {
       });
   }, []);
   return (
-    <MainContainer>
-      <div className="questions">
-        <QuestionList data={allData} />
-      </div>
-      <div>
-        <Aside />
-      </div>
-    </MainContainer>
+    <>
+      <header>
+        <HeaderLogin />
+      </header>
+      <main>
+        <Nav />
+        <MainContainer>
+          <div className="questions">
+            <QuestionList data={allData} />
+          </div>
+          <div>
+            <Aside />
+          </div>
+        </MainContainer>
+      </main>
+    </>
   );
 };
 

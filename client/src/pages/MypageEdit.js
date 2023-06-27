@@ -6,6 +6,8 @@ import { AiOutlineClockCircle } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Nav from "../components/Nav";
+import HeaderLogin from "../components/HeaderLogin";
 
 const MypageWrap = styled.section`
   width: 1062px;
@@ -185,74 +187,82 @@ const MypageEdit = () => {
       .then(handleMypage());
   };
   return (
-    <MypageWrap>
-      <MypageProfile>
-        <img src={Zzanggu} alt="짱구" />
-        <div className="profileContents">
-          <h1>{values.nickname}</h1>
-          <p>
-            <MdCake />
-            Member for 3 days
-          </p>
-          <p>
-            <AiOutlineClockCircle />
-            Last seen this week
-          </p>
-          <p>
-            <FaRegCalendarAlt />
-            Visited 3 days, 3 consecutive
-          </p>
-        </div>
-      </MypageProfile>
-      <MypageCategoryWrap>
-        <MypageCategoty>Profile</MypageCategoty>
-        <MypageCategoty onClick={handleMypage}>Activity</MypageCategoty>
-        <MypageCategoty>Saves</MypageCategoty>
-        <MypageCategoty className="active">Settings</MypageCategoty>
-      </MypageCategoryWrap>
-      <EditProfileWrap>
-        <h1>Edit your profile</h1>
-        <hr />
-        <h2>Public information</h2>
-        <EditProfileForm>
-          <div className="editImage">
-            <h3>Profile image</h3>
+    <>
+      <header>
+        <HeaderLogin />
+      </header>
+      <main>
+        <Nav />
+        <MypageWrap>
+          <MypageProfile>
             <img src={Zzanggu} alt="짱구" />
-            <p>Change picture</p>
-          </div>
-          <EditContent>
-            <h3>Email</h3>
-            <input
-              type="text"
-              onChange={(e) => handleValueChange(e)}
-              name="email"
-              value={values.email}
-            />
-          </EditContent>
-          <EditContent>
-            <h3>Password</h3>
-            <input
-              type="password"
-              onChange={(e) => handleValueChange(e)}
-              name="password"
-              value={values.password}
-              disabled
-            />
-          </EditContent>
-          <EditContent>
-            <h3>Nickname</h3>
-            <input
-              type="text"
-              onChange={(e) => handleValueChange(e)}
-              name="nickname"
-              value={values.nickname}
-            />
-          </EditContent>
-          <EditBtn onClick={handleSubmit}>Save profile</EditBtn>
-          <EditBtn onClick={handleMypage}>Cancel</EditBtn>
-        </EditProfileForm>
-      </EditProfileWrap>
-    </MypageWrap>
+            <div className="profileContents">
+              <h1>{values.nickname}</h1>
+              <p>
+                <MdCake />
+                Member for 3 days
+              </p>
+              <p>
+                <AiOutlineClockCircle />
+                Last seen this week
+              </p>
+              <p>
+                <FaRegCalendarAlt />
+                Visited 3 days, 3 consecutive
+              </p>
+            </div>
+          </MypageProfile>
+          <MypageCategoryWrap>
+            <MypageCategoty>Profile</MypageCategoty>
+            <MypageCategoty onClick={handleMypage}>Activity</MypageCategoty>
+            <MypageCategoty>Saves</MypageCategoty>
+            <MypageCategoty className="active">Settings</MypageCategoty>
+          </MypageCategoryWrap>
+          <EditProfileWrap>
+            <h1>Edit your profile</h1>
+            <hr />
+            <h2>Public information</h2>
+            <EditProfileForm>
+              <div className="editImage">
+                <h3>Profile image</h3>
+                <img src={Zzanggu} alt="짱구" />
+                <p>Change picture</p>
+              </div>
+              <EditContent>
+                <h3>Email</h3>
+                <input
+                  type="text"
+                  onChange={(e) => handleValueChange(e)}
+                  name="email"
+                  value={values.email}
+                />
+              </EditContent>
+              <EditContent>
+                <h3>Password</h3>
+                <input
+                  type="password"
+                  onChange={(e) => handleValueChange(e)}
+                  name="password"
+                  value={values.password}
+                  disabled
+                />
+              </EditContent>
+              <EditContent>
+                <h3>Nickname</h3>
+                <input
+                  type="text"
+                  onChange={(e) => handleValueChange(e)}
+                  name="nickname"
+                  value={values.nickname}
+                />
+              </EditContent>
+              <EditBtn onClick={handleSubmit}>Save profile</EditBtn>
+              <EditBtn onClick={handleMypage}>Cancel</EditBtn>
+            </EditProfileForm>
+          </EditProfileWrap>
+        </MypageWrap>
+      </main>
+    </>
   );
 };
 

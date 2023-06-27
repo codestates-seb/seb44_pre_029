@@ -4,7 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import TopLogo from "../assets/Stack_Overflow_icon.png";
 import { FcGoogle } from "react-icons/fc";
+import HeaderLogout from "../components/HeaderLogout";
 import axios from "axios";
+// import Nav from "../components/Nav";
+
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -95,58 +98,66 @@ function LoginPage() {
     window.location.href = "/oauth2/authorization/google";
   };
   return (
-    <LoginPageBox>
-      <LoginBox>
-        <LoginLogo href="#">
-          <LoginLogoImg src={TopLogo} alt="logo" />
-        </LoginLogo>
+    <>
+      <header>
+        <HeaderLogout />
+      </header>
+      <main>
+        {/* <Nav /> */}
+        <LoginPageBox>
+          <LoginBox>
+            <LoginLogo href="#">
+              <LoginLogoImg src={TopLogo} alt="logo" />
+            </LoginLogo>
 
-        <SocialLoginBtn onClick={handleGoogleLogin}>
-          <SocialLoginLinkBox>
-            <SocialLoginLogo>
-              <FcGoogle className="logo" />
-            </SocialLoginLogo>
-            <SocialLoginContent>Log in with Google</SocialLoginContent>
-          </SocialLoginLinkBox>
-        </SocialLoginBtn>
+            <SocialLoginBtn onClick={handleGoogleLogin}>
+              <SocialLoginLinkBox>
+                <SocialLoginLogo>
+                  <FcGoogle className="logo" />
+                </SocialLoginLogo>
+                <SocialLoginContent>Log in with Google</SocialLoginContent>
+              </SocialLoginLinkBox>
+            </SocialLoginBtn>
 
-        <UserLoginFormBox>
-          <form
-          // onSubmit={handleSubmit}
-          >
-            <EmailFormBox>
-              <EmailIndicator>Email</EmailIndicator>
-              <EmailInput value={email} onChange={handleEmailChange} />
-            </EmailFormBox>
-            <PasswordFormBox>
-              <PasswordGuideBox>
-                <PasswordIndicator>Password</PasswordIndicator>
-                <FindPassword href="#">Forgot Password?</FindPassword>
-              </PasswordGuideBox>
-              <PasswordInput
-                type="password"
-                value={password}
-                onChange={handlePasswordChange}
-              />
-              {/* {showPasswordError && <span>{showPasswordError}</span>} */}
+            <UserLoginFormBox>
+              <form
+              // onSubmit={handleSubmit}
+              >
+                <EmailFormBox>
+                  <EmailIndicator>Email</EmailIndicator>
+                  <EmailInput value={email} onChange={handleEmailChange} />
+                </EmailFormBox>
+                <PasswordFormBox>
+                  <PasswordGuideBox>
+                    <PasswordIndicator>Password</PasswordIndicator>
+                    <FindPassword href="#">Forgot Password?</FindPassword>
+                  </PasswordGuideBox>
+                  <PasswordInput
+                    type="password"
+                    value={password}
+                    onChange={handlePasswordChange}
+                  />
+                  {/* {showPasswordError && <span>{showPasswordError}</span>} */}
 
-              {passwordError && <span>{passwordError}</span>}
-            </PasswordFormBox>
-            <LoginSubmitBox>
-              {/* <button onClick={handleSubmit}>Log in</button> */}
-              <LoginSubmitBtn onClick={handleSubmit}>Log in</LoginSubmitBtn>
+                  {passwordError && <span>{passwordError}</span>}
+                </PasswordFormBox>
+                <LoginSubmitBox>
+                  {/* <button onClick={handleSubmit}>Log in</button> */}
+                  <LoginSubmitBtn onClick={handleSubmit}>Log in</LoginSubmitBtn>
 
-              {/* <LoginSubmitBtn to="/Home">Log in</LoginSubmitBtn> */}
-            </LoginSubmitBox>
-          </form>
-        </UserLoginFormBox>
+                  {/* <LoginSubmitBtn to="/Home">Log in</LoginSubmitBtn> */}
+                </LoginSubmitBox>
+              </form>
+            </UserLoginFormBox>
 
-        <SignUpLinkBox>
-          <SignUpText>Don&apos;thave an account?</SignUpText>
-          <SignUpLink to="/signup">Sign up</SignUpLink>
-        </SignUpLinkBox>
-      </LoginBox>
-    </LoginPageBox>
+            <SignUpLinkBox>
+              <SignUpText>Don&apos;thave an account?</SignUpText>
+              <SignUpLink to="/signup">Sign up</SignUpLink>
+            </SignUpLinkBox>
+          </LoginBox>
+        </LoginPageBox>
+      </main>
+    </>
   );
 }
 

@@ -2,7 +2,8 @@ import { useParams } from "react-router-dom";
 import { styled } from "styled-components";
 import EditTip from "../components/EditTip";
 import EditForm from "../components/EditForm";
-
+import Nav from "../components/Nav";
+import HeaderLogin from "../components/HeaderLogin";
 export const EditConatiner = styled.main`
   display: flex;
   padding: 24px;
@@ -19,10 +20,16 @@ const EditQuestion = () => {
 
   return (
     <>
-      <EditConatiner>
-        <EditForm questionId={questionId} />
-        <EditTip />
-      </EditConatiner>
+      <header>
+        <HeaderLogin />
+      </header>
+      <main>
+        <Nav />
+        <EditConatiner>
+          <EditForm questionId={questionId} />
+          <EditTip />
+        </EditConatiner>
+      </main>
     </>
   );
 };
